@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение в группу - Thesis Cloud Storage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #9C27B0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .inviter {
+            background-color: #F3E5F5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #9C27B0;
+        }
+        .button {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #9C27B0;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .features {
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .feature-item {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .feature-item:before {
+            content: "✓";
+            color: #9C27B0;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 style="margin: 0;">👥 Приглашение в группу</h1>
+    </div>
+
+    <div class="content">
+        <h2 style="color: #7B1FA2;">Вас пригласили в группу "<span th:text="${groupName}"></span>"</h2>
+
+        <div class="inviter">
+            <p><strong>Приглашение от:</strong> <span th:text="${inviterName}"></span></p>
+            <p>Присоединяйтесь к группе для совместной работы с файлами и общения!</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a th:href="${inviteLink}" class="button">Присоединиться к группе</a>
+        </div>
+
+        <div class="features">
+            <h3 style="color: #7B1FA2; margin-top: 0;">Возможности группы:</h3>
+            <div class="feature-item">Совместное хранение и обмен файлами</div>
+            <div class="feature-item">Чат для обсуждения проектов</div>
+            <div class="feature-item">Уведомления об изменениях файлов</div>
+            <div class="feature-item">История всех действий в группе</div>
+        </div>
+
+        <p style="color: #666; font-size: 14px;">
+            Ссылка для присоединения: <br>
+            <code style="background-color: #f5f5f5; padding: 5px 10px; border-radius: 3px;"
+                  th:text="${inviteLink}"></code>
+        </p>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Thesis Cloud Storage</p>
+        <p>Это письмо отправлено автоматически</p>
+        <p>Author - Алекперов Низами</p>
+    </div>
+</div>
+</body>
+</html>

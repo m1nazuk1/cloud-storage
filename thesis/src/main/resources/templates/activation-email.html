@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Активация аккаунта - Thesis Cloud Storage</title>
+    <style>
+        /* Inline стили для максимальной совместимости с почтовыми клиентами */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 30px 20px;
+            background-color: #ffffff;
+        }
+        .button {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #4CAF50;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 25px 0;
+            font-weight: bold;
+            font-size: 16px;
+            border: 1px solid #45a049;
+        }
+        .link-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eeeeee;
+            font-size: 13px;
+            color: #777777;
+            text-align: center;
+        }
+        .signature {
+            margin-top: 20px;
+            font-style: italic;
+            color: #555555;
+        }
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+            .button {
+                display: block;
+                text-align: center;
+                padding: 16px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 style="margin: 0; font-size: 24px;">Добро пожаловать в Cloud Storage!</h1>
+    </div>
+
+    <div class="content">
+        <h2 style="color: #2E7D32; margin-top: 0;">Активация аккаунта</h2>
+
+        <p>Здравствуйте!</p>
+        <p>Благодарим вас за регистрацию в нашем облачном хранилище. Вы сделали правильный выбор для совместной работы с файлами.</p>
+
+        <p><strong>Для завершения регистрации и активации вашего аккаунта нажмите на кнопку ниже:</strong></p>
+
+        <div style="text-align: center;">
+            <a th:href="${activationLink}" class="button">✅ Активировать аккаунт</a>
+        </div>
+
+        <p>Или скопируйте ссылку в браузер:</p>
+        <div class="link-box">
+            <code th:text="${activationLink}"></code>
+        </div>
+
+        <div style="background-color: #E8F5E9; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <p style="margin: 0; color: #1B5E20;">
+                <strong>💡 Совет:</strong> После активации вы сможете создавать группы, загружать файлы и общаться с коллегами.
+            </p>
+        </div>
+
+        <p style="color: #666; font-size: 14px;">
+            <em>Если вы не регистрировались в нашем сервисе, пожалуйста, проигнорируйте это письмо.</em>
+        </p>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Thesis Cloud Storage. Все права защищены.</p>
+        <p>Это письмо отправлено автоматически, пожалуйста, не отвечайте на него.</p>
+
+        <div class="signature">
+            <p>С уважением,<br>
+                <strong>Алекперов Низами</strong><br>
+                Разработчик Thesis Cloud Storage</p>
+        </div>
+
+        <p style="font-size: 12px; color: #999; margin-top: 20px;">
+            Техническая поддержка: <a href="mailto:support@thesis-app.com" style="color: #4CAF50;">support@thesis-app.com</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
