@@ -1,22 +1,36 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Cloud, Mail, CheckCircle } from 'lucide-react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Link, useNavigate } from 'react-router-dom';
+import { Cloud, Mail, ArrowLeft } from 'lucide-react';
+import { z } from 'zod';
+import { authApi } from '../../api/auth';
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import { useToast } from '../../contexts/ToastContext';
+
+const forgotPasswordSchema = z.object({
+    email: z.string().email('Please enter a valid email address'),
+});
+
+type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
 const ForgotPassword: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [submitted, setSubmitted] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const { success, error } = useToast();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ForgotPasswordFormData>({
+        resolver: zodResolver(forgotPasswordSchema),
+    });
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
-
-        // Симуляция отправки запроса
-        setTimeout(() => {
-            setIsLoading(false);
-            setSubmitted(true);
-        }, 1500);
+    const onSubmit = async (data: ForgotPasswordFormData) => {
+        try {
+            // Вызываем API для запроса сброса пароля
+            await authApi.requestPasswordReset(data.email);
+            success('Password reset instructions have been sent to your email');
+            navigate('/login');
+        } catch (err: any) {
+            error(err.response?.data?.message || 'Failed to send reset instructions');
+        }
     };
 
     return (
@@ -30,63 +44,44 @@ const ForgotPassword: React.FC = () => {
                         Reset your password
                     </h2>
                     <p className="mt-2 text-sm text-gray-600">
-                        Enter your email to receive reset instructions
+                        Enter your email address and we'll send you instructions to reset your password.
                     </p>
                 </div>
 
-                {submitted ? (
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                        <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                        <h3 className="text-lg font-semibold text-green-800 mb-2">
-                            Check your email
-                        </h3>
-                        <p className="text-green-700 mb-4">
-                            We've sent password reset instructions to <strong>{email}</strong>
-                        </p>
-                        <Link to="/login" className="text-primary-600 hover:text-primary-700 font-medium">
-                            Return to login
+                <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                    <div>
+                        <Input
+                            label="Email address"
+                            type="email"
+                            autoComplete="email"
+                            error={errors.email?.message}
+                            placeholder="you@example.com"
+                            register={register('email')}
+                            icon={<Mail className="h-5 w-5 text-gray-400" />}
+                        />
+                    </div>
+
+                    <Button
+                        type="submit"
+                        variant="primary"
+                        size="lg"
+                        loading={isSubmitting}
+                        fullWidth
+                        className="flex items-center justify-center"
+                    >
+                        Send reset instructions
+                    </Button>
+
+                    <div className="text-center">
+                        <Link
+                            to="/login"
+                            className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-500"
+                        >
+                            <ArrowLeft className="mr-2 h-4 w-4" />
+                            Back to login
                         </Link>
                     </div>
-                ) : (
-                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Email address
-                            </label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                                <input
-                                    type="email"
-                                    required
-                                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-                        </div>
-
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            size="lg"
-                            loading={isLoading}
-                            fullWidth
-                            className="flex items-center justify-center"
-                        >
-                            Send Reset Instructions
-                        </Button>
-
-                        <div className="text-center">
-                            <p className="text-sm text-gray-600">
-                                Remember your password?{' '}
-                                <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
-                                    Sign in
-                                </Link>
-                            </p>
-                        </div>
-                    </form>
-                )}
+                </form>
             </div>
         </div>
     );

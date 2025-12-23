@@ -2292,3 +2292,3214 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: User no
             m1_0.group_id from memberships m1_0 
         where
             m1_0.user_id=?)
+2025-12-24 00:19:40 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
+2025-12-24 00:26:04 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:26:04 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        cg1_0.creator_id,
+        cg1_0.id,
+        cg1_0.creation_date,
+        cg1_0.description,
+        cg1_0.invite_token,
+        cg1_0.name 
+    from
+        work_groups cg1_0 
+    where
+        cg1_0.creator_id=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        fc1_0.changed_by_id,
+        fc1_0.id,
+        fc1_0.additional_info,
+        fc1_0.change_date,
+        fc1_0.change_type,
+        fc1_0.file_id 
+    from
+        file_history fc1_0 
+    where
+        fc1_0.changed_by_id=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.user_id,
+        m1_0.id,
+        m1_0.group_id,
+        m1_0.joined_date,
+        m1_0.role 
+    from
+        memberships m1_0 
+    where
+        m1_0.user_id=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.user_id,
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        sm1_0.sender_id,
+        sm1_0.id,
+        a1_0.id,
+        a1_0.is_deleted,
+        a1_0.file_path,
+        a1_0.file_size,
+        a1_0.file_type,
+        a1_0.last_modified,
+        a1_0.mime_type,
+        a1_0.original_name,
+        a1_0.group_id,
+        a1_0.stored_name,
+        a1_0.upload_date,
+        a1_0.uploader_id,
+        a1_0.version,
+        sm1_0.content,
+        sm1_0.edit_timestamp,
+        sm1_0.is_edited,
+        sm1_0.group_id,
+        sm1_0.timestamp 
+    from
+        chat_messages sm1_0 
+    left join
+        file_metadata a1_0 
+            on a1_0.id=sm1_0.attachment_id 
+    where
+        sm1_0.sender_id=?
+2025-12-24 00:26:05 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        uf1_0.uploader_id,
+        uf1_0.id,
+        cm1_0.id,
+        cm1_0.content,
+        cm1_0.edit_timestamp,
+        cm1_0.is_edited,
+        cm1_0.group_id,
+        cm1_0.sender_id,
+        cm1_0.timestamp,
+        uf1_0.is_deleted,
+        uf1_0.file_path,
+        uf1_0.file_size,
+        uf1_0.file_type,
+        uf1_0.last_modified,
+        uf1_0.mime_type,
+        uf1_0.original_name,
+        uf1_0.group_id,
+        uf1_0.stored_name,
+        uf1_0.upload_date,
+        uf1_0.version 
+    from
+        file_metadata uf1_0 
+    left join
+        chat_messages cm1_0 
+            on uf1_0.id=cm1_0.attachment_id 
+    where
+        uf1_0.uploader_id=?
+2025-12-24 00:26:05 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-24 00:26:05 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-12-24 00:26:05 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@26414b51]]
+2025-12-24 00:26:05 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-12-24 00:26:05 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:26:05 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-24 00:26:05 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-24 00:26:34 [main] INFO  c.example.thesis.ThesisApplication - Starting ThesisApplication using Java 17.0.15 with PID 40846 (/Users/minazuki/Documents/cloud storage, diploma/thesis/target/classes started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2025-12-24 00:26:34 [main] DEBUG c.example.thesis.ThesisApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-24 00:26:34 [main] INFO  c.example.thesis.ThesisApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-24 00:26:35 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2025-12-24 00:26:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-24 00:26:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 42 ms. Found 8 JPA repository interfaces.
+2025-12-24 00:26:36 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-24 00:26:36 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-24 00:26:36 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-24 00:26:36 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1064 ms
+2025-12-24 00:26:36 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-24 00:26:36 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-24 00:26:36 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-24 00:26:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-24 00:26:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@105c6c9e
+2025-12-24 00:26:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-24 00:26:36 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-24 00:26:36 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-24 00:26:37 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-24 00:26:37 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table chat_messages (
+        id uuid not null,
+        content TEXT not null,
+        edit_timestamp timestamp(6),
+        is_edited boolean,
+        timestamp timestamp(6) not null,
+        attachment_id uuid,
+        group_id uuid not null,
+        sender_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table file_history (
+        id uuid not null,
+        additional_info varchar(255),
+        change_date timestamp(6) not null,
+        change_type varchar(255) not null check ((change_type in ('UPLOADED','DELETED','RENAMED','UPDATED','DOWNLOADED'))),
+        changed_by_id uuid not null,
+        file_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table file_metadata (
+        id uuid not null,
+        is_deleted boolean,
+        file_path varchar(255),
+        file_size bigint,
+        file_type varchar(255),
+        last_modified timestamp(6),
+        mime_type varchar(255),
+        original_name varchar(255) not null,
+        stored_name varchar(255) not null,
+        upload_date timestamp(6) not null,
+        version integer,
+        group_id uuid not null,
+        uploader_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table memberships (
+        id uuid not null,
+        joined_date timestamp(6) not null,
+        role varchar(255) not null check ((role in ('CREATOR','ADMIN','MEMBER'))),
+        group_id uuid not null,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table notifications (
+        id uuid not null,
+        created_date timestamp(6) not null,
+        message TEXT not null,
+        is_read boolean not null,
+        read_date timestamp(6),
+        type varchar(255) not null check ((type in ('FILE_ADDED','FILE_DELETED','FILE_UPDATED','USER_JOINED','USER_LEFT','USER_REMOVED','GROUP_UPDATED'))),
+        group_id uuid not null,
+        related_file_id uuid,
+        related_user_id uuid,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table user_roles (
+        user_id uuid not null,
+        role varchar(255) check ((role in ('ROLE_USER','ROLE_ADMIN')))
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table users (
+        id uuid not null,
+        activation_code varchar(255),
+        email varchar(255) not null,
+        is_enabled boolean not null,
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255) not null,
+        registration_date timestamp(6) not null,
+        username varchar(255) not null,
+        primary key (id)
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    create table work_groups (
+        id uuid not null,
+        creation_date timestamp(6) not null,
+        description TEXT,
+        invite_token varchar(255),
+        name varchar(255) not null,
+        creator_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       drop constraint if exists UKnt2d9lplksl1ww2ye4wuu9iit
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uknt2d9lplksl1ww2ye4wuu9iit" of relation "chat_messages" does not exist, skipping
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint UKnt2d9lplksl1ww2ye4wuu9iit unique (attachment_id)
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       drop constraint if exists UK2cqf8xb6es3rcpbwmyabis4xw
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk2cqf8xb6es3rcpbwmyabis4xw" of relation "file_metadata" does not exist, skipping
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint UK2cqf8xb6es3rcpbwmyabis4xw unique (stored_name)
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       drop constraint if exists UKt5pentx4nnkugkq5nnwlohj8f
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukt5pentx4nnkugkq5nnwlohj8f" of relation "memberships" does not exist, skipping
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint UKt5pentx4nnkugkq5nnwlohj8f unique (user_id, group_id)
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UKr43af9ap4edm43mmtq01oddj6
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukr43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UKr43af9ap4edm43mmtq01oddj6 unique (username)
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       drop constraint if exists UK5hapiy9yqibammh5acu8gedtt
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:26:37 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk5hapiy9yqibammh5acu8gedtt" of relation "work_groups" does not exist, skipping
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint UK5hapiy9yqibammh5acu8gedtt unique (invite_token)
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FK1xlakynqeb4idbbsa7ctumxhu 
+       foreign key (attachment_id) 
+       references file_metadata
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKkhfa4xxxb83etp8hjg37kfedb 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKgiqeap8ays4lf684x7m0r2729 
+       foreign key (sender_id) 
+       references users
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKfw3t5eem3scb7p6tkru8ayihn 
+       foreign key (changed_by_id) 
+       references users
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKny1qisdo63yhqlibj91d8udfc 
+       foreign key (file_id) 
+       references file_metadata
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FKandv1b17q4k275yt9od5yiixj 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FK51cexhdh9by22dmgps22ioimm 
+       foreign key (uploader_id) 
+       references users
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKapodrmgdbxhrupmmws8tdg991 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKdjormybfoo7f4i4d4r803qohb 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK6ujnqfhsh7wk58r2pwtedudd 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FKa9qfvboi6pkxkgehvpdgcyrah 
+       foreign key (related_file_id) 
+       references file_metadata
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK5qt2aaiptrst40j3eiwcscbvk 
+       foreign key (related_user_id) 
+       references users
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK9y21adhxn0ayjhfocscqox7bh 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:26:37 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint FKa61qvclsj25585gj0v7q400bg 
+       foreign key (creator_id) 
+       references users
+2025-12-24 00:26:37 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:26:37 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-24 00:26:38 [main] DEBUG c.e.t.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-24 00:26:38 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2025-12-24 00:26:38 [main] INFO  c.e.t.config.EmailConfigValidator - === Validating Email Configuration ===
+2025-12-24 00:26:38 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:26:38 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Using real email configuration: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:26:38 [main] INFO  c.e.t.config.EmailConfigValidator - =====================================
+2025-12-24 00:26:38 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-24 00:26:39 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-24 00:26:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-12-24 00:26:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@195c7f61]]
+2025-12-24 00:26:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-12-24 00:26:39 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-24 00:26:39 [main] INFO  c.example.thesis.ThesisApplication - Started ThesisApplication in 5.281 seconds (process running for 5.827)
+2025-12-24 00:26:43 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-24 00:26:43 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-24 00:26:43 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 16 ms
+2025-12-24 00:26:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:26:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 00:26:46 [http-nio-8080-exec-2] ERROR c.e.t.s.JwtAuthenticationFilter - Could not set user authentication in security context
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found with username or email: m1nazuk1
+	at com.example.thesis.security.CustomUserDetailsService.lambda$loadUserByUsername$1(CustomUserDetailsService.java:32)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.example.thesis.security.CustomUserDetailsService.loadUserByUsername(CustomUserDetailsService.java:31)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.example.thesis.security.CustomUserDetailsService$$SpringCGLIB$$0.loadUserByUsername(<generated>)
+	at com.example.thesis.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-12-24 00:26:46 [http-nio-8080-exec-2] ERROR c.e.t.s.JwtAuthenticationEntryPoint - Unauthorized error: Full authentication is required to access this resource
+2025-12-24 00:27:15 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+2025-12-24 00:27:15 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    fetch
+        first ? rows only
+2025-12-24 00:27:15 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (activation_code, email, is_enabled, first_name, last_name, password, registration_date, username, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-24 00:27:15 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        user_roles
+        (user_id, role) 
+    values
+        (?, ?)
+2025-12-24 00:27:17 [Async-Email-1] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=activation, to=alekperov-nizam@mail.ru, time=1411ms
+2025-12-24 00:27:29 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.activation_code=?
+2025-12-24 00:27:29 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:27:29 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        activation_code=?,
+        email=?,
+        is_enabled=?,
+        first_name=?,
+        last_name=?,
+        password=?,
+        username=? 
+    where
+        id=?
+2025-12-24 00:27:39 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-12-24 00:28:03 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 00:28:03 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 00:28:03 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        cg1_0.creator_id,
+        cg1_0.id,
+        cg1_0.creation_date,
+        cg1_0.description,
+        cg1_0.invite_token,
+        cg1_0.name 
+    from
+        work_groups cg1_0 
+    where
+        cg1_0.creator_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        fc1_0.changed_by_id,
+        fc1_0.id,
+        fc1_0.additional_info,
+        fc1_0.change_date,
+        fc1_0.change_type,
+        fc1_0.file_id 
+    from
+        file_history fc1_0 
+    where
+        fc1_0.changed_by_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.user_id,
+        m1_0.id,
+        m1_0.group_id,
+        m1_0.joined_date,
+        m1_0.role 
+    from
+        memberships m1_0 
+    where
+        m1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.user_id,
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        sm1_0.sender_id,
+        sm1_0.id,
+        a1_0.id,
+        a1_0.is_deleted,
+        a1_0.file_path,
+        a1_0.file_size,
+        a1_0.file_type,
+        a1_0.last_modified,
+        a1_0.mime_type,
+        a1_0.original_name,
+        a1_0.group_id,
+        a1_0.stored_name,
+        a1_0.upload_date,
+        a1_0.uploader_id,
+        a1_0.version,
+        sm1_0.content,
+        sm1_0.edit_timestamp,
+        sm1_0.is_edited,
+        sm1_0.group_id,
+        sm1_0.timestamp 
+    from
+        chat_messages sm1_0 
+    left join
+        file_metadata a1_0 
+            on a1_0.id=sm1_0.attachment_id 
+    where
+        sm1_0.sender_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        uf1_0.uploader_id,
+        uf1_0.id,
+        cm1_0.id,
+        cm1_0.content,
+        cm1_0.edit_timestamp,
+        cm1_0.is_edited,
+        cm1_0.group_id,
+        cm1_0.sender_id,
+        cm1_0.timestamp,
+        uf1_0.is_deleted,
+        uf1_0.file_path,
+        uf1_0.file_size,
+        uf1_0.file_type,
+        uf1_0.last_modified,
+        uf1_0.mime_type,
+        uf1_0.original_name,
+        uf1_0.group_id,
+        uf1_0.stored_name,
+        uf1_0.upload_date,
+        uf1_0.version 
+    from
+        file_metadata uf1_0 
+    left join
+        chat_messages cm1_0 
+            on uf1_0.id=cm1_0.attachment_id 
+    where
+        uf1_0.uploader_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type,
+        n1_0.user_id 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:28:03 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:28:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        wg1_0.id,
+        wg1_0.creation_date,
+        wg1_0.creator_id,
+        wg1_0.description,
+        wg1_0.invite_token,
+        wg1_0.name 
+    from
+        work_groups wg1_0 
+    where
+        wg1_0.creator_id=? 
+        or wg1_0.id in (select
+            m1_0.group_id from memberships m1_0 
+        where
+            m1_0.user_id=?)
+2025-12-24 00:28:03 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        count(n1_0.id) 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=? 
+        and n1_0.is_read=false
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        cg1_0.creator_id,
+        cg1_0.id,
+        cg1_0.creation_date,
+        cg1_0.description,
+        cg1_0.invite_token,
+        cg1_0.name 
+    from
+        work_groups cg1_0 
+    where
+        cg1_0.creator_id=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        fc1_0.changed_by_id,
+        fc1_0.id,
+        fc1_0.additional_info,
+        fc1_0.change_date,
+        fc1_0.change_type,
+        fc1_0.file_id 
+    from
+        file_history fc1_0 
+    where
+        fc1_0.changed_by_id=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.user_id,
+        m1_0.id,
+        m1_0.group_id,
+        m1_0.joined_date,
+        m1_0.role 
+    from
+        memberships m1_0 
+    where
+        m1_0.user_id=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.user_id,
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        sm1_0.sender_id,
+        sm1_0.id,
+        a1_0.id,
+        a1_0.is_deleted,
+        a1_0.file_path,
+        a1_0.file_size,
+        a1_0.file_type,
+        a1_0.last_modified,
+        a1_0.mime_type,
+        a1_0.original_name,
+        a1_0.group_id,
+        a1_0.stored_name,
+        a1_0.upload_date,
+        a1_0.uploader_id,
+        a1_0.version,
+        sm1_0.content,
+        sm1_0.edit_timestamp,
+        sm1_0.is_edited,
+        sm1_0.group_id,
+        sm1_0.timestamp 
+    from
+        chat_messages sm1_0 
+    left join
+        file_metadata a1_0 
+            on a1_0.id=sm1_0.attachment_id 
+    where
+        sm1_0.sender_id=?
+2025-12-24 00:30:36 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        uf1_0.uploader_id,
+        uf1_0.id,
+        cm1_0.id,
+        cm1_0.content,
+        cm1_0.edit_timestamp,
+        cm1_0.is_edited,
+        cm1_0.group_id,
+        cm1_0.sender_id,
+        cm1_0.timestamp,
+        uf1_0.is_deleted,
+        uf1_0.file_path,
+        uf1_0.file_size,
+        uf1_0.file_type,
+        uf1_0.last_modified,
+        uf1_0.mime_type,
+        uf1_0.original_name,
+        uf1_0.group_id,
+        uf1_0.stored_name,
+        uf1_0.upload_date,
+        uf1_0.version 
+    from
+        file_metadata uf1_0 
+    left join
+        chat_messages cm1_0 
+            on uf1_0.id=cm1_0.attachment_id 
+    where
+        uf1_0.uploader_id=?
+2025-12-24 00:30:45 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-24 00:30:45 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-24 00:30:45 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-12-24 00:30:45 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@195c7f61]]
+2025-12-24 00:30:45 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-12-24 00:30:45 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:30:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-24 00:30:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-24 00:31:10 [main] INFO  c.example.thesis.ThesisApplication - Starting ThesisApplication using Java 17.0.15 with PID 41114 (/Users/minazuki/Documents/cloud storage, diploma/thesis/target/classes started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2025-12-24 00:31:10 [main] DEBUG c.example.thesis.ThesisApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-24 00:31:10 [main] INFO  c.example.thesis.ThesisApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-24 00:31:10 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2025-12-24 00:31:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-24 00:31:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 8 JPA repository interfaces.
+2025-12-24 00:31:11 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-24 00:31:11 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-24 00:31:11 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-24 00:31:11 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1111 ms
+2025-12-24 00:31:11 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-24 00:31:11 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-24 00:31:11 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-24 00:31:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-24 00:31:11 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@105c6c9e
+2025-12-24 00:31:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-24 00:31:11 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-24 00:31:11 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-24 00:31:13 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-24 00:31:13 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table chat_messages (
+        id uuid not null,
+        content TEXT not null,
+        edit_timestamp timestamp(6),
+        is_edited boolean,
+        timestamp timestamp(6) not null,
+        attachment_id uuid,
+        group_id uuid not null,
+        sender_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table file_history (
+        id uuid not null,
+        additional_info varchar(255),
+        change_date timestamp(6) not null,
+        change_type varchar(255) not null check ((change_type in ('UPLOADED','DELETED','RENAMED','UPDATED','DOWNLOADED'))),
+        changed_by_id uuid not null,
+        file_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table file_metadata (
+        id uuid not null,
+        is_deleted boolean,
+        file_path varchar(255),
+        file_size bigint,
+        file_type varchar(255),
+        last_modified timestamp(6),
+        mime_type varchar(255),
+        original_name varchar(255) not null,
+        stored_name varchar(255) not null,
+        upload_date timestamp(6) not null,
+        version integer,
+        group_id uuid not null,
+        uploader_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table memberships (
+        id uuid not null,
+        joined_date timestamp(6) not null,
+        role varchar(255) not null check ((role in ('CREATOR','ADMIN','MEMBER'))),
+        group_id uuid not null,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table notifications (
+        id uuid not null,
+        created_date timestamp(6) not null,
+        message TEXT not null,
+        is_read boolean not null,
+        read_date timestamp(6),
+        type varchar(255) not null check ((type in ('FILE_ADDED','FILE_DELETED','FILE_UPDATED','USER_JOINED','USER_LEFT','USER_REMOVED','GROUP_UPDATED'))),
+        group_id uuid not null,
+        related_file_id uuid,
+        related_user_id uuid,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table user_roles (
+        user_id uuid not null,
+        role varchar(255) check ((role in ('ROLE_USER','ROLE_ADMIN')))
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table users (
+        id uuid not null,
+        activation_code varchar(255),
+        email varchar(255) not null,
+        is_enabled boolean not null,
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255) not null,
+        registration_date timestamp(6) not null,
+        username varchar(255) not null,
+        primary key (id)
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    create table work_groups (
+        id uuid not null,
+        creation_date timestamp(6) not null,
+        description TEXT,
+        invite_token varchar(255),
+        name varchar(255) not null,
+        creator_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       drop constraint if exists UKnt2d9lplksl1ww2ye4wuu9iit
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uknt2d9lplksl1ww2ye4wuu9iit" of relation "chat_messages" does not exist, skipping
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint UKnt2d9lplksl1ww2ye4wuu9iit unique (attachment_id)
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       drop constraint if exists UK2cqf8xb6es3rcpbwmyabis4xw
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk2cqf8xb6es3rcpbwmyabis4xw" of relation "file_metadata" does not exist, skipping
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint UK2cqf8xb6es3rcpbwmyabis4xw unique (stored_name)
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       drop constraint if exists UKt5pentx4nnkugkq5nnwlohj8f
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukt5pentx4nnkugkq5nnwlohj8f" of relation "memberships" does not exist, skipping
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint UKt5pentx4nnkugkq5nnwlohj8f unique (user_id, group_id)
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UKr43af9ap4edm43mmtq01oddj6
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukr43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UKr43af9ap4edm43mmtq01oddj6 unique (username)
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       drop constraint if exists UK5hapiy9yqibammh5acu8gedtt
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:31:13 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk5hapiy9yqibammh5acu8gedtt" of relation "work_groups" does not exist, skipping
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint UK5hapiy9yqibammh5acu8gedtt unique (invite_token)
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FK1xlakynqeb4idbbsa7ctumxhu 
+       foreign key (attachment_id) 
+       references file_metadata
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKkhfa4xxxb83etp8hjg37kfedb 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKgiqeap8ays4lf684x7m0r2729 
+       foreign key (sender_id) 
+       references users
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKfw3t5eem3scb7p6tkru8ayihn 
+       foreign key (changed_by_id) 
+       references users
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKny1qisdo63yhqlibj91d8udfc 
+       foreign key (file_id) 
+       references file_metadata
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FKandv1b17q4k275yt9od5yiixj 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FK51cexhdh9by22dmgps22ioimm 
+       foreign key (uploader_id) 
+       references users
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKapodrmgdbxhrupmmws8tdg991 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKdjormybfoo7f4i4d4r803qohb 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK6ujnqfhsh7wk58r2pwtedudd 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FKa9qfvboi6pkxkgehvpdgcyrah 
+       foreign key (related_file_id) 
+       references file_metadata
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK5qt2aaiptrst40j3eiwcscbvk 
+       foreign key (related_user_id) 
+       references users
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK9y21adhxn0ayjhfocscqox7bh 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:31:13 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint FKa61qvclsj25585gj0v7q400bg 
+       foreign key (creator_id) 
+       references users
+2025-12-24 00:31:13 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:31:13 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-24 00:31:14 [main] DEBUG c.e.t.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-24 00:31:14 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2025-12-24 00:31:14 [main] INFO  c.e.t.config.EmailConfigValidator - === Validating Email Configuration ===
+2025-12-24 00:31:14 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:31:14 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Using real email configuration: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:31:14 [main] INFO  c.e.t.config.EmailConfigValidator - =====================================
+2025-12-24 00:31:14 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-24 00:31:15 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-24 00:31:16 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-12-24 00:31:16 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1f0cb0b0]]
+2025-12-24 00:31:16 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-12-24 00:31:16 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-24 00:31:16 [main] INFO  c.example.thesis.ThesisApplication - Started ThesisApplication in 6.257 seconds (process running for 6.583)
+2025-12-24 00:31:17 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-24 00:31:17 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-24 00:31:17 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-12-24 00:31:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:31:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 00:31:17 [http-nio-8080-exec-1] ERROR c.e.t.s.JwtAuthenticationFilter - Could not set user authentication in security context
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found with username or email: m1nazuk1
+	at com.example.thesis.security.CustomUserDetailsService.lambda$loadUserByUsername$1(CustomUserDetailsService.java:32)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.example.thesis.security.CustomUserDetailsService.loadUserByUsername(CustomUserDetailsService.java:31)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.example.thesis.security.CustomUserDetailsService$$SpringCGLIB$$0.loadUserByUsername(<generated>)
+	at com.example.thesis.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-12-24 00:31:17 [http-nio-8080-exec-1] ERROR c.e.t.s.JwtAuthenticationEntryPoint - Unauthorized error: Full authentication is required to access this resource
+2025-12-24 00:31:45 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+2025-12-24 00:31:45 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    fetch
+        first ? rows only
+2025-12-24 00:31:45 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (activation_code, email, is_enabled, first_name, last_name, password, registration_date, username, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-24 00:31:45 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        user_roles
+        (user_id, role) 
+    values
+        (?, ?)
+2025-12-24 00:31:46 [Async-Email-1] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=activation, to=alekperov-nizam@mail.ru, time=1214ms
+2025-12-24 00:31:57 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.activation_code=?
+2025-12-24 00:31:57 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:31:57 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        activation_code=?,
+        email=?,
+        is_enabled=?,
+        first_name=?,
+        last_name=?,
+        password=?,
+        username=? 
+    where
+        id=?
+2025-12-24 00:32:03 [http-nio-8080-exec-4] ERROR c.e.t.s.JwtAuthenticationEntryPoint - Unauthorized error: Full authentication is required to access this resource
+2025-12-24 00:32:16 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-12-24 00:41:44 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-24 00:41:44 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-24 00:41:44 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-12-24 00:41:44 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1f0cb0b0]]
+2025-12-24 00:41:44 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-12-24 00:41:45 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:41:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-24 00:41:45 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-24 00:42:07 [main] INFO  c.example.thesis.ThesisApplication - Starting ThesisApplication using Java 17.0.15 with PID 41768 (/Users/minazuki/Documents/cloud storage, diploma/thesis/target/classes started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2025-12-24 00:42:07 [main] DEBUG c.example.thesis.ThesisApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-24 00:42:07 [main] INFO  c.example.thesis.ThesisApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-24 00:42:08 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2025-12-24 00:42:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-24 00:42:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 8 JPA repository interfaces.
+2025-12-24 00:42:08 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-24 00:42:08 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-24 00:42:08 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-24 00:42:08 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1155 ms
+2025-12-24 00:42:08 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-24 00:42:08 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-24 00:42:09 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-24 00:42:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-24 00:42:09 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4ea48b2e
+2025-12-24 00:42:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-24 00:42:09 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-24 00:42:09 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-24 00:42:09 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-24 00:42:09 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table chat_messages (
+        id uuid not null,
+        content TEXT not null,
+        edit_timestamp timestamp(6),
+        is_edited boolean,
+        timestamp timestamp(6) not null,
+        attachment_id uuid,
+        group_id uuid not null,
+        sender_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table file_history (
+        id uuid not null,
+        additional_info varchar(255),
+        change_date timestamp(6) not null,
+        change_type varchar(255) not null check ((change_type in ('UPLOADED','DELETED','RENAMED','UPDATED','DOWNLOADED'))),
+        changed_by_id uuid not null,
+        file_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table file_metadata (
+        id uuid not null,
+        is_deleted boolean,
+        file_path varchar(255),
+        file_size bigint,
+        file_type varchar(255),
+        last_modified timestamp(6),
+        mime_type varchar(255),
+        original_name varchar(255) not null,
+        stored_name varchar(255) not null,
+        upload_date timestamp(6) not null,
+        version integer,
+        group_id uuid not null,
+        uploader_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table memberships (
+        id uuid not null,
+        joined_date timestamp(6) not null,
+        role varchar(255) not null check ((role in ('CREATOR','ADMIN','MEMBER'))),
+        group_id uuid not null,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table notifications (
+        id uuid not null,
+        created_date timestamp(6) not null,
+        message TEXT not null,
+        is_read boolean not null,
+        read_date timestamp(6),
+        type varchar(255) not null check ((type in ('FILE_ADDED','FILE_DELETED','FILE_UPDATED','USER_JOINED','USER_LEFT','USER_REMOVED','GROUP_UPDATED'))),
+        group_id uuid not null,
+        related_file_id uuid,
+        related_user_id uuid,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table user_roles (
+        user_id uuid not null,
+        role varchar(255) check ((role in ('ROLE_USER','ROLE_ADMIN')))
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table users (
+        id uuid not null,
+        activation_code varchar(255),
+        email varchar(255) not null,
+        is_enabled boolean not null,
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255) not null,
+        registration_date timestamp(6) not null,
+        username varchar(255) not null,
+        primary key (id)
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    create table work_groups (
+        id uuid not null,
+        creation_date timestamp(6) not null,
+        description TEXT,
+        invite_token varchar(255),
+        name varchar(255) not null,
+        creator_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       drop constraint if exists UKnt2d9lplksl1ww2ye4wuu9iit
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uknt2d9lplksl1ww2ye4wuu9iit" of relation "chat_messages" does not exist, skipping
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint UKnt2d9lplksl1ww2ye4wuu9iit unique (attachment_id)
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       drop constraint if exists UK2cqf8xb6es3rcpbwmyabis4xw
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk2cqf8xb6es3rcpbwmyabis4xw" of relation "file_metadata" does not exist, skipping
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint UK2cqf8xb6es3rcpbwmyabis4xw unique (stored_name)
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       drop constraint if exists UKt5pentx4nnkugkq5nnwlohj8f
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukt5pentx4nnkugkq5nnwlohj8f" of relation "memberships" does not exist, skipping
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint UKt5pentx4nnkugkq5nnwlohj8f unique (user_id, group_id)
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UKr43af9ap4edm43mmtq01oddj6
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukr43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UKr43af9ap4edm43mmtq01oddj6 unique (username)
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       drop constraint if exists UK5hapiy9yqibammh5acu8gedtt
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:42:10 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk5hapiy9yqibammh5acu8gedtt" of relation "work_groups" does not exist, skipping
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint UK5hapiy9yqibammh5acu8gedtt unique (invite_token)
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FK1xlakynqeb4idbbsa7ctumxhu 
+       foreign key (attachment_id) 
+       references file_metadata
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKkhfa4xxxb83etp8hjg37kfedb 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKgiqeap8ays4lf684x7m0r2729 
+       foreign key (sender_id) 
+       references users
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKfw3t5eem3scb7p6tkru8ayihn 
+       foreign key (changed_by_id) 
+       references users
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKny1qisdo63yhqlibj91d8udfc 
+       foreign key (file_id) 
+       references file_metadata
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FKandv1b17q4k275yt9od5yiixj 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FK51cexhdh9by22dmgps22ioimm 
+       foreign key (uploader_id) 
+       references users
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKapodrmgdbxhrupmmws8tdg991 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKdjormybfoo7f4i4d4r803qohb 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK6ujnqfhsh7wk58r2pwtedudd 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FKa9qfvboi6pkxkgehvpdgcyrah 
+       foreign key (related_file_id) 
+       references file_metadata
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK5qt2aaiptrst40j3eiwcscbvk 
+       foreign key (related_user_id) 
+       references users
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK9y21adhxn0ayjhfocscqox7bh 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:42:10 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint FKa61qvclsj25585gj0v7q400bg 
+       foreign key (creator_id) 
+       references users
+2025-12-24 00:42:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:42:10 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-24 00:42:11 [main] DEBUG c.e.t.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-24 00:42:11 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2025-12-24 00:42:11 [main] INFO  c.e.t.config.EmailConfigValidator - === Validating Email Configuration ===
+2025-12-24 00:42:11 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:42:11 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Using real email configuration: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:42:11 [main] INFO  c.e.t.config.EmailConfigValidator - =====================================
+2025-12-24 00:42:11 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-24 00:42:12 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-24 00:42:12 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-12-24 00:42:12 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4bbf86]]
+2025-12-24 00:42:12 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-12-24 00:42:12 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-24 00:42:12 [main] INFO  c.example.thesis.ThesisApplication - Started ThesisApplication in 5.253 seconds (process running for 5.618)
+2025-12-24 00:42:43 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-24 00:42:43 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-24 00:42:43 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2025-12-24 00:42:43 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+2025-12-24 00:42:43 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    fetch
+        first ? rows only
+2025-12-24 00:42:43 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (activation_code, email, is_enabled, first_name, last_name, password, registration_date, username, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-24 00:42:43 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        user_roles
+        (user_id, role) 
+    values
+        (?, ?)
+2025-12-24 00:42:45 [Async-Email-1] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=activation, to=alekperov-nizam@mail.ru, time=1393ms
+2025-12-24 00:42:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.activation_code=?
+2025-12-24 00:42:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:42:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        activation_code=?,
+        email=?,
+        is_enabled=?,
+        first_name=?,
+        last_name=?,
+        password=?,
+        username=? 
+    where
+        id=?
+2025-12-24 00:43:12 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-12-24 00:50:10 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+2025-12-24 00:50:10 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    fetch
+        first ? rows only
+2025-12-24 00:50:10 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (activation_code, email, is_enabled, first_name, last_name, password, registration_date, username, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-24 00:50:11 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        user_roles
+        (user_id, role) 
+    values
+        (?, ?)
+2025-12-24 00:50:12 [Async-Email-2] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=activation, to=alekperov1nizi@gmail.com, time=1332ms
+2025-12-24 00:53:16 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-24 00:53:16 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-24 00:53:16 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-12-24 00:53:16 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4bbf86]]
+2025-12-24 00:53:16 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-12-24 00:53:16 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:53:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-24 00:53:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-24 00:53:47 [main] INFO  c.example.thesis.ThesisApplication - Starting ThesisApplication using Java 17.0.15 with PID 42364 (/Users/minazuki/Documents/cloud storage, diploma/thesis/target/classes started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2025-12-24 00:53:47 [main] DEBUG c.example.thesis.ThesisApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-24 00:53:47 [main] INFO  c.example.thesis.ThesisApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-24 00:53:48 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2025-12-24 00:53:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-24 00:53:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 8 JPA repository interfaces.
+2025-12-24 00:53:48 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-24 00:53:48 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-24 00:53:48 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-24 00:53:48 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1343 ms
+2025-12-24 00:53:48 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-24 00:53:48 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-24 00:53:49 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-24 00:53:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-24 00:53:49 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@105c6c9e
+2025-12-24 00:53:49 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-24 00:53:49 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-24 00:53:49 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-24 00:53:50 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-24 00:53:50 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table chat_messages (
+        id uuid not null,
+        content TEXT not null,
+        edit_timestamp timestamp(6),
+        is_edited boolean,
+        timestamp timestamp(6) not null,
+        attachment_id uuid,
+        group_id uuid not null,
+        sender_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table file_history (
+        id uuid not null,
+        additional_info varchar(255),
+        change_date timestamp(6) not null,
+        change_type varchar(255) not null check ((change_type in ('UPLOADED','DELETED','RENAMED','UPDATED','DOWNLOADED'))),
+        changed_by_id uuid not null,
+        file_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table file_metadata (
+        id uuid not null,
+        is_deleted boolean,
+        file_path varchar(255),
+        file_size bigint,
+        file_type varchar(255),
+        last_modified timestamp(6),
+        mime_type varchar(255),
+        original_name varchar(255) not null,
+        stored_name varchar(255) not null,
+        upload_date timestamp(6) not null,
+        version integer,
+        group_id uuid not null,
+        uploader_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table memberships (
+        id uuid not null,
+        joined_date timestamp(6) not null,
+        role varchar(255) not null check ((role in ('CREATOR','ADMIN','MEMBER'))),
+        group_id uuid not null,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table notifications (
+        id uuid not null,
+        created_date timestamp(6) not null,
+        message TEXT not null,
+        is_read boolean not null,
+        read_date timestamp(6),
+        type varchar(255) not null check ((type in ('FILE_ADDED','FILE_DELETED','FILE_UPDATED','USER_JOINED','USER_LEFT','USER_REMOVED','GROUP_UPDATED'))),
+        group_id uuid not null,
+        related_file_id uuid,
+        related_user_id uuid,
+        user_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table user_roles (
+        user_id uuid not null,
+        role varchar(255) check ((role in ('ROLE_USER','ROLE_ADMIN')))
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table users (
+        id uuid not null,
+        activation_code varchar(255),
+        email varchar(255) not null,
+        is_enabled boolean not null,
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255) not null,
+        registration_date timestamp(6) not null,
+        username varchar(255) not null,
+        primary key (id)
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    create table work_groups (
+        id uuid not null,
+        creation_date timestamp(6) not null,
+        description TEXT,
+        invite_token varchar(255),
+        name varchar(255) not null,
+        creator_id uuid not null,
+        primary key (id)
+    )
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       drop constraint if exists UKnt2d9lplksl1ww2ye4wuu9iit
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uknt2d9lplksl1ww2ye4wuu9iit" of relation "chat_messages" does not exist, skipping
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint UKnt2d9lplksl1ww2ye4wuu9iit unique (attachment_id)
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       drop constraint if exists UK2cqf8xb6es3rcpbwmyabis4xw
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk2cqf8xb6es3rcpbwmyabis4xw" of relation "file_metadata" does not exist, skipping
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint UK2cqf8xb6es3rcpbwmyabis4xw unique (stored_name)
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       drop constraint if exists UKt5pentx4nnkugkq5nnwlohj8f
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukt5pentx4nnkugkq5nnwlohj8f" of relation "memberships" does not exist, skipping
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint UKt5pentx4nnkugkq5nnwlohj8f unique (user_id, group_id)
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UK6dotkott2kjsp8vw4d0m25fb7
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UK6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UKr43af9ap4edm43mmtq01oddj6
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukr43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UKr43af9ap4edm43mmtq01oddj6 unique (username)
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       drop constraint if exists UK5hapiy9yqibammh5acu8gedtt
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-24 00:53:50 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk5hapiy9yqibammh5acu8gedtt" of relation "work_groups" does not exist, skipping
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint UK5hapiy9yqibammh5acu8gedtt unique (invite_token)
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FK1xlakynqeb4idbbsa7ctumxhu 
+       foreign key (attachment_id) 
+       references file_metadata
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKkhfa4xxxb83etp8hjg37kfedb 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists chat_messages 
+       add constraint FKgiqeap8ays4lf684x7m0r2729 
+       foreign key (sender_id) 
+       references users
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKfw3t5eem3scb7p6tkru8ayihn 
+       foreign key (changed_by_id) 
+       references users
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_history 
+       add constraint FKny1qisdo63yhqlibj91d8udfc 
+       foreign key (file_id) 
+       references file_metadata
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FKandv1b17q4k275yt9od5yiixj 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists file_metadata 
+       add constraint FK51cexhdh9by22dmgps22ioimm 
+       foreign key (uploader_id) 
+       references users
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKapodrmgdbxhrupmmws8tdg991 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists memberships 
+       add constraint FKdjormybfoo7f4i4d4r803qohb 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK6ujnqfhsh7wk58r2pwtedudd 
+       foreign key (group_id) 
+       references work_groups
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FKa9qfvboi6pkxkgehvpdgcyrah 
+       foreign key (related_file_id) 
+       references file_metadata
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK5qt2aaiptrst40j3eiwcscbvk 
+       foreign key (related_user_id) 
+       references users
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists notifications 
+       add constraint FK9y21adhxn0ayjhfocscqox7bh 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users
+2025-12-24 00:53:50 [main] DEBUG org.hibernate.SQL - 
+    alter table if exists work_groups 
+       add constraint FKa61qvclsj25585gj0v7q400bg 
+       foreign key (creator_id) 
+       references users
+2025-12-24 00:53:50 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 00:53:50 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-24 00:53:51 [main] DEBUG c.e.t.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-24 00:53:51 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2025-12-24 00:53:51 [main] INFO  c.e.t.config.EmailConfigValidator - === Validating Email Configuration ===
+2025-12-24 00:53:51 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:53:51 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Using real email configuration: Cloud-Storage-Assistent@yandex.ru
+2025-12-24 00:53:51 [main] INFO  c.e.t.config.EmailConfigValidator - =====================================
+2025-12-24 00:53:51 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-24 00:53:52 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-24 00:53:52 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-12-24 00:53:52 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f089575]]
+2025-12-24 00:53:52 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-12-24 00:53:52 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-24 00:53:52 [main] INFO  c.example.thesis.ThesisApplication - Started ThesisApplication in 5.815 seconds (process running for 6.313)
+2025-12-24 00:54:22 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-24 00:54:22 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-24 00:54:22 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2025-12-24 00:54:23 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+2025-12-24 00:54:23 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.username=? 
+    fetch
+        first ? rows only
+2025-12-24 00:54:23 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (activation_code, email, is_enabled, first_name, last_name, password, registration_date, username, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-24 00:54:23 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    insert 
+    into
+        user_roles
+        (user_id, role) 
+    values
+        (?, ?)
+2025-12-24 00:54:24 [Async-Email-1] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=activation, to=alekperov-nizam@mail.ru, time=1496ms
+2025-12-24 00:54:44 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.activation_code=?
+2025-12-24 00:54:44 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:54:44 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        activation_code=?,
+        email=?,
+        is_enabled=?,
+        first_name=?,
+        last_name=?,
+        password=?,
+        username=? 
+    where
+        id=?
+2025-12-24 00:54:52 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-12-24 00:55:07 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:07 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 00:55:07 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:07 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 00:55:07 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        cg1_0.creator_id,
+        cg1_0.id,
+        cg1_0.creation_date,
+        cg1_0.description,
+        cg1_0.invite_token,
+        cg1_0.name 
+    from
+        work_groups cg1_0 
+    where
+        cg1_0.creator_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        fc1_0.changed_by_id,
+        fc1_0.id,
+        fc1_0.additional_info,
+        fc1_0.change_date,
+        fc1_0.change_type,
+        fc1_0.file_id 
+    from
+        file_history fc1_0 
+    where
+        fc1_0.changed_by_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.user_id,
+        m1_0.id,
+        m1_0.group_id,
+        m1_0.joined_date,
+        m1_0.role 
+    from
+        memberships m1_0 
+    where
+        m1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.user_id,
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        sm1_0.sender_id,
+        sm1_0.id,
+        a1_0.id,
+        a1_0.is_deleted,
+        a1_0.file_path,
+        a1_0.file_size,
+        a1_0.file_type,
+        a1_0.last_modified,
+        a1_0.mime_type,
+        a1_0.original_name,
+        a1_0.group_id,
+        a1_0.stored_name,
+        a1_0.upload_date,
+        a1_0.uploader_id,
+        a1_0.version,
+        sm1_0.content,
+        sm1_0.edit_timestamp,
+        sm1_0.is_edited,
+        sm1_0.group_id,
+        sm1_0.timestamp 
+    from
+        chat_messages sm1_0 
+    left join
+        file_metadata a1_0 
+            on a1_0.id=sm1_0.attachment_id 
+    where
+        sm1_0.sender_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        uf1_0.uploader_id,
+        uf1_0.id,
+        cm1_0.id,
+        cm1_0.content,
+        cm1_0.edit_timestamp,
+        cm1_0.is_edited,
+        cm1_0.group_id,
+        cm1_0.sender_id,
+        cm1_0.timestamp,
+        uf1_0.is_deleted,
+        uf1_0.file_path,
+        uf1_0.file_size,
+        uf1_0.file_type,
+        uf1_0.last_modified,
+        uf1_0.mime_type,
+        uf1_0.original_name,
+        uf1_0.group_id,
+        uf1_0.stored_name,
+        uf1_0.upload_date,
+        uf1_0.version 
+    from
+        file_metadata uf1_0 
+    left join
+        chat_messages cm1_0 
+            on uf1_0.id=cm1_0.attachment_id 
+    where
+        uf1_0.uploader_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type,
+        n1_0.user_id 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 00:55:08 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        wg1_0.id,
+        wg1_0.creation_date,
+        wg1_0.creator_id,
+        wg1_0.description,
+        wg1_0.invite_token,
+        wg1_0.name 
+    from
+        work_groups wg1_0 
+    where
+        wg1_0.creator_id=? 
+        or wg1_0.id in (select
+            m1_0.group_id from memberships m1_0 
+        where
+            m1_0.user_id=?)
+2025-12-24 00:55:08 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        count(n1_0.id) 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=? 
+        and n1_0.is_read=false
+2025-12-24 00:55:15 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 00:55:15 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:02:59 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 01:02:59 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 01:02:59 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        cg1_0.creator_id,
+        cg1_0.id,
+        cg1_0.creation_date,
+        cg1_0.description,
+        cg1_0.invite_token,
+        cg1_0.name 
+    from
+        work_groups cg1_0 
+    where
+        cg1_0.creator_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        fc1_0.changed_by_id,
+        fc1_0.id,
+        fc1_0.additional_info,
+        fc1_0.change_date,
+        fc1_0.change_type,
+        fc1_0.file_id 
+    from
+        file_history fc1_0 
+    where
+        fc1_0.changed_by_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        m1_0.user_id,
+        m1_0.id,
+        m1_0.group_id,
+        m1_0.joined_date,
+        m1_0.role 
+    from
+        memberships m1_0 
+    where
+        m1_0.user_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.user_id,
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        sm1_0.sender_id,
+        sm1_0.id,
+        a1_0.id,
+        a1_0.is_deleted,
+        a1_0.file_path,
+        a1_0.file_size,
+        a1_0.file_type,
+        a1_0.last_modified,
+        a1_0.mime_type,
+        a1_0.original_name,
+        a1_0.group_id,
+        a1_0.stored_name,
+        a1_0.upload_date,
+        a1_0.uploader_id,
+        a1_0.version,
+        sm1_0.content,
+        sm1_0.edit_timestamp,
+        sm1_0.is_edited,
+        sm1_0.group_id,
+        sm1_0.timestamp 
+    from
+        chat_messages sm1_0 
+    left join
+        file_metadata a1_0 
+            on a1_0.id=sm1_0.attachment_id 
+    where
+        sm1_0.sender_id=?
+2025-12-24 01:02:59 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        uf1_0.uploader_id,
+        uf1_0.id,
+        cm1_0.id,
+        cm1_0.content,
+        cm1_0.edit_timestamp,
+        cm1_0.is_edited,
+        cm1_0.group_id,
+        cm1_0.sender_id,
+        cm1_0.timestamp,
+        uf1_0.is_deleted,
+        uf1_0.file_path,
+        uf1_0.file_size,
+        uf1_0.file_type,
+        uf1_0.last_modified,
+        uf1_0.mime_type,
+        uf1_0.original_name,
+        uf1_0.group_id,
+        uf1_0.stored_name,
+        uf1_0.upload_date,
+        uf1_0.version 
+    from
+        file_metadata uf1_0 
+    left join
+        chat_messages cm1_0 
+            on uf1_0.id=cm1_0.attachment_id 
+    where
+        uf1_0.uploader_id=?
+2025-12-24 01:03:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:03:00 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:03:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:03:00 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:03:00 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:03:00 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:03:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:03:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:03:00 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:03:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        wg1_0.id,
+        wg1_0.creation_date,
+        wg1_0.creator_id,
+        wg1_0.description,
+        wg1_0.invite_token,
+        wg1_0.name 
+    from
+        work_groups wg1_0 
+    where
+        wg1_0.creator_id=? 
+        or wg1_0.id in (select
+            m1_0.group_id from memberships m1_0 
+        where
+            m1_0.user_id=?)
+2025-12-24 01:03:00 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        count(n1_0.id) 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=? 
+        and n1_0.is_read=false
+2025-12-24 01:03:00 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:03:00 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:03:00 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:03:00 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        n1_0.id,
+        n1_0.created_date,
+        n1_0.group_id,
+        n1_0.message,
+        n1_0.is_read,
+        n1_0.read_date,
+        n1_0.related_file_id,
+        n1_0.related_user_id,
+        n1_0.type,
+        n1_0.user_id 
+    from
+        notifications n1_0 
+    where
+        n1_0.user_id=?
+2025-12-24 01:03:03 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+2025-12-24 01:03:03 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:11:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        u1_0.id,
+        u1_0.activation_code,
+        u1_0.email,
+        u1_0.is_enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.registration_date,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2025-12-24 01:11:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.user_id,
+        r1_0.role 
+    from
+        user_roles r1_0 
+    where
+        r1_0.user_id=?
+2025-12-24 01:11:00 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    update
+        users 
+    set
+        activation_code=?,
+        email=?,
+        is_enabled=?,
+        first_name=?,
+        last_name=?,
+        password=?,
+        username=? 
+    where
+        id=?
+2025-12-24 01:11:02 [Async-Email-2] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=password-reset, to=alekperov-nizam@mail.ru, time=1723ms
+2025-12-24 01:11:20 [http-nio-8080-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2025-12-24 01:24:52 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
+2025-12-24 01:46:46 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-24 01:46:47 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-24 01:46:47 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-12-24 01:46:47 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f089575]]
+2025-12-24 01:46:47 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-12-24 01:46:47 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-24 01:46:47 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-24 01:46:47 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

@@ -54,10 +54,7 @@ const Register: React.FC = () => {
                 { duration: 8000 }
             );
 
-            // Автоматический редирект через 5 секунд
-            setTimeout(() => {
-                navigate('/login');
-            }, 5000);
+
         } catch (error) {
             // Error is handled by interceptor
         }
@@ -149,9 +146,7 @@ const Register: React.FC = () => {
                                 Continue to Login
                             </Button>
 
-                            <p className="text-xs text-gray-400 text-center">
-                                Redirecting to login in 5 seconds...
-                            </p>
+
                         </div>
                     </div>
                 </div>

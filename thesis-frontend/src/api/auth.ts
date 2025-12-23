@@ -19,10 +19,19 @@ export const authApi = {
         await api.get(`/auth/activate/${code}`);
     },
 
+    requestPasswordReset: async (email: string): Promise<void> => {
+        await api.post('/auth/forgot-password', null, { params: { email } });
+    },
+
     logout: async (): Promise<void> => {
         await api.post('/auth/logout');
         localStorage.removeItem('access_token');
         localStorage.removeItem('user');
+    },
+    resetPassword: async (token: string, newPassword: string): Promise<void> => {
+        await api.post('/auth/reset-password', null, {
+            params: {token, newPassword}
+        });
     },
 
     refreshToken: async (): Promise<{ token: string }> => {

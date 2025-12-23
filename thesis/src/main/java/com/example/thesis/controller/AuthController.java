@@ -5,6 +5,7 @@ import com.example.thesis.dto.RegisterRequest;
 import com.example.thesis.dto.AuthResponse;
 import com.example.thesis.security.JwtTokenProvider;
 import com.example.thesis.service.AuthService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.net.URLEncoder;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -64,10 +68,10 @@ public class AuthController {
 
             mailSender.send(message);
 
-            return ResponseEntity.ok("✅ SMTP connection successful! Check Mailtrap.");
+            return ResponseEntity.ok("SMTP connection successful! Check Mailtrap.");
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body("❌ SMTP connection failed:\n" +
+                    .body("SMTP connection failed:\n" +
                             "Error: " + e.getMessage() + "\n" +
                             "Cause: " + (e.getCause() != null ? e.getCause().getMessage() : "none"));
         }
@@ -86,14 +90,31 @@ public class AuthController {
     }
 
     @GetMapping("/activate/{code}")
-    public ResponseEntity<?> activateAccount(@PathVariable String code) {
+    public ResponseEntity<?> activateAccount(@PathVariable String code, HttpServletResponse response) {
         try {
             authService.activateAccount(code);
-            return ResponseEntity.ok(new MessageResponse("Account activated successfully"));
+
+            // Перенаправляем на фронтенд с параметром успеха
+            String frontendUrl = "http://localhost:3000/activation-success";
+            response.sendRedirect(frontendUrl);
+            return null; // Возвращаем null так как redirect уже обработан
+
         } catch (RuntimeException e) {
+            // Для ошибок также перенаправляем на фронтенд с параметром ошибки
+            try {
+                String frontendUrl = "http://localhost:3000/activate?error=" +
+                        URLEncoder.encode(e.getMessage(), "UTF-8");
+                response.sendRedirect(frontendUrl);
+                return null;
+            } catch (IOException ex) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new ErrorResponse("Activation failed: " + e.getMessage()));
+            }
+        } catch (IOException e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new ErrorResponse(e.getMessage()));
+                    .body(new ErrorResponse("Redirect failed: " + e.getMessage()));
         }
     }
 

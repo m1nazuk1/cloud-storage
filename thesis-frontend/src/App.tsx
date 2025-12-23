@@ -13,6 +13,10 @@ import Profile from './pages/profile/Profile'
 import NotFound from './pages/NotFound'
 import PrivateRoute from './components/routes/PrivateRoute'
 import PublicRoute from './components/routes/PublicRoute'
+import ActivationSuccess from './pages/auth/ActivationSuccess'
+import ForgotPassword from './pages/auth/ForgotPassword' // Добавляем
+import ResetPassword from './pages/auth/ResetPassword' // Добавляем
+
 //import Notifications from './pages/Notifications'
 
 
@@ -28,6 +32,9 @@ function App() {
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/register" element={<Register />} />
                                 <Route path="/activate/:code" element={<Activate />} />
+                                <Route path="/activation-success" element={<ActivationSuccess />} />
+                                <Route path="/forgot-password" element={<ForgotPassword />} />
+                                <Route path="/reset-password" element={<ResetPassword />} />
                             </Route>
 
                             {/* Protected routes */}
