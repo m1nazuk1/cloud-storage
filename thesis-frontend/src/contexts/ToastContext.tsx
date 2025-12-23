@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface ToastContextType {
     success: (message: string) => void;
@@ -55,6 +55,30 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     return (
         <ToastContext.Provider value={{ success, error, loading, dismiss, dismissAll }}>
             {children}
+            <Toaster
+                position="top-right"
+                toastOptions={{
+                    duration: 4000,
+                    style: {
+                        background: '#1f2937',
+                        color: '#f9fafb',
+                        borderRadius: '0.5rem',
+                        border: '1px solid #374151',
+                    },
+                    success: {
+                        iconTheme: {
+                            primary: '#10b981',
+                            secondary: '#ffffff',
+                        },
+                    },
+                    error: {
+                        iconTheme: {
+                            primary: '#ef4444',
+                            secondary: '#ffffff',
+                        },
+                    },
+                }}
+            />
         </ToastContext.Provider>
     );
 };

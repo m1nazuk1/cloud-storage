@@ -14,6 +14,7 @@ export const userApi = {
 
     updateProfile: async (data: Partial<User>): Promise<User> => {
         const response = await api.put<User>('/user/profile', data);
+        console.log('Update profile response:', response.data);
         return response.data;
     },
 
@@ -23,6 +24,8 @@ export const userApi = {
     },
 
     changePassword: async (oldPassword: string, newPassword: string): Promise<void> => {
-        await api.post('/user/change-password', { oldPassword, newPassword });
+        await api.post('/user/change-password', null, {
+            params: { oldPassword, newPassword }
+        });
     },
 };
