@@ -3,6 +3,7 @@ package com.example.thesis.controller;
 import com.example.thesis.dto.LoginRequest;
 import com.example.thesis.dto.RegisterRequest;
 import com.example.thesis.dto.AuthResponse;
+import com.example.thesis.repository.UserRepository;
 import com.example.thesis.security.JwtTokenProvider;
 import com.example.thesis.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,15 +30,17 @@ public class AuthController {
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
+    private final UserRepository userRepository;
     @Autowired
     private JavaMailSender mailSender;
 
     public AuthController(AuthService authService,
                           AuthenticationManager authenticationManager,
-                          JwtTokenProvider tokenProvider) {
+                          JwtTokenProvider tokenProvider, UserRepository userRepository) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/register")
@@ -163,6 +166,33 @@ public class AuthController {
             return ResponseEntity
                     .badRequest()
                     .body(new ErrorResponse(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/reset-password")
+    public ResponseEntity<?> handleResetPasswordRedirect(@RequestParam String token,
+                                                         HttpServletResponse response) {
+        try {
+            // Проверяем валидность токена
+            // Логика проверки токена (можно вынести в сервис)
+            // Для простоты просто проверяем наличие пользователя с таким токеном
+            if (userRepository.findByActivationCode(token).isEmpty()) {
+                String frontendUrl = "http://localhost:3000/reset-password?error=" +
+                        URLEncoder.encode("Invalid or expired reset token", "UTF-8");
+                response.sendRedirect(frontendUrl);
+                return null;
+            }
+
+            // Если токен валиден, редиректим на фронтенд с токеном
+            String frontendUrl = "http://localhost:3000/reset-password?token=" +
+                    URLEncoder.encode(token, "UTF-8");
+            response.sendRedirect(frontendUrl);
+            return null;
+
+        } catch (IOException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new ErrorResponse("Redirect failed: " + e.getMessage()));
         }
     }
 

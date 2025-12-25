@@ -1,14 +1,13 @@
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: string;
     helperText?: string;
     register?: UseFormRegisterReturn;
-    icon?: React.ReactNode; // Добавляем проп icon
-    iconPosition?: 'left' | 'right'; // Опционально: позиция иконки
+    icon?: React.ReactNode;
+    iconPosition?: 'left' | 'right';
 }
 
 const Input: React.FC<InputProps> = ({
@@ -17,10 +16,16 @@ const Input: React.FC<InputProps> = ({
                                          helperText,
                                          register,
                                          icon,
-                                         iconPosition = 'left', // По умолчанию слева
+                                         iconPosition = 'left',
                                          className = '',
                                          ...props
                                      }) => {
+    // Объединяем register и props в правильном порядке
+    const inputProps = {
+        ...(register || {}),
+        ...props,
+    };
+
     return (
         <div className="w-full">
             {label && (
@@ -35,13 +40,18 @@ const Input: React.FC<InputProps> = ({
                     </div>
                 )}
                 <input
-                    className={`w-full px-4 py-2 border ${error ? 'border-red-300' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 ${
-                        icon && iconPosition === 'left' ? 'pl-10' : ''
-                    } ${
-                        icon && iconPosition === 'right' ? 'pr-10' : ''
-                    } ${className}`}
-                    {...register} // Распаковываем register ПЕРВЫМ!
-                    {...props}
+                    className={`
+            w-full px-4 py-2 border 
+            ${error ? 'border-red-300' : 'border-gray-300'} 
+            rounded-lg focus:outline-none focus:ring-2 
+            focus:ring-primary-500 focus:border-transparent 
+            transition-all duration-200 
+            placeholder:text-gray-400
+            ${icon && iconPosition === 'left' ? 'pl-10' : ''}
+            ${icon && iconPosition === 'right' ? 'pr-10' : ''}
+            ${className}
+          `}
+                    {...inputProps} // Используем объединенные props
                 />
                 {icon && iconPosition === 'right' && (
                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">

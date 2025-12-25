@@ -25,19 +25,32 @@ const ResetPassword: React.FC = () => {
     const { success, error } = useToast();
     const [token, setToken] = useState<string | null>(null);
     const [tokenValid, setTokenValid] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ResetPasswordFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting }
+    } = useForm<ResetPasswordFormData>({
         resolver: zodResolver(resetPasswordSchema),
     });
 
     useEffect(() => {
         const tokenFromUrl = searchParams.get('token');
+
         if (!tokenFromUrl) {
+            const errorMsg = searchParams.get('error');
+            if (errorMsg) {
+                error(decodeURIComponent(errorMsg));
+            } else {
+                error('Invalid or missing reset token');
+            }
             setTokenValid(false);
-            error('Invalid or missing reset token');
         } else {
             setToken(tokenFromUrl);
+            // Здесь можно добавить проверку токена на бекенде
         }
+        setIsLoading(false);
     }, [searchParams, error]);
 
     const onSubmit = async (data: ResetPasswordFormData) => {
@@ -47,6 +60,7 @@ const ResetPassword: React.FC = () => {
         }
 
         try {
+            // Используем query параметры для отправки данных
             await authApi.resetPassword(token, data.password);
             success('Your password has been reset successfully!');
             setTimeout(() => {
@@ -56,6 +70,17 @@ const ResetPassword: React.FC = () => {
             error(err.response?.data?.message || 'Failed to reset password');
         }
     };
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div className="text-center">
+                    <div className="loading-spinner mx-auto" style={{ width: '40px', height: '40px' }}></div>
+                    <p className="mt-4 text-gray-600">Checking reset token...</p>
+                </div>
+            </div>
+        );
+    }
 
     if (!tokenValid) {
         return (
@@ -100,7 +125,7 @@ const ResetPassword: React.FC = () => {
                             autoComplete="new-password"
                             error={errors.password?.message}
                             placeholder="Enter new password"
-                            {...register('password')}
+                            register={register('password')} // Теперь передаем register правильно
                             icon={<Key className="h-5 w-5 text-gray-400" />}
                         />
 
@@ -110,7 +135,7 @@ const ResetPassword: React.FC = () => {
                             autoComplete="new-password"
                             error={errors.confirmPassword?.message}
                             placeholder="Confirm new password"
-                            {...register('confirmPassword')}
+                            register={register('confirmPassword')} // Теперь передаем register правильно
                             icon={<CheckCircle className="h-5 w-5 text-gray-400" />}
                         />
                     </div>

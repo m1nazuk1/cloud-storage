@@ -237,6 +237,10 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Account is not activated. Please activate your account first.");
         }
 
+        // Проверяем, что токен не старше 24 часов (опционально)
+        // Для этого нужно хранить время создания токена
+        // Если у вас нет поля createdTime в User, можно добавить или пропустить проверку
+
         // Устанавливаем новый пароль
         user.setPassword(passwordEncoder.encode(newPassword));
         user.setActivationCode(null); // Удаляем токен сброса
