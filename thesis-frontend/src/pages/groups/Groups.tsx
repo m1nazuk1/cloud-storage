@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {Plus, Search, Users, FileText, MoreVertical, Folder} from 'lucide-react';
+import { Plus, Search, Users, FileText, MoreVertical, Folder } from 'lucide-react';
 import { useGroups, useCreateGroup, useDeleteGroup } from '../../hooks/useGroups';
 import { groupCreateSchema } from '../../utils/validation';
-//import { WorkGroup } from '../../types';
+import { WorkGroup } from '../../types';
 import Card, { CardContent } from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
@@ -20,37 +21,62 @@ const Groups: React.FC = () => {
     const { groups, isLoading } = useGroups();
     const createGroupMutation = useCreateGroup();
     const deleteGroupMutation = useDeleteGroup();
+    const navigate = useNavigate();
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<GroupFormData>({
         resolver: zodResolver(groupCreateSchema),
-        mode: 'onTouched', // Изменяем режим валидации
+        mode: 'onTouched',
     });
 
-
     const onSubmit = async (data: GroupFormData) => {
-        await createGroupMutation.mutateAsync(data);
-        reset();
-        setShowCreateModal(false);
+        try {
+            await createGroupMutation.mutateAsync(data);
+            reset();
+            setShowCreateModal(false);
+        } catch (error) {
+            console.error('Failed to create group:', error);
+        }
     };
 
+    // ЗАЩИТА: Ждем загрузки
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+            </div>
+        );
+    }
+
+    // ЗАЩИТА: Убеждаемся, что groups - массив
+    if (!Array.isArray(groups)) {
+        console.error('Groups is not an array:', groups);
+        return (
+            <div className="text-center py-12">
+                <div className="text-red-500 text-xl mb-4">⚠️ Data Error</div>
+                <p className="text-gray-600 mb-4">Failed to load groups. Please refresh the page.</p>
+                <Button variant="primary" onClick={() => window.location.reload()}>
+                    Refresh Page
+                </Button>
+            </div>
+        );
+    }
+
     const filteredGroups = groups.filter(group =>
-        group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        group.description?.toLowerCase().includes(searchQuery.toLowerCase())
+        group &&
+        group.name &&
+        (group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            group.description?.toLowerCase().includes(searchQuery.toLowerCase()))
     );
 
     const handleDeleteGroup = async (groupId: string) => {
         if (window.confirm('Are you sure you want to delete this group?')) {
-            await deleteGroupMutation.mutateAsync(groupId);
+            try {
+                await deleteGroupMutation.mutateAsync(groupId);
+            } catch (error) {
+                console.error('Failed to delete group:', error);
+            }
         }
     };
-
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center h-64">
-                <div className="loading-spinner"></div>
-            </div>
-        );
-    }
 
     return (
         <div className="space-y-6">
@@ -95,7 +121,7 @@ const Groups: React.FC = () => {
                 </Card>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredGroups.map((group) => (
+                    {filteredGroups.map((group: WorkGroup) => (
                         <Card key={group.id} hover>
                             <CardContent className="p-6">
                                 <div className="flex justify-between items-start mb-4">
@@ -112,16 +138,16 @@ const Groups: React.FC = () => {
 
                                 <div className="flex items-center text-sm text-gray-500 mb-4">
                                     <Users className="h-4 w-4 mr-1" />
-                                    <span className="mr-4">{group.memberCount} members</span>
+                                    <span className="mr-4">Members: {group.memberships?.length || 0}</span>
                                     <FileText className="h-4 w-4 mr-1" />
-                                    <span>{group.fileCount} files</span>
+                                    <span>Files: {group.files?.length || 0}</span>
                                 </div>
 
                                 <div className="flex space-x-2">
                                     <Button
                                         variant="primary"
                                         className="flex-1"
-                                        onClick={() => window.location.href = `/groups/${group.id}`}
+                                        onClick={() => navigate(`/groups/${group.id}`)}
                                     >
                                         Open
                                     </Button>
@@ -129,6 +155,7 @@ const Groups: React.FC = () => {
                                         variant="ghost"
                                         onClick={() => handleDeleteGroup(group.id)}
                                         loading={deleteGroupMutation.isPending}
+                                        disabled={deleteGroupMutation.isPending}
                                     >
                                         Delete
                                     </Button>
@@ -139,7 +166,6 @@ const Groups: React.FC = () => {
                 </div>
             )}
 
-            {/* Create Group Modal */}
             {showCreateModal && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4 z-50">
                     <div className="bg-white rounded-lg max-w-md w-full p-6">
@@ -172,9 +198,6 @@ const Groups: React.FC = () => {
                                     rows={3}
                                     {...register('description')}
                                 />
-                                {errors.description && (
-                                    <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-                                )}
                             </div>
 
                             <div className="flex justify-end space-x-3 pt-4">
@@ -192,6 +215,7 @@ const Groups: React.FC = () => {
                                     type="submit"
                                     variant="primary"
                                     loading={createGroupMutation.isPending}
+                                    disabled={createGroupMutation.isPending}
                                 >
                                     Create Group
                                 </Button>

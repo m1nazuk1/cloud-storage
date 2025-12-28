@@ -22,7 +22,7 @@ const GroupDetail: React.FC = () => {
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-    const { data: group, isLoading: groupLoading } = useQuery({
+    const { data: group, isLoading: groupLoading, error: groupError } = useQuery({
         queryKey: ['group', id],
         queryFn: () => groupApi.getGroup(id!),
         enabled: !!id,
@@ -34,7 +34,7 @@ const GroupDetail: React.FC = () => {
         enabled: !!id,
     });
 
-    const { data: files = [], isLoading: filesLoading } = useQuery({
+    const { data: files = [], isLoading: filesLoading, refetch: refetchFiles } = useQuery({
         queryKey: ['files', id],
         queryFn: () => fileApi.getGroupFiles(id!),
         enabled: !!id,
@@ -45,8 +45,13 @@ const GroupDetail: React.FC = () => {
 
     const handleFileUpload = async () => {
         if (selectedFile) {
-            await uploadFileMutation.mutateAsync(selectedFile);
-            setSelectedFile(null);
+            try {
+                await uploadFileMutation.mutateAsync(selectedFile);
+                setSelectedFile(null);
+                refetchFiles();
+            } catch (error) {
+                console.error('Upload failed:', error);
+            }
         }
     };
 
@@ -68,7 +73,12 @@ const GroupDetail: React.FC = () => {
 
     const handleDeleteFile = async (fileId: string) => {
         if (window.confirm('Are you sure you want to delete this file?')) {
-            await deleteFileMutation.mutateAsync(fileId);
+            try {
+                await deleteFileMutation.mutateAsync(fileId);
+                refetchFiles();
+            } catch (error) {
+                console.error('Delete failed:', error);
+            }
         }
     };
 
@@ -80,7 +90,7 @@ const GroupDetail: React.FC = () => {
         );
     }
 
-    if (!group) {
+    if (groupError || !group) {
         return (
             <div className="text-center py-12">
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">Group not found</h2>
@@ -123,13 +133,16 @@ const GroupDetail: React.FC = () => {
                                     <div className="relative">
                                         <input
                                             type="file"
+                                            id="file-upload"
                                             onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
                                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                         />
-                                        <Button variant="secondary" className="flex items-center">
-                                            <Upload className="mr-2 h-5 w-5" />
-                                            Choose File
-                                        </Button>
+                                        <label htmlFor="file-upload">
+                                            <Button variant="secondary" className="flex items-center cursor-pointer">
+                                                <Upload className="mr-2 h-5 w-5" />
+                                                Choose File
+                                            </Button>
+                                        </label>
                                     </div>
                                     {selectedFile && (
                                         <Button
@@ -137,6 +150,7 @@ const GroupDetail: React.FC = () => {
                                             onClick={handleFileUpload}
                                             loading={uploadFileMutation.isPending}
                                             className="flex items-center"
+                                            disabled={uploadFileMutation.isPending}
                                         >
                                             Upload {selectedFile.name}
                                         </Button>
@@ -184,7 +198,7 @@ const GroupDetail: React.FC = () => {
                                                                 {file.originalName}
                                                             </div>
                                                             <div className="text-sm text-gray-500">
-                                                                by {file.uploader.username}
+                                                                by {file.uploader?.username || 'Unknown'}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -210,6 +224,7 @@ const GroupDetail: React.FC = () => {
                                                             size="sm"
                                                             onClick={() => handleDeleteFile(file.id)}
                                                             loading={deleteFileMutation.isPending}
+                                                            disabled={deleteFileMutation.isPending}
                                                             className="flex items-center text-red-600 hover:text-red-700"
                                                         >
                                                             <Trash2 className="h-4 w-4" />
@@ -265,7 +280,7 @@ const GroupDetail: React.FC = () => {
                                 </div>
                                 <div>
                                     <p className="text-sm font-medium text-gray-500">Creator</p>
-                                    <p className="text-sm text-gray-900">{group.creator.username}</p>
+                                    <p className="text-sm text-gray-900">{group.creator?.username || 'Unknown'}</p>
                                 </div>
                                 <div>
                                     <p className="text-sm font-medium text-gray-500">Total Files</p>

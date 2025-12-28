@@ -40,11 +40,15 @@ export interface WorkGroup {
     inviteToken?: string;
     creationDate: string;
     creator: User;
+    memberships?: Membership[];
+    files?: FileMetadata[];
 }
 
-export interface GroupWithStats extends WorkGroup {
-    memberCount: number;
-    fileCount: number;
+export interface Membership {
+    id: string;
+    user: User;
+    role: 'CREATOR' | 'ADMIN' | 'MEMBER';
+    joinedDate: string;
 }
 
 export interface GroupCreateRequest {
@@ -56,13 +60,6 @@ export interface GroupUpdateRequest {
     name?: string;
     description?: string;
     regenerateToken?: boolean;
-}
-
-export interface Membership {
-    id: string;
-    user: User;
-    role: 'CREATOR' | 'ADMIN' | 'MEMBER';
-    joinedDate: string;
 }
 
 export interface FileMetadata {

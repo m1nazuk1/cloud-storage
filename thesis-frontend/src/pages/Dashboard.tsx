@@ -19,6 +19,14 @@ const Dashboard: React.FC = () => {
     const recentGroups = groups.slice(0, 3);
     const recentNotifications = notifications.slice(0, 5);
 
+    const totalMembers = groups.reduce((acc, group) =>
+        acc + (group.memberships?.length || 0), 0
+    );
+
+    const totalFiles = groups.reduce((acc, group) =>
+        acc + (group.files?.length || 0), 0
+    );
+
     if (groupsLoading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -51,7 +59,7 @@ const Dashboard: React.FC = () => {
                     <CardContent className="flex flex-col items-center justify-center py-8">
                         <Users className="h-12 w-12 text-secondary-500 mb-4" />
                         <h3 className="text-lg font-semibold text-gray-900">
-                            {groups.reduce((acc, group) => acc + group.memberCount, 0)}
+                            {totalMembers}
                         </h3>
                         <p className="text-gray-500">Total Members</p>
                     </CardContent>
@@ -61,7 +69,7 @@ const Dashboard: React.FC = () => {
                     <CardContent className="flex flex-col items-center justify-center py-8">
                         <FileText className="h-12 w-12 text-accent-500 mb-4" />
                         <h3 className="text-lg font-semibold text-gray-900">
-                            {groups.reduce((acc, group) => acc + group.fileCount, 0)}
+                            {totalFiles}
                         </h3>
                         <p className="text-gray-500">Total Files</p>
                     </CardContent>
@@ -86,7 +94,7 @@ const Dashboard: React.FC = () => {
                                             <div>
                                                 <h4 className="font-medium text-gray-900">{group.name}</h4>
                                                 <p className="text-sm text-gray-500">
-                                                    {group.memberCount} members • {group.fileCount} files
+                                                    {group.memberships?.length || 0} members • {group.files?.length || 0} files
                                                 </p>
                                             </div>
                                             <ArrowRight className="h-5 w-5 text-gray-400" />

@@ -7,27 +7,19 @@ export interface GroupWithStats extends WorkGroup {
 }
 
 export const groupApi = {
-    createGroup: async (data: GroupCreateRequest): Promise<GroupWithStats> => {
-        const response = await api.post<GroupWithStats>('/group', data);
+    createGroup: async (data: GroupCreateRequest): Promise<WorkGroup> => {
+        const response = await api.post<WorkGroup>('/group', data);
         return response.data;
     },
 
-    getMyGroups: async (): Promise<GroupWithStats[]> => {
-        const response = await api.get<GroupWithStats[]>('/group/my');
-        return response.data.map(group => ({
-            ...group,
-            memberCount: group.memberCount || 0,
-            fileCount: group.fileCount || 0
-        }));
+    getMyGroups: async (): Promise<WorkGroup[]> => {
+        const response = await api.get<WorkGroup[]>('/group/my');
+        return response.data;
     },
 
-    getGroup: async (id: string): Promise<GroupWithStats> => {
-        const response = await api.get<GroupWithStats>(`/group/${id}`);
-        return {
-            ...response.data,
-            memberCount: response.data.memberCount || 0,
-            fileCount: response.data.fileCount || 0
-        };
+    getGroup: async (id: string): Promise<WorkGroup> => {
+        const response = await api.get<WorkGroup>(`/group/${id}`);
+        return response.data;
     },
 
     updateGroup: async (id: string, data: GroupUpdateRequest): Promise<WorkGroup> => {

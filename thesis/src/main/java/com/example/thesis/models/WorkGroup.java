@@ -1,5 +1,6 @@
 package com.example.thesis.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "work_groups")
+@JsonIgnoreProperties({"memberships", "files", "chatMessages", "notifications"}) // ДОБАВЬТЕ ЭТО!
 public class WorkGroup {
 
     @Id
