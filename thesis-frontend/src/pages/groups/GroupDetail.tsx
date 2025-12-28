@@ -19,6 +19,8 @@ import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import Modal from '../../components/ui/Modal';
 import { useToast } from '../../contexts/ToastContext';
+import {FileMetadata} from "../../types";
+
 
 const GroupDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -30,6 +32,8 @@ const GroupDetail: React.FC = () => {
     const [inviteLink, setInviteLink] = useState('');
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
+
+
 
     const { data: group, isLoading: groupLoading, error: groupError, refetch: refetchGroup } = useQuery({
         queryKey: ['group', id],
@@ -45,7 +49,7 @@ const GroupDetail: React.FC = () => {
 
     const { data: filesData, isLoading: filesLoading, refetch: refetchFiles } = useQuery({
         queryKey: ['files', id],
-        queryFn: () => fileApi.getGroupFiles(id!),
+        queryFn: (): Promise<FileMetadata[]> => fileApi.getGroupFiles(id!),
         enabled: !!id,
     });
 

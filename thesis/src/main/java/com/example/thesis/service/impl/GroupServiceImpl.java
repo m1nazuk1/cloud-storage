@@ -198,6 +198,17 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public int getGroupMemberCount(UUID groupId) {
+        return Math.toIntExact(membershipRepository.countByGroupId(groupId));
+    }
+
+    @Override
+    public int getGroupFileCount(UUID groupId) {
+        WorkGroup group = getGroupById(groupId);
+        return group.getFiles().size();
+    }
+
+    @Override
     @Transactional
     public void removeMember(UUID groupId, UUID userId, User requester) {
         WorkGroup group = getGroupById(groupId);

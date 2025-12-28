@@ -2,6 +2,7 @@ package com.example.thesis.models;
 
 import com.example.thesis.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -59,11 +60,9 @@ public class User {
     private Set<WorkGroup> createdGroups = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private Set<Membership> memberships = new HashSet<>();
 
     @OneToMany(mappedBy = "uploader", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private Set<FileMetadata> uploadedFiles = new HashSet<>();
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)

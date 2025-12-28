@@ -1,5 +1,7 @@
 package com.example.thesis.controller;
 
+import com.example.thesis.dto.FileDTO;
+import com.example.thesis.dto.FileMetadataDTO;
 import com.example.thesis.models.FileMetadata;
 import com.example.thesis.models.FileHistory;
 import com.example.thesis.security.SecurityUtils;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/files")
@@ -61,14 +64,19 @@ public class FileController {
 
     @GetMapping("/group/{groupId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<FileMetadata>> getGroupFiles(@PathVariable UUID groupId) {
+    public ResponseEntity<List<FileDTO>> getGroupFiles(@PathVariable UUID groupId) {
         System.out.println("[INFO] Getting files for group: " + groupId);
 
         List<FileMetadata> files = fileService.getGroupFiles(groupId);
-        System.out.println("[INFO] Found " + files.size() + " files for group: " + groupId);
+        List<FileDTO> fileDTOs = files.stream()
+                .map(FileDTO::fromEntity)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(files);
+        System.out.println("[INFO] Found " + fileDTOs.size() + " files for group: " + groupId);
+
+        return ResponseEntity.ok(fileDTOs);
     }
+
     @GetMapping("/{fileId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<FileMetadata> getFileInfo(@PathVariable UUID fileId) {

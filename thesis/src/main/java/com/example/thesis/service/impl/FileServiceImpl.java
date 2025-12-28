@@ -11,6 +11,7 @@ import com.example.thesis.repository.FileMetadataRepository;
 import com.example.thesis.repository.FileHistoryRepository;
 import com.example.thesis.repository.WorkGroupRepository;
 import com.example.thesis.repository.MembershipRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -159,7 +160,16 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<FileMetadata> getGroupFiles(UUID groupId) {
         System.out.println("[FILE] Getting files for group: " + groupId);
+
+        // Убедитесь, что связанные данные загружаются
         List<FileMetadata> files = fileMetadataRepository.findActiveFilesByGroupId(groupId);
+
+        // Принудительная загрузка связанных данных, если нужно
+        for (FileMetadata file : files) {
+            Hibernate.initialize(file.getUploader()); // Если нужно
+            Hibernate.initialize(file.getParentGroup()); // Если нужно
+        }
+
         System.out.println("[FILE] Found " + files.size() + " files");
         return files;
     }

@@ -1,6 +1,7 @@
 package com.example.thesis.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -12,7 +13,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "work_groups")
-@JsonIgnoreProperties({"memberships", "files", "chatMessages", "notifications"}) // ДОБАВЬТЕ ЭТО!
 public class WorkGroup {
 
     @Id
@@ -36,10 +36,10 @@ public class WorkGroup {
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Membership> memberships = new HashSet<>();
 
-    @OneToMany(mappedBy = "parentGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentGroup", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<FileMetadata> files = new HashSet<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)

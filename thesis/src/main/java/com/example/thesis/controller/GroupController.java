@@ -2,6 +2,7 @@ package com.example.thesis.controller;
 
 import com.example.thesis.dto.GroupCreateRequest;
 import com.example.thesis.dto.GroupUpdateRequest;
+import com.example.thesis.dto.SimpleGroupDTO;
 import com.example.thesis.models.User;
 import com.example.thesis.models.WorkGroup;
 import com.example.thesis.security.SecurityUtils;
@@ -11,8 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/group")
@@ -41,14 +45,61 @@ public class GroupController {
 
     @GetMapping("/my")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<WorkGroup>> getMyGroups() {
+    public ResponseEntity<List<SimpleGroupDTO>> getMyGroups() {
         User currentUser = securityUtils.getCurrentUser();
         System.out.println("[INFO] Getting groups for user: " + currentUser.getUsername());
 
         List<WorkGroup> groups = groupService.getUserGroups(currentUser.getId());
-        System.out.println("[INFO] Found " + groups.size() + " groups for user: " + currentUser.getUsername());
 
-        return ResponseEntity.ok(groups);
+        // Конвертируем в DTO
+        List<SimpleGroupDTO> dtos = groups.stream()
+                .map(SimpleGroupDTO::fromEntity)
+                .collect(Collectors.toList());
+
+        System.out.println("[INFO] Found " + dtos.size() + " groups for user: " + currentUser.getUsername());
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/{id}/full")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Object>> getGroupFull(@PathVariable UUID id) {
+        WorkGroup group = groupService.getGroupById(id);
+
+        // Проверяем, является ли пользователь участником группы
+        if (!groupService.isUserMember(id, securityUtils.getCurrentUserId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        // Создаем структуру данных вручную
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", group.getId());
+        response.put("name", group.getName());
+        response.put("description", group.getDescription());
+        response.put("creationDate", group.getCreationDate());
+        response.put("creator", Map.of(
+                "id", group.getCreator().getId(),
+                "username", group.getCreator().getUsername(),
+                "email", group.getCreator().getEmail()
+        ));
+
+        // Добавляем файлы
+        List<Map<String, Object>> files = group.getFiles().stream()
+                .filter(f -> !f.isDeleted())
+                .map(f -> Map.of(
+                        "id", f.getId(),
+                        "name", f.getOriginalName(),
+                        "size", f.getFileSize(),
+                        "uploadDate", f.getUploadDate(),
+                        "uploader", Map.of(
+                                "id", f.getUploader().getId(),
+                                "username", f.getUploader().getUsername()
+                        )
+                ))
+                .collect(Collectors.toList());
+        response.put("files", files);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/created")

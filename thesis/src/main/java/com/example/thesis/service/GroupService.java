@@ -24,4 +24,6 @@ public interface GroupService {
     boolean isUserAdminOrCreator(UUID groupId, UUID userId);
     List<User> getGroupMembers(UUID groupId);
     List<WorkGroup> searchGroups(String searchTerm, UUID userId);
+    int getGroupMemberCount(UUID groupId);
+    int getGroupFileCount(UUID groupId);
 }

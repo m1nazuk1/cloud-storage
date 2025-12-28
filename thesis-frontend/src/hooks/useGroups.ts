@@ -2,43 +2,59 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { groupApi } from '../api/group';
 import { useToast } from '../contexts/ToastContext';
 import { WorkGroup } from '../types';
+import React from "react";
 
 export const useGroups = () => {
     const toast = useToast();
-    const { data, isLoading, error } = useQuery({
+    const queryClient = useQueryClient();
+
+    const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['groups'],
         queryFn: async (): Promise<WorkGroup[]> => {
             try {
+                // Явно указываем тип ответа
                 const response: any = await groupApi.getMyGroups();
+                console.log('Groups API Response:', response);
 
-                // DEBUG
-                console.log('API Response:', response);
-
-                // Если ответ массив - возвращаем
+                // Убедимся, что возвращаем массив
                 if (Array.isArray(response)) {
                     return response;
                 }
 
-                // Если это строка с ошибкой
-                if (typeof response === 'string') {
-                    console.warn('Server returned string instead of array');
-                    // Временное решение - возвращаем пустой массив
-                    return [];
+                // Если response - это объект с данными
+                if (response && response.data && Array.isArray(response.data)) {
+                    return response.data;
                 }
 
-                // По умолчанию пустой массив
+                // Если response - это строка или что-то еще
+                console.error('Unexpected response format:', response);
                 return [];
             } catch (err: any) {
                 console.error('Error loading groups:', err);
-                toast.error('Failed to load groups');
+                toast.error(err.response?.data?.message || 'Failed to load groups');
                 return [];
             }
         },
+        staleTime: 5 * 60 * 1000, // 5 минут
+        gcTime: 10 * 60 * 1000, // 10 минут
+        refetchOnWindowFocus: true,
+        refetchOnMount: true,
     });
+
+    // Функция для принудительного обновления
+    const forceRefresh = React.useCallback(() => {
+        queryClient.invalidateQueries({ queryKey: ['groups'] });
+    }, [queryClient]);
 
     const groups = Array.isArray(data) ? data : [];
 
-    return { groups, isLoading, error };
+    return {
+        groups,
+        isLoading,
+        error,
+        refetch,
+        forceRefresh
+    };
 };
 
 export const useCreateGroup = () => {

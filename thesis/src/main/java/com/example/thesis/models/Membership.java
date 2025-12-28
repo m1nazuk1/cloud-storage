@@ -1,6 +1,7 @@
 package com.example.thesis.models;
 
 import com.example.thesis.models.enums.MembershipRole;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,12 +31,10 @@ public class Membership {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore // ДОБАВЬТЕ ЭТУ СТРОЧКУ!
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
-    @JsonIgnore // И ЭТУ ТОЖЕ!
     private WorkGroup group;
 
     public Membership() {
