@@ -14,13 +14,26 @@ import NotFound from './pages/NotFound'
 import PrivateRoute from './components/routes/PrivateRoute'
 import PublicRoute from './components/routes/PublicRoute'
 import ActivationSuccess from './pages/auth/ActivationSuccess'
-import ForgotPassword from './pages/auth/ForgotPassword' // Добавляем
-import ResetPassword from './pages/auth/ResetPassword' // Добавляем
+import ForgotPassword from './pages/auth/ForgotPassword'
+import ResetPassword from './pages/auth/ResetPassword'
+import { useEffect } from 'react';
+
 
 //import Notifications from './pages/Notifications'
 
 
 function App() {
+    useEffect(() => {
+        const handleWebSocketError = () => {
+            console.log('WebSocket error handled gracefully');
+        };
+
+        window.addEventListener('error', handleWebSocketError);
+
+        return () => {
+            window.removeEventListener('error', handleWebSocketError);
+        };
+    }, []);
     return (
         <Router>
             <AuthProvider>

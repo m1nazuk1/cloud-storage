@@ -1,7 +1,6 @@
 package com.example.thesis.service.impl;
 
 import com.example.thesis.service.FileService;
-import com.example.thesis.service.NotificationService;
 import com.example.thesis.models.FileMetadata;
 import com.example.thesis.models.FileHistory;
 import com.example.thesis.models.User;
@@ -37,32 +36,42 @@ public class FileServiceImpl implements FileService {
     private final FileHistoryRepository fileHistoryRepository;
     private final WorkGroupRepository workGroupRepository;
     private final MembershipRepository membershipRepository;
-    private final NotificationService notificationService;
+    // Убираем NotificationService, пока он вызывает проблемы
+    // private final NotificationService notificationService;
 
     public FileServiceImpl(FileMetadataRepository fileMetadataRepository,
                            FileHistoryRepository fileHistoryRepository,
                            WorkGroupRepository workGroupRepository,
-                           MembershipRepository membershipRepository,
-                           NotificationService notificationService) {
+                           MembershipRepository membershipRepository
+            /*, NotificationService notificationService */) {
         this.fileMetadataRepository = fileMetadataRepository;
         this.fileHistoryRepository = fileHistoryRepository;
         this.workGroupRepository = workGroupRepository;
         this.membershipRepository = membershipRepository;
-        this.notificationService = notificationService;
+        // this.notificationService = notificationService;
     }
 
     @Override
     @Transactional
     public FileMetadata uploadFile(MultipartFile file, UUID groupId, User uploader) {
-        // Проверка прав доступа
-        if (!membershipRepository.isUserMemberOfGroup(uploader.getId(), groupId)) {
-            throw new RuntimeException("You are not a member of this group");
-        }
-
-        WorkGroup group = workGroupRepository.findById(groupId)
-                .orElseThrow(() -> new RuntimeException("Group not found"));
+        System.out.println("[FILE] Uploading file: " + file.getOriginalFilename() +
+                " to group: " + groupId +
+                " by user: " + uploader.getUsername() +
+                " (userId: " + uploader.getId() + ")");
 
         try {
+            // Проверка прав доступа
+            if (!membershipRepository.isUserMemberOfGroup(uploader.getId(), groupId)) {
+                System.err.println("[FILE] User " + uploader.getId() + " is not a member of group " + groupId);
+                throw new RuntimeException("You are not a member of this group");
+            }
+
+            WorkGroup group = workGroupRepository.findById(groupId)
+                    .orElseThrow(() -> {
+                        System.err.println("[FILE] Group not found: " + groupId);
+                        return new RuntimeException("Group not found");
+                    });
+
             // Создание директории, если не существует
             Path uploadPath = Paths.get(uploadDir, groupId.toString());
             if (!Files.exists(uploadPath)) {
@@ -74,6 +83,8 @@ public class FileServiceImpl implements FileService {
             String fileExtension = getFileExtension(originalFilename);
             String storedFilename = UUID.randomUUID().toString() + (fileExtension.isEmpty() ? "" : "." + fileExtension);
             Path filePath = uploadPath.resolve(storedFilename);
+
+            System.out.println("[FILE] Saving file to: " + filePath);
 
             // Сохранение файла
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -92,6 +103,7 @@ public class FileServiceImpl implements FileService {
             fileMetadata.setLastModified(LocalDateTime.now());
 
             FileMetadata savedFile = fileMetadataRepository.save(fileMetadata);
+            System.out.println("[FILE] File metadata saved with ID: " + savedFile.getId());
 
             // Запись в историю
             FileHistory history = new FileHistory(
@@ -101,25 +113,25 @@ public class FileServiceImpl implements FileService {
                     "File uploaded"
             );
             fileHistoryRepository.save(history);
+            System.out.println("[FILE] History recorded");
 
-            // Отправка уведомлений
-            notificationService.createGroupNotification(
-                    NotificationType.FILE_ADDED,
-                    uploader.getUsername() + " uploaded " + originalFilename,
-                    groupId,
-                    uploader.getId()
-            );
-
+            System.out.println("[FILE] File upload completed successfully: " + originalFilename);
             return savedFile;
 
         } catch (IOException e) {
+            System.err.println("[FILE] IO Error during upload: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException("Failed to upload file: " + e.getMessage(), e);
+        } catch (Exception e) {
+            System.err.println("[FILE] Unexpected error during upload: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
         }
     }
-
     @Override
     public byte[] downloadFile(UUID fileId, User downloader) {
         FileMetadata fileMetadata = getFileMetadata(fileId);
+        System.out.println("[FILE] Downloading file: " + fileMetadata.getOriginalName());
 
         // Проверка прав доступа
         if (!membershipRepository.isUserMemberOfGroup(downloader.getId(), fileMetadata.getParentGroup().getId())) {
@@ -128,9 +140,12 @@ public class FileServiceImpl implements FileService {
 
         try {
             Path filePath = Paths.get(fileMetadata.getFilePath());
-            return Files.readAllBytes(filePath);
+            byte[] data = Files.readAllBytes(filePath);
+            System.out.println("[FILE] File downloaded successfully: " + fileMetadata.getOriginalName());
+            return data;
 
         } catch (IOException e) {
+            System.err.println("[FILE] Download failed: " + e.getMessage());
             throw new RuntimeException("Failed to download file: " + e.getMessage(), e);
         }
     }
@@ -143,7 +158,10 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<FileMetadata> getGroupFiles(UUID groupId) {
-        return fileMetadataRepository.findActiveFilesByGroupId(groupId);
+        System.out.println("[FILE] Getting files for group: " + groupId);
+        List<FileMetadata> files = fileMetadataRepository.findActiveFilesByGroupId(groupId);
+        System.out.println("[FILE] Found " + files.size() + " files");
+        return files;
     }
 
     @Override
@@ -154,6 +172,8 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional
     public void deleteFile(UUID fileId, User requester) {
+        System.out.println("[FILE] Deleting file: " + fileId);
+
         FileMetadata fileMetadata = getFileMetadata(fileId);
 
         // Проверка прав (только загрузивший или админ/создатель может удалить)
@@ -178,6 +198,8 @@ public class FileServiceImpl implements FileService {
         );
         fileHistoryRepository.save(history);
 
+        // ВРЕМЕННО ОТКЛЮЧАЕМ УВЕДОМЛЕНИЯ
+        /*
         // Отправка уведомлений
         notificationService.createGroupNotification(
                 NotificationType.FILE_DELETED,
@@ -185,6 +207,9 @@ public class FileServiceImpl implements FileService {
                 fileMetadata.getParentGroup().getId(),
                 requester.getId()
         );
+        */
+
+        System.out.println("[FILE] File deleted successfully");
     }
 
     @Override

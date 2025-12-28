@@ -1,0 +1,77 @@
+thesis-frontend/
+├── public/                 # Статические файлы
+│   ├── index.html
+│   └── favicon.ico
+├── src/
+│   ├── api/               # API клиенты
+│   │   ├── auth.ts
+│   │   ├── users.ts
+│   │   ├── groups.ts
+│   │   ├── files.ts
+│   │   ├── chat.ts
+│   │   ├── notifications.ts
+│   │   └── index.ts
+│   ├── components/        # Переиспользуемые компоненты
+│   │   ├── ui/           # Базовые UI компоненты
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   ├── Dropdown.tsx
+│   │   │   ├── Badge.tsx
+│   │   │   ├── Avatar.tsx
+│   │   │   ├── Toast.tsx
+│   │   │   ├── LoadingSpinner.tsx
+│   │   │   └── FileUploader.tsx
+│   │   ├── layout/       # Компоненты макета
+│   │   │   ├── Header.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── Layout.tsx
+│   │   └── features/     # Функциональные компоненты
+│   │       ├── FileList.tsx
+│   │       ├── ChatWindow.tsx
+│   │       ├── MembersList.tsx
+│   │       └── ActivityFeed.tsx
+│   ├── hooks/            # Кастомные хуки
+│   │   ├── useAuth.ts
+│   │   ├── useWebSocket.ts
+│   │   ├── useFileUpload.ts
+│   │   └── useNotifications.ts
+│   ├── stores/           # Zustand сторы
+│   │   ├── auth.store.ts
+│   │   ├── ui.store.ts
+│   │   └── notifications.store.ts
+│   ├── utils/            # Вспомогательные функции
+│   │   ├── formatters.ts
+│   │   ├── validators.ts
+│   │   ├── constants.ts
+│   │   └── websocket.ts
+│   ├── types/            # TypeScript типы
+│   │   ├── api.types.ts
+│   │   ├── user.types.ts
+│   │   ├── group.types.ts
+│   │   └── file.types.ts
+│   ├── pages/            # Страницы приложения
+│   │   ├── Auth/
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
+│   │   │   └── Activate.tsx
+│   │   ├── Dashboard/
+│   │   │   ├── Dashboard.tsx
+│   │   │   └── Profile.tsx
+│   │   ├── Groups/
+│   │   │   ├── GroupList.tsx
+│   │   │   ├── GroupDetail.tsx
+│   │   │   └── CreateGroup.tsx
+│   │   └── NotFound.tsx
+│   ├── App.tsx           # Главный компонент
+│   ├── main.tsx         # Точка входа
+│   └── index.css        # Глобальные стили
+├── .env                 # Переменные окружения
+├── .env.example
+├── vite.config.ts
+├── tsconfig.json
+├── tailwind.config.js
+├── postcss.config.js
+└── package.json

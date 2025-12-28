@@ -2,6 +2,8 @@ package com.example.thesis.service;
 
 import com.example.thesis.models.User;
 import com.example.thesis.dto.UserUpdateRequest;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.UUID;
 

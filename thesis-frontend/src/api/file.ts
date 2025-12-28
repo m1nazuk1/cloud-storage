@@ -22,8 +22,18 @@ export const fileApi = {
     },
 
     getGroupFiles: async (groupId: string): Promise<FileMetadata[]> => {
-        const response = await api.get<FileMetadata[]>(`/files/group/${groupId}`);
-        return response.data;
+        try {
+            const response = await api.get<FileMetadata[]>(`/files/group/${groupId}`);
+            // ФИКС: Проверяем, что response.data существует и является массивом
+            if (!response.data) {
+                console.warn('No data returned from getGroupFiles');
+                return [];
+            }
+            return Array.isArray(response.data) ? response.data : [];
+        } catch (error) {
+            console.error('Error fetching group files:', error);
+            return [];
+        }
     },
 
     getFileInfo: async (fileId: string): Promise<FileMetadata> => {

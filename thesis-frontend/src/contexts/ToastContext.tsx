@@ -7,6 +7,9 @@ interface ToastContextType {
     loading: (message: string) => string;
     dismiss: (id: string) => void;
     dismissAll: () => void;
+    // Добавляем для обратной совместимости
+    showSuccess: (message: string) => void;
+    showError: (message: string) => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -52,8 +55,20 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
         toast.dismiss();
     };
 
+    // Добавляем для обратной совместимости
+    const showSuccess = (message: string) => success(message);
+    const showError = (message: string) => error(message);
+
     return (
-        <ToastContext.Provider value={{ success, error, loading, dismiss, dismissAll }}>
+        <ToastContext.Provider value={{
+            success,
+            error,
+            loading,
+            dismiss,
+            dismissAll,
+            showSuccess,
+            showError
+        }}>
             {children}
             <Toaster
                 position="top-right"

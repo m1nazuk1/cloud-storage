@@ -13,26 +13,24 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+    // Должен быть унаследован от JpaRepository
+    // List<User> findAll();
+
     Optional<User> findByEmail(String email);
-
     Optional<User> findByUsername(String username);
-
     Optional<User> findByActivationCode(String activationCode);
-
     boolean existsByEmail(String email);
-
     boolean existsByUsername(String username);
-
     List<User> findByEnabled(boolean enabled);
-
-    @Query("SELECT u FROM User u JOIN u.memberships m WHERE m.group.id = :groupId")
-    List<User> findUsersByGroupId(@Param("groupId") UUID groupId);
 
     @Query("SELECT u FROM User u WHERE LOWER(u.username) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
             "OR LOWER(u.email) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
             "OR LOWER(u.firstName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
             "OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<User> searchUsers(@Param("searchTerm") String searchTerm);
+
+    @Query("SELECT u FROM User u JOIN u.memberships m WHERE m.group.id = :groupId")
+    List<User> findUsersByGroupId(@Param("groupId") UUID groupId);
 
     @Query("SELECT u FROM User u WHERE u.enabled = true AND u.id IN " +
             "(SELECT m.user.id FROM Membership m WHERE m.group.id = :groupId)")

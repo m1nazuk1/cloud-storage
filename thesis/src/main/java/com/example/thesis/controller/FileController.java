@@ -33,10 +33,15 @@ public class FileController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<FileMetadata> uploadFile(@PathVariable UUID groupId,
                                                    @RequestParam("file") MultipartFile file) {
+        System.out.println("[INFO] Uploading file to group: " + groupId + ", file: " + file.getOriginalFilename());
+
         var currentUser = securityUtils.getCurrentUser();
         FileMetadata uploadedFile = fileService.uploadFile(file, groupId, currentUser);
+
+        System.out.println("[INFO] File uploaded successfully: " + uploadedFile.getId());
         return ResponseEntity.ok(uploadedFile);
     }
+
 
     @GetMapping("/download/{fileId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -57,10 +62,13 @@ public class FileController {
     @GetMapping("/group/{groupId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<FileMetadata>> getGroupFiles(@PathVariable UUID groupId) {
+        System.out.println("[INFO] Getting files for group: " + groupId);
+
         List<FileMetadata> files = fileService.getGroupFiles(groupId);
+        System.out.println("[INFO] Found " + files.size() + " files for group: " + groupId);
+
         return ResponseEntity.ok(files);
     }
-
     @GetMapping("/{fileId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<FileMetadata> getFileInfo(@PathVariable UUID fileId) {

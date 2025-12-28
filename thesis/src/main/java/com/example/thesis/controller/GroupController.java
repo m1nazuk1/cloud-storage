@@ -30,8 +30,12 @@ public class GroupController {
     @PostMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<WorkGroup> createGroup(@Valid @RequestBody GroupCreateRequest request) {
+        System.out.println("[INFO] Creating group: " + request.getName());
+
         User currentUser = securityUtils.getCurrentUser();
         WorkGroup group = groupService.createGroup(request, currentUser);
+
+        System.out.println("[INFO] Group created with ID: " + group.getId());
         return ResponseEntity.ok(group);
     }
 
@@ -39,7 +43,11 @@ public class GroupController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<WorkGroup>> getMyGroups() {
         User currentUser = securityUtils.getCurrentUser();
+        System.out.println("[INFO] Getting groups for user: " + currentUser.getUsername());
+
         List<WorkGroup> groups = groupService.getUserGroups(currentUser.getId());
+        System.out.println("[INFO] Found " + groups.size() + " groups for user: " + currentUser.getUsername());
+
         return ResponseEntity.ok(groups);
     }
 

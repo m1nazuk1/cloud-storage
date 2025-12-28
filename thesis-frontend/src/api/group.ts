@@ -41,10 +41,19 @@ export const groupApi = {
     },
 
     getGroupMembers: async (groupId: string): Promise<User[]> => {
-        const response = await api.get<User[]>(`/group/${groupId}/members`);
-        return response.data;
+        try {
+            const response = await api.get<User[]>(`/group/${groupId}/members`);
+            // ФИКС: Проверяем, что response.data существует и является массивом
+            if (!response.data) {
+                console.warn('No data returned from getGroupMembers');
+                return [];
+            }
+            return Array.isArray(response.data) ? response.data : [];
+        } catch (error) {
+            console.error('Error fetching group members:', error);
+            return [];
+        }
     },
-
     addMember: async (groupId: string, userId: string): Promise<void> => {
         await api.post(`/group/${groupId}/members/${userId}`);
     },

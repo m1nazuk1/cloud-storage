@@ -1,7 +1,6 @@
 package com.example.thesis.service.impl;
 
 import com.example.thesis.service.GroupService;
-import com.example.thesis.service.NotificationService;
 import com.example.thesis.models.WorkGroup;
 import com.example.thesis.models.User;
 import com.example.thesis.models.Membership;
@@ -24,21 +23,24 @@ public class GroupServiceImpl implements GroupService {
     private final WorkGroupRepository workGroupRepository;
     private final MembershipRepository membershipRepository;
     private final UserRepository userRepository;
-    private final NotificationService notificationService;
+    // Временно отключаем
+    // private final NotificationService notificationService;
 
     public GroupServiceImpl(WorkGroupRepository workGroupRepository,
                             MembershipRepository membershipRepository,
-                            UserRepository userRepository,
-                            NotificationService notificationService) {
+                            UserRepository userRepository
+            /*, NotificationService notificationService */) {
         this.workGroupRepository = workGroupRepository;
         this.membershipRepository = membershipRepository;
         this.userRepository = userRepository;
-        this.notificationService = notificationService;
+        // this.notificationService = notificationService;
     }
 
     @Override
     @Transactional
     public WorkGroup createGroup(GroupCreateRequest request, User creator) {
+        System.out.println("[GROUP] Creating group: " + request.getName() + " by user: " + creator.getUsername());
+
         WorkGroup group = new WorkGroup();
         group.setName(request.getName());
         group.setDescription(request.getDescription());
@@ -46,10 +48,12 @@ public class GroupServiceImpl implements GroupService {
         group.setInviteToken(generateUniqueInviteToken());
 
         WorkGroup savedGroup = workGroupRepository.save(group);
+        System.out.println("[GROUP] Group saved with ID: " + savedGroup.getId());
 
         // Создатель автоматически становится участником с ролью CREATOR
         Membership membership = new Membership(creator, savedGroup, MembershipRole.CREATOR);
         membershipRepository.save(membership);
+        System.out.println("[GROUP] Membership created for creator");
 
         return savedGroup;
     }
@@ -149,6 +153,8 @@ public class GroupServiceImpl implements GroupService {
         Membership membership = new Membership(user, group, MembershipRole.MEMBER);
         membershipRepository.save(membership);
 
+        // ВРЕМЕННО ОТКЛЮЧАЕМ УВЕДОМЛЕНИЯ
+        /*
         // Отправка уведомлений
         notificationService.createGroupNotification(
                 NotificationType.USER_JOINED,
@@ -156,6 +162,7 @@ public class GroupServiceImpl implements GroupService {
                 group.getId(),
                 user.getId()
         );
+        */
     }
 
     @Override
@@ -178,6 +185,8 @@ public class GroupServiceImpl implements GroupService {
         Membership membership = new Membership(userToAdd, group, MembershipRole.MEMBER);
         membershipRepository.save(membership);
 
+        // ВРЕМЕННО ОТКЛЮЧАЕМ УВЕДОМЛЕНИЯ
+        /*
         // Отправка уведомлений
         notificationService.createGroupNotification(
                 NotificationType.USER_JOINED,
@@ -185,6 +194,7 @@ public class GroupServiceImpl implements GroupService {
                 group.getId(),
                 userToAdd.getId()
         );
+        */
     }
 
     @Override
@@ -214,12 +224,12 @@ public class GroupServiceImpl implements GroupService {
         membershipRepository.deleteByUserIdAndGroupId(userId, groupId);
 
         // Отправка уведомлений
-        notificationService.createGroupNotification(
-                NotificationType.USER_REMOVED,
-                targetMembership.getUser().getUsername() + " was removed from the group by " + requester.getUsername(),
-                group.getId(),
-                userId
-        );
+//        notificationService.createGroupNotification(
+//                NotificationType.USER_REMOVED,
+//                targetMembership.getUser().getUsername() + " was removed from the group by " + requester.getUsername(),
+//                group.getId(),
+//                userId
+//        );
     }
 
     @Override

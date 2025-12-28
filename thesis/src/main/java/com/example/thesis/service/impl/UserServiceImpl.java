@@ -43,7 +43,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User updateUser(UUID userId, UserUpdateRequest request) {
+        System.out.println("[USER] Updating user: " + userId);
+
         User user = getUserById(userId);
+
+        // СОХРАНЯЕМ исходные значения активации
+        boolean originalEnabled = user.isEnabled();
+        String originalActivationCode = user.getActivationCode();
+
+        System.out.println("[USER] Original enabled: " + originalEnabled + ", activationCode: " + originalActivationCode);
 
         if (request.getFirstName() != null) {
             user.setFirstName(request.getFirstName());
@@ -61,7 +69,14 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        return userRepository.save(user);
+        // ВАЖНО: Восстанавливаем исходные значения активации
+        user.setEnabled(originalEnabled);
+        user.setActivationCode(originalActivationCode); // Код активации не меняется
+
+        User savedUser = userRepository.save(user);
+        System.out.println("[USER] User updated successfully: " + savedUser.getUsername() + ", enabled: " + savedUser.isEnabled());
+
+        return savedUser;
     }
 
     @Override
@@ -79,14 +94,26 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void changePassword(UUID userId, String oldPassword, String newPassword) {
+        System.out.println("[USER] Changing password for user: " + userId);
+
         User user = getUserById(userId);
+
+        // СОХРАНЯЕМ исходные значения активации
+        boolean originalEnabled = user.isEnabled();
+        String originalActivationCode = user.getActivationCode();
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new RuntimeException("Old password is incorrect");
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
+
+        // ВАЖНО: Восстанавливаем исходные значения активации
+        user.setEnabled(originalEnabled);
+        user.setActivationCode(originalActivationCode); // Код активации не меняется
+
         userRepository.save(user);
+        System.out.println("[USER] Password changed successfully for user: " + user.getUsername());
     }
 
     @Override

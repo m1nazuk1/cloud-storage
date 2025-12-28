@@ -8,7 +8,7 @@ import {
     Users,
     FileText,
     MessageSquare,
-    Settings, Plus
+    Settings, Plus, Copy, Share2, X
 } from 'lucide-react';
 import { groupApi } from '../../api/group';
 import { fileApi } from '../../api/file';
@@ -16,25 +16,34 @@ import { useUploadFile, useDeleteFile } from '../../hooks/useFiles';
 import { formatFileSize, formatDate, getFileIcon } from '../../utils/format';
 import Card, { CardHeader, CardContent } from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import Modal from '../../components/ui/Modal';
+import { useToast } from '../../contexts/ToastContext';
 
 const GroupDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const { success, error } = useToast();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [showInviteModal, setShowInviteModal] = useState(false);
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
+    const [inviteLink, setInviteLink] = useState('');
+    const [groupName, setGroupName] = useState('');
+    const [groupDescription, setGroupDescription] = useState('');
 
-    const { data: group, isLoading: groupLoading, error: groupError } = useQuery({
+    const { data: group, isLoading: groupLoading, error: groupError, refetch: refetchGroup } = useQuery({
         queryKey: ['group', id],
         queryFn: () => groupApi.getGroup(id!),
         enabled: !!id,
     });
 
-    const { data: members = [] } = useQuery({
+    const { data: membersData = [], isLoading: membersLoading } = useQuery({
         queryKey: ['group', id, 'members'],
         queryFn: () => groupApi.getGroupMembers(id!),
         enabled: !!id,
     });
 
-    const { data: files = [], isLoading: filesLoading, refetch: refetchFiles } = useQuery({
+    const { data: filesData, isLoading: filesLoading, refetch: refetchFiles } = useQuery({
         queryKey: ['files', id],
         queryFn: () => fileApi.getGroupFiles(id!),
         enabled: !!id,
@@ -43,18 +52,37 @@ const GroupDetail: React.FC = () => {
     const uploadFileMutation = useUploadFile(id!);
     const deleteFileMutation = useDeleteFile();
 
+    // ФИКС: Преобразуем данные в массивы
+    const files = Array.isArray(filesData) ? filesData : [];
+    const members = Array.isArray(membersData) ? membersData : [];
+
     const handleFileUpload = async () => {
-        if (selectedFile) {
-            try {
-                await uploadFileMutation.mutateAsync(selectedFile);
-                setSelectedFile(null);
-                refetchFiles();
-            } catch (error) {
-                console.error('Upload failed:', error);
-            }
+        if (!selectedFile) return;
+
+        try {
+            // ВРЕМЕННО УБИРАЕМ ОТЛАДОЧНЫЙ КОД
+            /*
+            // Сначала проверяем статус пользователя
+            const statusResponse = await api.get('/api/debug/user-status');
+            console.log('User status before upload:', statusResponse.data);
+            */
+
+            await uploadFileMutation.mutateAsync(selectedFile);
+            setSelectedFile(null);
+            refetchFiles();
+
+            // ВРЕМЕННО УБИРАЕМ ОТЛАДОЧНЫЙ КОД
+            /*
+            // Проверяем статус после загрузки
+            const statusAfter = await api.get('/api/debug/user-status');
+            console.log('User status after upload:', statusAfter.data);
+            */
+
+        } catch (err: any) {
+            console.error('Upload failed:', err);
+            error(err.message || 'Failed to upload file');
         }
     };
-
     const handleDownload = async (fileId: string, fileName: string) => {
         try {
             const blob = await fileApi.downloadFile(fileId);
@@ -66,8 +94,9 @@ const GroupDetail: React.FC = () => {
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error('Download failed:', error);
+        } catch (err: any) {
+            console.error('Download failed:', err);
+            error(err.message || 'Failed to download file');
         }
     };
 
@@ -76,16 +105,67 @@ const GroupDetail: React.FC = () => {
             try {
                 await deleteFileMutation.mutateAsync(fileId);
                 refetchFiles();
-            } catch (error) {
-                console.error('Delete failed:', error);
+            } catch (err: any) {
+                console.error('Delete failed:', err);
+                error(err.message || 'Failed to delete file');
             }
         }
+    };
+
+    const handleGenerateInviteLink = async () => {
+        if (!id) return;
+
+        try {
+            const response = await groupApi.getInviteToken(id);
+            const token = response.token;
+            const link = `${window.location.origin}/join/${token}`;
+            setInviteLink(link);
+        } catch (err: any) {
+            console.error('Failed to generate invite token:', err);
+            error(err.message || 'Failed to generate invite link');
+        }
+    };
+
+    const handleCopyInviteLink = () => {
+        if (!inviteLink) return;
+
+        navigator.clipboard.writeText(inviteLink)
+            .then(() => success('Invite link copied to clipboard!'))
+            .catch(() => error('Failed to copy link'));
+    };
+
+    const handleOpenChat = () => {
+        if (!id) return;
+        navigate(`/chat/${id}`);
+    };
+
+    const handleSaveSettings = async () => {
+        if (!id) return;
+
+        try {
+            await groupApi.updateGroup(id, {
+                name: groupName,
+                description: groupDescription,
+                regenerateToken: false
+            });
+            refetchGroup();
+            setShowSettingsModal(false);
+            success('Group settings updated successfully');
+        } catch (err: any) {
+            console.error('Failed to update group:', err);
+            error(err.message || 'Failed to update group settings');
+        }
+    };
+
+    const handleInviteMembers = () => {
+        setShowInviteModal(true);
+        handleGenerateInviteLink();
     };
 
     if (groupLoading) {
         return (
             <div className="flex justify-center items-center h-64">
-                <div className="loading-spinner"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
             </div>
         );
     }
@@ -101,6 +181,14 @@ const GroupDetail: React.FC = () => {
         );
     }
 
+    if (groupLoading || membersLoading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
@@ -111,11 +199,19 @@ const GroupDetail: React.FC = () => {
                     )}
                 </div>
                 <div className="flex space-x-3">
-                    <Button variant="secondary" className="flex items-center">
+                    <Button
+                        variant="secondary"
+                        className="flex items-center"
+                        onClick={() => setShowSettingsModal(true)}
+                    >
                         <Settings className="mr-2 h-5 w-5" />
                         Settings
                     </Button>
-                    <Button variant="primary" className="flex items-center">
+                    <Button
+                        variant="primary"
+                        className="flex items-center"
+                        onClick={handleOpenChat}
+                    >
                         <MessageSquare className="mr-2 h-5 w-5" />
                         Open Chat
                     </Button>
@@ -161,7 +257,7 @@ const GroupDetail: React.FC = () => {
                         <CardContent>
                             {filesLoading ? (
                                 <div className="flex justify-center py-8">
-                                    <div className="loading-spinner"></div>
+                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
                                 </div>
                             ) : files.length === 0 ? (
                                 <div className="text-center py-12">
@@ -249,19 +345,30 @@ const GroupDetail: React.FC = () => {
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-3">
-                                {members.map((member) => (
-                                    <div key={member.id} className="flex items-center">
-                                        <div className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center">
-                                            <Users className="h-5 w-5 text-primary-600" />
+                                {members.length > 0 ? (
+                                    members.map((member) => (
+                                        <div key={member.id} className="flex items-center">
+                                            <div className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center">
+                                                <Users className="h-5 w-5 text-primary-600" />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm font-medium text-gray-900">{member.username}</p>
+                                                <p className="text-xs text-gray-500">{member.email}</p>
+                                            </div>
                                         </div>
-                                        <div className="ml-3">
-                                            <p className="text-sm font-medium text-gray-900">{member.username}</p>
-                                            <p className="text-xs text-gray-500">{member.email}</p>
-                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="text-center py-4">
+                                        <p className="text-sm text-gray-500">No members found</p>
                                     </div>
-                                ))}
+                                )}
                             </div>
-                            <Button variant="ghost" fullWidth className="mt-4">
+                            <Button
+                                variant="ghost"
+                                fullWidth
+                                className="mt-4"
+                                onClick={handleInviteMembers}
+                            >
                                 <Plus className="mr-2 h-5 w-5" />
                                 Invite Members
                             </Button>
@@ -295,6 +402,117 @@ const GroupDetail: React.FC = () => {
                     </Card>
                 </div>
             </div>
+
+            {/* Invite Members Modal */}
+            <Modal isOpen={showInviteModal} onClose={() => setShowInviteModal(false)}>
+                <div className="bg-white rounded-lg p-6 max-w-md w-full">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-lg font-semibold text-gray-900">Invite Members</h3>
+                        <button
+                            onClick={() => setShowInviteModal(false)}
+                            className="text-gray-400 hover:text-gray-600"
+                        >
+                            <X className="h-5 w-5" />
+                        </button>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div>
+                            <p className="text-sm text-gray-600 mb-2">
+                                Share this link with others to invite them to the group:
+                            </p>
+                            <div className="flex items-center space-x-2">
+                                <Input
+                                    readOnly
+                                    value={inviteLink || 'Generating link...'}
+                                    className="flex-1"
+                                />
+                                <Button
+                                    variant="secondary"
+                                    onClick={handleCopyInviteLink}
+                                    disabled={!inviteLink}
+                                    className="flex items-center"
+                                >
+                                    <Copy className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-end space-x-3">
+                            <Button
+                                variant="secondary"
+                                onClick={() => setShowInviteModal(false)}
+                            >
+                                Close
+                            </Button>
+                            <Button
+                                variant="primary"
+                                onClick={handleGenerateInviteLink}
+                                className="flex items-center"
+                            >
+                                <Share2 className="mr-2 h-4 w-4" />
+                                Regenerate Link
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+
+            {/* Settings Modal */}
+            <Modal isOpen={showSettingsModal} onClose={() => setShowSettingsModal(false)}>
+                <div className="bg-white rounded-lg p-6 max-w-md w-full">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-lg font-semibold text-gray-900">Group Settings</h3>
+                        <button
+                            onClick={() => setShowSettingsModal(false)}
+                            className="text-gray-400 hover:text-gray-600"
+                        >
+                            <X className="h-5 w-5" />
+                        </button>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Group Name
+                            </label>
+                            <Input
+                                value={groupName || group.name}
+                                onChange={(e) => setGroupName(e.target.value)}
+                                placeholder="Enter group name"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Description
+                            </label>
+                            <textarea
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
+                                value={groupDescription || group.description || ''}
+                                onChange={(e) => setGroupDescription(e.target.value)}
+                                rows={3}
+                                placeholder="Enter group description"
+                            />
+                        </div>
+
+                        <div className="flex justify-end space-x-3 pt-4">
+                            <Button
+                                variant="secondary"
+                                onClick={() => setShowSettingsModal(false)}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                variant="primary"
+                                onClick={handleSaveSettings}
+                            >
+                                Save Changes
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };

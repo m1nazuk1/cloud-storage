@@ -55,26 +55,30 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // ДОБАВЬТЕ ЭТУ АННОТАЦИЮ!
+    @JsonIgnore
     private Set<WorkGroup> createdGroups = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // И ЭТУ ТОЖЕ!
+    @JsonIgnore
     private Set<Membership> memberships = new HashSet<>();
 
     @OneToMany(mappedBy = "uploader", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<FileMetadata> uploadedFiles = new HashSet<>();
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<ChatMessage> sentMessages = new HashSet<>();
 
+    // ВРЕМЕННО КОММЕНТИРУЕМ, ЕСЛИ ЭТО ВЫЗЫВАЕТ ПРОБЛЕМЫ
+    /*
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Notification> notifications = new HashSet<>();
+    */
 
     @OneToMany(mappedBy = "changedBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<FileHistory> fileChanges = new HashSet<>();
-
-
 
     public User() {
         this.roles = new HashSet<>();
@@ -82,7 +86,7 @@ public class User {
         this.memberships = new HashSet<>();
         this.uploadedFiles = new HashSet<>();
         this.sentMessages = new HashSet<>();
-        this.notifications = new HashSet<>();
+        // this.notifications = new HashSet<>();
         this.fileChanges = new HashSet<>();
     }
 
@@ -214,13 +218,13 @@ public class User {
         this.sentMessages = sentMessages;
     }
 
-    public Set<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(Set<Notification> notifications) {
-        this.notifications = notifications;
-    }
+//    public Set<Notification> getNotifications() {
+//        return notifications;
+//    }
+//
+//    public void setNotifications(Set<Notification> notifications) {
+//        this.notifications = notifications;
+//    }
 
     public Set<FileHistory> getFileChanges() {
         return fileChanges;
