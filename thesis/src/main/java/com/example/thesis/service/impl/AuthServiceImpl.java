@@ -13,13 +13,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -199,6 +202,33 @@ public class AuthServiceImpl implements AuthService {
             System.err.println("[AUTH] Login error: " + e.getMessage());
             throw e;
         }
+    }
+
+    @Transactional
+    public void refreshUserInContext(String username) {
+        // Находим пользователя в БД
+        User refreshedUser = userRepository.findByUsername(username)
+                .or(() -> userRepository.findByEmail(username))
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Обновляем аутентификацию
+        List<GrantedAuthority> authorities = refreshedUser.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());
+
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                refreshedUser.getUsername(),
+                refreshedUser.getPassword(),
+                refreshedUser.isEnabled(),
+                true, true, true,
+                authorities
+        );
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 
     @Override

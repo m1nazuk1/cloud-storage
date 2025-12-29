@@ -41,17 +41,23 @@ public class GroupServiceImpl implements GroupService {
     public WorkGroup createGroup(GroupCreateRequest request, User creator) {
         System.out.println("[GROUP] Creating group: " + request.getName() + " by user: " + creator.getUsername());
 
+        // ПЕРЕЗАГРУЖАЕМ пользователя из базы данных
+        User freshCreator = userRepository.findById(creator.getId())
+                .orElseThrow(() -> new RuntimeException("User not found: " + creator.getId()));
+
+        System.out.println("[GROUP] Fresh user loaded: " + freshCreator.getUsername() + ", id: " + freshCreator.getId());
+
         WorkGroup group = new WorkGroup();
         group.setName(request.getName());
         group.setDescription(request.getDescription());
-        group.setCreator(creator);
+        group.setCreator(freshCreator); // Используем freshCreator
         group.setInviteToken(generateUniqueInviteToken());
 
         WorkGroup savedGroup = workGroupRepository.save(group);
         System.out.println("[GROUP] Group saved with ID: " + savedGroup.getId());
 
         // Создатель автоматически становится участником с ролью CREATOR
-        Membership membership = new Membership(creator, savedGroup, MembershipRole.CREATOR);
+        Membership membership = new Membership(freshCreator, savedGroup, MembershipRole.CREATOR);
         membershipRepository.save(membership);
         System.out.println("[GROUP] Membership created for creator");
 

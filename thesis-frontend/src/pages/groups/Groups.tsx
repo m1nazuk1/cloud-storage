@@ -33,12 +33,15 @@ const Groups: React.FC = () => {
             await createGroupMutation.mutateAsync(data);
             reset();
             setShowCreateModal(false);
+            // Принудительно обновляем данные через 500ms
+            setTimeout(() => {
+                forceRefresh();
+            }, 500);
         } catch (error) {
             console.error('Failed to create group:', error);
         }
     };
 
-    // ЗАЩИТА: Ждем загрузки
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -47,7 +50,6 @@ const Groups: React.FC = () => {
         );
     }
 
-    // ЗАЩИТА: Убеждаемся, что groups - массив
     if (!Array.isArray(groups)) {
         console.error('Groups is not an array:', groups);
         return (
@@ -72,6 +74,10 @@ const Groups: React.FC = () => {
         if (window.confirm('Are you sure you want to delete this group?')) {
             try {
                 await deleteGroupMutation.mutateAsync(groupId);
+                // Обновляем список после удаления
+                setTimeout(() => {
+                    forceRefresh();
+                }, 300);
             } catch (error) {
                 console.error('Failed to delete group:', error);
             }
@@ -81,7 +87,7 @@ const Groups: React.FC = () => {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Groups</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Groups ({groups.length})</h1>
                 <div className="flex space-x-3">
                     <Button
                         variant="secondary"
@@ -141,6 +147,9 @@ const Groups: React.FC = () => {
                                         {group.description && (
                                             <p className="text-gray-600 text-sm mt-1">{group.description}</p>
                                         )}
+                                        <p className="text-xs text-gray-400 mt-1">
+                                            Created by {group.creatorUsername}
+                                        </p>
                                     </div>
                                     <button className="text-gray-400 hover:text-gray-600">
                                         <MoreVertical className="h-5 w-5" />
@@ -149,9 +158,9 @@ const Groups: React.FC = () => {
 
                                 <div className="flex items-center text-sm text-gray-500 mb-4">
                                     <Users className="h-4 w-4 mr-1" />
-                                    <span className="mr-4">Members: {group.memberships?.length || 0}</span>
+                                    <span className="mr-4">Members: {group.memberCount || 0}</span>
                                     <FileText className="h-4 w-4 mr-1" />
-                                    <span>Files: {group.files?.length || 0}</span>
+                                    <span>Files: {group.fileCount || 0}</span>
                                 </div>
 
                                 <div className="flex space-x-2">
@@ -177,6 +186,7 @@ const Groups: React.FC = () => {
                 </div>
             )}
 
+            {/* Модалка создания группы */}
             {showCreateModal && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4 z-50">
                     <div className="bg-white rounded-lg max-w-md w-full p-6">
@@ -228,7 +238,7 @@ const Groups: React.FC = () => {
                                     loading={createGroupMutation.isPending}
                                     disabled={createGroupMutation.isPending}
                                 >
-                                    Create Group
+                                    {createGroupMutation.isPending ? 'Creating...' : 'Create Group'}
                                 </Button>
                             </div>
                         </form>

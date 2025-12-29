@@ -1,7 +1,11 @@
 package com.example.thesis.dto;
 
+import com.example.thesis.models.User;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class AuthResponse {
     private String token;
@@ -27,7 +31,27 @@ public class AuthResponse {
         this.roles = roles;
     }
 
-    // Getters and Setters
+
+    public AuthResponse(String token, String type, User user) {
+        this.token = token;
+        this.type = type;
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+
+        // Конвертируем Role в String
+        if (user.getRoles() != null) {
+            this.roles = user.getRoles().stream()
+                    .map(role -> role.name()) // или role.getName() если Role имеет поле name
+                    .collect(Collectors.toSet());
+        } else {
+            this.roles = new HashSet<>();
+        }
+    }
+
+        // Getters and Setters
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 

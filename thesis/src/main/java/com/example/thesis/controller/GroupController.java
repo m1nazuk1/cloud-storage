@@ -1,21 +1,22 @@
 package com.example.thesis.controller;
 
 import com.example.thesis.dto.GroupCreateRequest;
+import com.example.thesis.dto.GroupDTO;
 import com.example.thesis.dto.GroupUpdateRequest;
-import com.example.thesis.dto.SimpleGroupDTO;
+import com.example.thesis.dto.GroupWithStats;
+import com.example.thesis.models.FileMetadata;
 import com.example.thesis.models.User;
 import com.example.thesis.models.WorkGroup;
+import com.example.thesis.repository.UserRepository;
 import com.example.thesis.security.SecurityUtils;
 import com.example.thesis.service.GroupService;
+import com.example.thesis.service.impl.FileServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,41 +26,77 @@ public class GroupController {
 
     private final GroupService groupService;
     private final SecurityUtils securityUtils;
+    private final FileServiceImpl fileService;
+    private final UserRepository userRepository;
 
-    public GroupController(GroupService groupService, SecurityUtils securityUtils) {
+    public GroupController(GroupService groupService, SecurityUtils securityUtils, FileServiceImpl fileService, UserRepository userRepository) {
         this.groupService = groupService;
         this.securityUtils = securityUtils;
+        this.fileService = fileService;
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping("/profile")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<User> getCurrentUserProfile() {
+        User currentUser = securityUtils.getCurrentUser();
+        if (currentUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Перезагружаем пользователя с полной информацией
+        User refreshedUser = userRepository.findById(currentUser.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return ResponseEntity.ok(refreshedUser);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<WorkGroup> createGroup(@Valid @RequestBody GroupCreateRequest request) {
+    public ResponseEntity<GroupDTO> createGroup(@Valid @RequestBody GroupCreateRequest request) {
         System.out.println("[INFO] Creating group: " + request.getName());
 
         User currentUser = securityUtils.getCurrentUser();
         WorkGroup group = groupService.createGroup(request, currentUser);
 
+        // Конвертируем в DTO
+        GroupDTO groupDTO = GroupDTO.fromEntity(group);
+
         System.out.println("[INFO] Group created with ID: " + group.getId());
-        return ResponseEntity.ok(group);
+        return ResponseEntity.ok(groupDTO);
     }
 
     @GetMapping("/my")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<SimpleGroupDTO>> getMyGroups() {
+    public ResponseEntity<List<GroupWithStats>> getMyGroups() {
         User currentUser = securityUtils.getCurrentUser();
         System.out.println("[INFO] Getting groups for user: " + currentUser.getUsername());
 
         List<WorkGroup> groups = groupService.getUserGroups(currentUser.getId());
 
-        // Конвертируем в DTO с правильным подсчетом
-        List<SimpleGroupDTO> dtos = groups.stream()
-                .map(SimpleGroupDTO::fromEntity)
-                .collect(Collectors.toList());
+        // Конвертируем в DTO с правильной статистикой
+        List<GroupWithStats> dtos = new ArrayList<>();
+        for (WorkGroup group : groups) {
+            // Получаем реальное количество участников
+            int memberCount = group.getMemberships() != null ? group.getMemberships().size() : 0;
+
+            // Получаем реальное количество файлов (не удаленных)
+            int fileCount = 0;
+            if (group.getFiles() != null) {
+                fileCount = (int) group.getFiles().stream()
+                        .filter(f -> !f.isDeleted())
+                        .count();
+            }
+
+            dtos.add(GroupWithStats.fromEntity(group, memberCount, fileCount));
+        }
 
         System.out.println("[INFO] Found " + dtos.size() + " groups for user: " + currentUser.getUsername());
 
         return ResponseEntity.ok(dtos);
     }
+
+
 
     @PostMapping("/join")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -130,14 +167,21 @@ public class GroupController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<WorkGroup> getGroup(@PathVariable UUID id) {
+    public ResponseEntity<GroupDTO> getGroup(@PathVariable UUID id) {
         WorkGroup group = groupService.getGroupById(id);
+
         // Проверяем, является ли пользователь участником группы
         if (!groupService.isUserMember(id, securityUtils.getCurrentUserId())) {
             return ResponseEntity.status(403).build();
         }
-        return ResponseEntity.ok(group);
+
+        // Конвертируем в DTO с полной информацией
+        GroupDTO groupDTO = GroupDTO.fromEntity(group);
+
+        return ResponseEntity.ok(groupDTO);
     }
+
+
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -171,6 +215,8 @@ public class GroupController {
         groupService.joinGroup(token, currentUser);
         return ResponseEntity.ok(new AuthController.MessageResponse("Successfully joined group"));
     }
+
+
 
     @GetMapping("/{id}/members")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -221,18 +267,26 @@ public class GroupController {
 
     @GetMapping("/{id}/stats")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<GroupStats> getGroupStats(@PathVariable UUID id) {
+    public ResponseEntity<Map<String, Object>> getGroupStats(@PathVariable UUID id) {
         if (!groupService.isUserMember(id, securityUtils.getCurrentUserId())) {
             return ResponseEntity.status(403).build();
         }
 
         WorkGroup group = groupService.getGroupById(id);
+
+        // Получаем участников
         List<User> members = groupService.getGroupMembers(id);
 
-        GroupStats stats = new GroupStats();
-        stats.setMemberCount(members.size());
-        stats.setCreatedDate(group.getCreationDate());
-        stats.setCreator(group.getCreator().getUsername());
+        // Получаем файлы
+        List<FileMetadata> files = fileService.getGroupFiles(id);
+
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("id", group.getId());
+        stats.put("name", group.getName());
+        stats.put("memberCount", members.size());
+        stats.put("fileCount", files.size());
+        stats.put("creator", group.getCreator().getUsername());
+        stats.put("creationDate", group.getCreationDate());
 
         return ResponseEntity.ok(stats);
     }

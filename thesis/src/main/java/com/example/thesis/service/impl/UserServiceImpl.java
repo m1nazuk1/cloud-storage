@@ -1,5 +1,6 @@
 package com.example.thesis.service.impl;
 
+import com.example.thesis.models.enums.Role;
 import com.example.thesis.service.UserService;
 import com.example.thesis.models.User;
 import com.example.thesis.repository.UserRepository;
@@ -8,8 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -45,14 +45,20 @@ public class UserServiceImpl implements UserService {
     public User updateUser(UUID userId, UserUpdateRequest request) {
         System.out.println("[USER] Updating user: " + userId);
 
-        User user = getUserById(userId);
+        // ПЕРЕЗАГРУЖАЕМ пользователя из базы
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
-        // СОХРАНЯЕМ исходные значения активации
+        // СОХРАНЯЕМ ВСЕ КРИТИЧНЫЕ ПОЛЯ
         boolean originalEnabled = user.isEnabled();
         String originalActivationCode = user.getActivationCode();
+        String originalPassword = user.getPassword();
+        Set<Role> originalRoles = new HashSet<>(user.getRoles());
 
-        System.out.println("[USER] Original enabled: " + originalEnabled + ", activationCode: " + originalActivationCode);
+        System.out.println("[USER] Original state - enabled: " + originalEnabled +
+                ", activationCode: " + (originalActivationCode != null ? "exists" : "null"));
 
+        // Обновляем только разрешенные поля
         if (request.getFirstName() != null) {
             user.setFirstName(request.getFirstName());
         }
@@ -69,12 +75,17 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        // ВАЖНО: Восстанавливаем исходные значения активации
+        // ВОССТАНАВЛИВАЕМ КРИТИЧНЫЕ ПОЛЯ
         user.setEnabled(originalEnabled);
-        user.setActivationCode(originalActivationCode); // Код активации не меняется
+        user.setActivationCode(originalActivationCode);
+        user.setPassword(originalPassword);
+        user.setRoles(originalRoles);
 
         User savedUser = userRepository.save(user);
-        System.out.println("[USER] User updated successfully: " + savedUser.getUsername() + ", enabled: " + savedUser.isEnabled());
+
+        System.out.println("[USER] User updated: " + savedUser.getUsername() +
+                ", enabled: " + savedUser.isEnabled() +
+                ", activation: " + (savedUser.getActivationCode() != null ? "code exists" : "no code"));
 
         return savedUser;
     }

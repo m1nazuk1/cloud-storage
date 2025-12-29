@@ -30139,3 +30139,939 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: User no
 2025-12-29 03:18:11 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
 2025-12-29 03:18:11 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
 2025-12-29 03:18:11 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:45:53 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
+2025-12-29 03:56:19 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-29 03:56:19 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-29 03:56:19 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-12-29 03:56:19 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6fd46b61]]
+2025-12-29 03:56:19 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-12-29 03:56:19 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-29 03:56:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-29 03:56:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-29 03:56:33 [main] INFO  c.example.thesis.ThesisApplication - Starting ThesisApplication using Java 17.0.15 with PID 44544 (/Users/minazuki/Documents/cloud storage, diploma/thesis/target/classes started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2025-12-29 03:56:33 [main] DEBUG c.example.thesis.ThesisApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-29 03:56:33 [main] INFO  c.example.thesis.ThesisApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-29 03:56:34 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2025-12-29 03:56:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-29 03:56:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 8 JPA repository interfaces.
+2025-12-29 03:56:34 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-29 03:56:34 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-29 03:56:34 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-29 03:56:34 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 894 ms
+2025-12-29 03:56:34 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-29 03:56:34 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-29 03:56:34 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-29 03:56:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-29 03:56:34 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@45790cb
+2025-12-29 03:56:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-29 03:56:35 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-29 03:56:35 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-29 03:56:35 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uknt2d9lplksl1ww2ye4wuu9iit" of relation "chat_messages" does not exist, skipping
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk2cqf8xb6es3rcpbwmyabis4xw" of relation "file_metadata" does not exist, skipping
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukt5pentx4nnkugkq5nnwlohj8f" of relation "memberships" does not exist, skipping
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukr43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 03:56:35 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk5hapiy9yqibammh5acu8gedtt" of relation "work_groups" does not exist, skipping
+2025-12-29 03:56:35 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-29 03:56:35 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-29 03:56:36 [main] DEBUG c.e.t.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-29 03:56:36 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2025-12-29 03:56:36 [main] INFO  c.e.t.config.EmailConfigValidator - === Validating Email Configuration ===
+2025-12-29 03:56:36 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2025-12-29 03:56:36 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Using real email configuration: Cloud-Storage-Assistent@yandex.ru
+2025-12-29 03:56:36 [main] INFO  c.e.t.config.EmailConfigValidator - =====================================
+2025-12-29 03:56:36 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-29 03:56:37 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-29 03:56:37 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-12-29 03:56:37 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5845624]]
+2025-12-29 03:56:37 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-12-29 03:56:37 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-29 03:56:37 [main] INFO  c.example.thesis.ThesisApplication - Started ThesisApplication in 4.081 seconds (process running for 4.321)
+2025-12-29 03:57:15 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-29 03:57:15 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-29 03:57:15 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2025-12-29 03:57:17 [Async-Email-1] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=activation, to=alekperov-nizam@mail.ru, time=1850ms
+2025-12-29 03:57:37 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-12-29 03:57:42 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: alekperov-nizam@mail.ru
+2025-12-29 03:57:42 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User not found by username: alekperov-nizam@mail.ru, trying email
+2025-12-29 03:57:42 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:42 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:43 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:43 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:43 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:43 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:43 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:43 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:43 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:43 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:43 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:43 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:43 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:43 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:48 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:48 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:48 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:48 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:55 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:55 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:55 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:55 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:55 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:56 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:56 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:56 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:56 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:56 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:56 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:56 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:56 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:56 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:56 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:56 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:58 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:58 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:58 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:58 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:58 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:58 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:58 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:58 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:58 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:59 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:59 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:59 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:57:59 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:59 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:59 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:57:59 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:59 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:59 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:57:59 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:59 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:57:59 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:06 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:06 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:06 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:06 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:06 [http-nio-8080-exec-6] WARN  o.apache.catalina.connector.Request - Creating the temporary upload location [/private/var/folders/49/hfkxj06x5575bfv3_fw1n1840000gn/T/tomcat.8080.10621920027613731891/work/Tomcat/localhost/ROOT/./temp] as it is required by the servlet [dispatcherServlet]
+2025-12-29 03:58:06 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:06 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:06 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:06 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:06 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:06 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:06 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:06 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:07 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:07 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:07 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:07 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:07 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:07 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:07 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:07 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:39 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:39 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:39 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:39 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:46 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:46 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:46 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:46 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:58:51 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:58:51 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:58:51 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:58:51 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:04 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:04 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:04 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:04 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:04 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:04 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:04 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:04 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:04 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:04 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:04 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:04 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:09 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:09 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:09 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:09 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:09 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:09 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:09 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:09 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:09 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:09 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:09 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:11 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:11 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:11 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:11 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:12 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:12 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:12 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:12 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:12 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:12 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:12 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:12 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:12 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:12 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:12 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:12 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:18 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:18 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:18 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:18 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:19 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:19 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:19 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:19 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:21 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:21 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:21 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:21 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:21 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:21 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:21 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:21 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:21 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:21 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:21 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:24 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:24 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:24 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:24 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:25 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:25 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:25 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:25 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:25 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:25 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:25 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:25 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:25 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:25 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:25 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:25 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:31 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:31 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:31 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:31 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:31 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:31 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:31 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:31 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:31 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:31 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:31 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:31 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:33 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:33 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:33 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:33 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:33 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:33 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:33 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:33 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:33 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:33 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:33 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:47 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:47 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:47 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:47 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:48 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:48 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:48 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 03:59:48 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:48 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:48 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:48 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:48 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 03:59:48 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:48 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 03:59:48 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 03:59:48 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:00:15 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:00:15 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:00:15 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:00:15 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:02:38 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: alekperov-nizam@mail.ru
+2025-12-29 04:02:38 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User not found by username: alekperov-nizam@mail.ru, trying email
+2025-12-29 04:02:38 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:02:38 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:02:38 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:02:38 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:02:38 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:02:38 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:15:40 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-29 04:15:40 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-29 04:15:40 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2025-12-29 04:15:40 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5845624]]
+2025-12-29 04:15:40 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2025-12-29 04:15:40 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-29 04:15:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-29 04:15:41 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-29 04:29:48 [main] INFO  c.example.thesis.ThesisApplication - Starting ThesisApplication using Java 17.0.15 with PID 46404 (/Users/minazuki/Documents/cloud storage, diploma/thesis/target/classes started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2025-12-29 04:29:48 [main] DEBUG c.example.thesis.ThesisApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-29 04:29:48 [main] INFO  c.example.thesis.ThesisApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-29 04:29:49 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2025-12-29 04:29:49 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-29 04:29:49 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 8 JPA repository interfaces.
+2025-12-29 04:29:49 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-29 04:29:49 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-29 04:29:49 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-29 04:29:49 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 862 ms
+2025-12-29 04:29:49 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-29 04:29:50 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-29 04:29:50 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-29 04:29:50 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-29 04:29:50 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@50bb1c1f
+2025-12-29 04:29:50 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-29 04:29:50 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-29 04:29:50 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-29 04:29:51 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-29 04:29:51 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uknt2d9lplksl1ww2ye4wuu9iit" of relation "chat_messages" does not exist, skipping
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk2cqf8xb6es3rcpbwmyabis4xw" of relation "file_metadata" does not exist, skipping
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukt5pentx4nnkugkq5nnwlohj8f" of relation "memberships" does not exist, skipping
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukr43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2025-12-29 04:29:51 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk5hapiy9yqibammh5acu8gedtt" of relation "work_groups" does not exist, skipping
+2025-12-29 04:29:51 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-29 04:29:51 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-29 04:29:52 [main] DEBUG c.e.t.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-29 04:29:52 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2025-12-29 04:29:52 [main] INFO  c.e.t.config.EmailConfigValidator - === Validating Email Configuration ===
+2025-12-29 04:29:52 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2025-12-29 04:29:52 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Using real email configuration: Cloud-Storage-Assistent@yandex.ru
+2025-12-29 04:29:52 [main] INFO  c.e.t.config.EmailConfigValidator - =====================================
+2025-12-29 04:29:52 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-29 04:29:52 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-29 04:29:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2025-12-29 04:29:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7d4d32a7]]
+2025-12-29 04:29:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2025-12-29 04:29:53 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-29 04:29:53 [main] INFO  c.example.thesis.ThesisApplication - Started ThesisApplication in 4.684 seconds (process running for 5.081)
+2025-12-29 04:29:55 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-29 04:29:55 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-29 04:29:55 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2025-12-29 04:30:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:30:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User not found by username: m1nazuk1, trying email
+2025-12-29 04:30:22 [http-nio-8080-exec-8] ERROR c.e.t.s.CustomUserDetailsService - User not found with username or email: m1nazuk1
+2025-12-29 04:30:22 [http-nio-8080-exec-8] ERROR c.e.t.s.CustomUserDetailsService - All users in DB: 
+2025-12-29 04:30:22 [http-nio-8080-exec-8] ERROR c.e.t.s.JwtAuthenticationFilter - Could not set user authentication in security context
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found with username or email: m1nazuk1
+	at com.example.thesis.security.CustomUserDetailsService.lambda$loadUserByUsername$2(CustomUserDetailsService.java:46)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.example.thesis.security.CustomUserDetailsService.loadUserByUsername(CustomUserDetailsService.java:40)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at com.example.thesis.security.CustomUserDetailsService$$SpringCGLIB$$0.loadUserByUsername(<generated>)
+	at com.example.thesis.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:380)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-12-29 04:30:22 [http-nio-8080-exec-8] ERROR c.e.t.s.JwtAuthenticationEntryPoint - Unauthorized error: Full authentication is required to access this resource
+2025-12-29 04:30:49 [Async-Email-1] INFO  c.e.t.service.impl.EmailServiceImpl - ✅ Email sent successfully: type=activation, to=alekperov-nizam@mail.ru, time=2025ms
+2025-12-29 04:30:53 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2025-12-29 04:31:18 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: alekperov-nizam@mail.ru
+2025-12-29 04:31:18 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User not found by username: alekperov-nizam@mail.ru, trying email
+2025-12-29 04:31:18 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:31:18 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:31:18 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:31:18 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:31:18 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:31:18 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:31:18 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:31:18 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:31:18 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:31:18 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:31:18 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:31:18 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:31:18 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:31:18 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:31:23 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:31:23 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:31:23 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:31:23 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:09 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:09 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:09 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:09 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:09 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:09 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:09 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:09 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:10 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:10 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:10 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:10 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:10 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:10 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:10 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:10 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:10 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:10 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:10 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:13 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:13 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:13 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:13 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:13 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:13 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:13 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:13 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:13 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:15 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:15 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:15 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:15 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:15 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:15 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:15 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:15 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:15 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:15 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:15 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:15 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:18 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:18 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:18 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:18 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:19 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:19 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:19 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:19 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:20 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:20 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:20 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:20 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:20 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:20 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:20 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:20 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:29 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:29 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:29 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:29 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:29 [http-nio-8080-exec-5] WARN  o.apache.catalina.connector.Request - Creating the temporary upload location [/private/var/folders/49/hfkxj06x5575bfv3_fw1n1840000gn/T/tomcat.8080.8489343247045962582/work/Tomcat/localhost/ROOT/./temp] as it is required by the servlet [dispatcherServlet]
+2025-12-29 04:32:29 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:29 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:29 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:29 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:29 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:29 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:29 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:29 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:33 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:33 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:33 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:33 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:33 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:33 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:33 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:33 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:33 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:35 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:35 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:32:35 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:35 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:32:35 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:35 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:32:35 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:32:35 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:34:06 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:34:06 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:34:06 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:34:06 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:34:42 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:34:42 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:34:42 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:34:42 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:35:15 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:35:16 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:35:16 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:35:16 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:36:36 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:36:36 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:36:36 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:36:36 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:37:20 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:37:20 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:37:20 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:37:20 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:37:32 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:37:32 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:37:32 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:37:32 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:37:53 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:37:53 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:37:53 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:37:53 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:37:53 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:37:53 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:37:53 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:37:53 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:37:53 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:37:54 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:37:54 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:37:54 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:10 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:10 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:10 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:10 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:16 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:16 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:16 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:16 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:17 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:17 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:17 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:17 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:17 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:18 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:18 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:18 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:18 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:18 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:18 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:18 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:18 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:18 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:18 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:18 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:18 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:18 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:18 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:18 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:21 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:21 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:21 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:21 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:22 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:22 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:22 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:22 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:22 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:22 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:22 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:22 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:22 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:24 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:24 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:24 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:24 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:38 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: alekperov-nizam@mail.ru
+2025-12-29 04:38:38 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User not found by username: alekperov-nizam@mail.ru, trying email
+2025-12-29 04:38:38 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:38 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:38 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:38 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:38:38 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:38 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:38 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:38:38 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:38:38 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:38:38 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:28 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:29 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:29 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:29 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:30 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:30 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:30 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:30 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:33 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:33 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:33 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:33 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:49 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: alekperov-nizam@mail.ru
+2025-12-29 04:39:49 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User not found by username: alekperov-nizam@mail.ru, trying email
+2025-12-29 04:39:49 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:49 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:52 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:52 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:52 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:52 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:53 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:53 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:53 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:53 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:53 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:53 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:53 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:53 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:53 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:53 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:53 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:53 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:59 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:59 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:59 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:59 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:59 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:59 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:39:59 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:59 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:59 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:39:59 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:39:59 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:39:59 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:38 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:38 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:38 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:38 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:38 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:38 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:38 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:39 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:39 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:39 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:39 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:39 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:40 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:40 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:40 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:40 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:40 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:40 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:40 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:40 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:40 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:41 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:41 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:41 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:41 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:41 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:41 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:41 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:41 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:41 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:41 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:41 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:41 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:44 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:44 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:44 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:44 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:55 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: alekperov-nizam@mail.ru
+2025-12-29 04:40:55 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User not found by username: alekperov-nizam@mail.ru, trying email
+2025-12-29 04:40:55 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:55 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:56 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:56 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:56 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:56 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:40:56 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:40:56 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:40:56 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:40:56 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:04 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:04 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:04 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:04 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:04 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:04 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:04 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:04 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:04 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:04 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:04 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:04 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:08 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:08 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:08 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:08 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:08 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:08 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:08 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:08 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:08 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:08 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:08 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:11 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:11 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:11 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:11 [http-nio-8080-exec-10] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:12 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:12 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:12 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:12 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:12 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:12 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:12 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:12 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:12 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:12 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:12 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:12 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:17 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:17 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:17 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:17 [http-nio-8080-exec-1] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:17 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:17 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:17 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:17 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:17 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:17 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:17 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:17 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:21 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:21 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:21 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:21 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:22 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:22 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:23 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:23 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:23 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:23 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:23 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:23 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:23 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:23 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:23 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:23 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-6] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-7] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:23 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:35 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:35 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:35 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:35 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:37 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:37 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:37 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:37 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:37 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:37 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:37 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:37 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:37 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:37 [http-nio-8080-exec-5] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:37 [http-nio-8080-exec-8] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:37 [http-nio-8080-exec-3] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:48 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:48 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:48 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:48 [http-nio-8080-exec-9] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:48 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:48 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:48 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:48 [http-nio-8080-exec-2] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1
+2025-12-29 04:41:52 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user by username or email: m1nazuk1
+2025-12-29 04:41:52 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - User found: m1nazuk1, enabled: true, roles: [ROLE_USER]
+2025-12-29 04:41:52 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Granting authority: ROLE_USER
+2025-12-29 04:41:52 [http-nio-8080-exec-4] INFO  c.e.t.s.JwtAuthenticationFilter - JWT Authentication successful for user: m1nazuk1

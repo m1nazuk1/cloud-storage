@@ -1,0 +1,27 @@
+thesis-frontend/
+├── public/
+│   └── index.html
+├── src/
+│   ├── api/                  # API клиенты
+│   ├── components/           # Переиспользуемые компоненты
+│   │   ├── ui/              # Базовые UI компоненты
+│   │   ├── layout/          # Компоненты макета
+│   │   └── features/        # Функциональные компоненты
+│   ├── contexts/            # React Context
+│   ├── hooks/               # Кастомные хуки
+│   ├── pages/               # Страницы приложения
+│   ├── routes/              # Маршрутизация
+│   ├── stores/              # Zustand store (опционально)
+│   ├── types/               # TypeScript типы
+│   ├── utils/               # Вспомогательные функции
+│   ├── styles/              # Глобальные стили
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── tailwind.config.js
+├── postcss.config.js
+└── README.md

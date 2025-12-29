@@ -56,7 +56,7 @@ const Login: React.FC = () => {
             setApiError(errorMessage);
 
             // Или показываем toast (раскомментируйте если нужно)
-            // toast.error(errorMessage);
+            toast.error(errorMessage);
         }
     };
 

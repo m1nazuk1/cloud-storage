@@ -32,16 +32,34 @@ export interface RegisterRequest {
     firstName?: string;
     lastName?: string;
 }
-
 export interface WorkGroup {
     id: string;
     name: string;
     description?: string;
-    inviteToken?: string;
     creationDate: string;
-    creator: User;
-    memberships?: Membership[];
-    files?: FileMetadata[];
+    creatorUsername: string;
+    memberCount: number; // Добавляем
+    fileCount: number;   // Добавляем
+}
+
+export interface GroupDetail {
+    id: string;
+    name: string;
+    description?: string;
+    creationDate: string;
+    creatorUsername: string; // Должно быть так
+    inviteToken?: string;
+    memberCount?: number;
+    fileCount?: number;
+}
+
+export interface GroupStats {
+    id: string;
+    name: string;
+    memberCount: number;
+    fileCount: number;
+    creator: string;
+    creationDate: string;
 }
 
 export interface Membership {

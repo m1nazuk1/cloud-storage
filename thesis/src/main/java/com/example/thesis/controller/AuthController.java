@@ -3,6 +3,7 @@ package com.example.thesis.controller;
 import com.example.thesis.dto.LoginRequest;
 import com.example.thesis.dto.RegisterRequest;
 import com.example.thesis.dto.AuthResponse;
+import com.example.thesis.models.User;
 import com.example.thesis.repository.UserRepository;
 import com.example.thesis.security.JwtTokenProvider;
 import com.example.thesis.service.AuthService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,16 +33,18 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
     private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
     @Autowired
     private JavaMailSender mailSender;
 
     public AuthController(AuthService authService,
                           AuthenticationManager authenticationManager,
-                          JwtTokenProvider tokenProvider, UserRepository userRepository) {
+                          JwtTokenProvider tokenProvider, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
         this.userRepository = userRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @PostMapping("/register")
@@ -53,6 +57,27 @@ public class AuthController {
                     .badRequest()
                     .body(new ErrorResponse(e.getMessage()));
         }
+    }
+
+    @PostMapping("/refresh-user")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<AuthResponse> refreshCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).build();
+        }
+
+        // Находим пользователя по username из контекста
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .or(() -> userRepository.findByEmail(username))
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Генерируем новый токен
+        String jwt = jwtTokenProvider.generateToken(authentication);
+
+        return ResponseEntity.ok(new AuthResponse(jwt, "Bearer", user));
     }
 
     @PostMapping("/test-smtp")
@@ -91,6 +116,8 @@ public class AuthController {
                     .body(new ErrorResponse(e.getMessage()));
         }
     }
+
+
 
     @GetMapping("/activate/{code}")
     public ResponseEntity<?> activateAccount(@PathVariable String code, HttpServletResponse response) {

@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { groupApi } from '../api/group';
 import { useToast } from '../contexts/ToastContext';
 import { WorkGroup } from '../types';
-import React from "react";
+import {useAuth} from "../contexts/AuthContext";
 
 export const useGroups = () => {
     const toast = useToast();
@@ -12,39 +12,37 @@ export const useGroups = () => {
         queryKey: ['groups'],
         queryFn: async (): Promise<WorkGroup[]> => {
             try {
-                // Явно указываем тип ответа
-                const response: any = await groupApi.getMyGroups();
-                console.log('Groups API Response:', response);
+                const response = await groupApi.getMyGroups();
 
-                // Убедимся, что возвращаем массив
                 if (Array.isArray(response)) {
                     return response;
                 }
 
-                // Если response - это объект с данными
-                if (response && response.data && Array.isArray(response.data)) {
-                    return response.data;
-                }
-
-                // Если response - это строка или что-то еще
                 console.error('Unexpected response format:', response);
                 return [];
             } catch (err: any) {
                 console.error('Error loading groups:', err);
-                toast.error(err.response?.data?.message || 'Failed to load groups');
+
+                if (err.response?.status === 401) {
+                    toast.error('Session expired. Please login again.');
+                } else {
+                    toast.error('Failed to load groups');
+                }
+
                 return [];
             }
         },
-        staleTime: 5 * 60 * 1000, // 5 минут
-        gcTime: 10 * 60 * 1000, // 10 минут
-        refetchOnWindowFocus: true,
+        staleTime: 1 * 60 * 1000, // 1 минута
+        gcTime: 5 * 60 * 1000, // 5 минут
+        refetchOnWindowFocus: false, // Отключаем авто-обновление при фокусе
         refetchOnMount: true,
     });
 
-    // Функция для принудительного обновления
-    const forceRefresh = React.useCallback(() => {
+    const forceRefresh = () => {
         queryClient.invalidateQueries({ queryKey: ['groups'] });
-    }, [queryClient]);
+        queryClient.invalidateQueries({ queryKey: ['user-stats'] });
+        refetch();
+    };
 
     const groups = Array.isArray(data) ? data : [];
 
@@ -60,24 +58,25 @@ export const useGroups = () => {
 export const useCreateGroup = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
+    const { refreshUserData } = useAuth(); // Добавляем refreshUserData
 
     return useMutation({
         mutationFn: groupApi.createGroup,
-        onSuccess: (newGroup) => {
+        onSuccess: async (newGroup) => {
             // Обновляем кэш
             queryClient.setQueryData(['groups'], (old: WorkGroup[] | undefined) =>
                 old ? [...old, newGroup] : [newGroup]
             );
 
+            // ОБНОВЛЯЕМ данные пользователя
+            await refreshUserData();
+
             toast.success('Group created successfully');
 
-            // Перезагружаем страницу через 1 секунду
+            // Перезагружаем страницу через 500ms
             setTimeout(() => {
                 window.location.reload();
             }, 500);
-
-            // ИЛИ перенаправляем на страницу группы
-            // navigate(`/groups/${newGroup.id}`);
         },
         onError: (error: any) => {
             const message = error.response?.data?.message || 'Failed to create group';

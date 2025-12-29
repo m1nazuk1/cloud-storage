@@ -1,5 +1,5 @@
 import api from './axios';
-import { WorkGroup, GroupCreateRequest, GroupUpdateRequest, User } from '../types';
+import {WorkGroup, GroupUpdateRequest, User, GroupDetail, GroupStats} from '../types';
 
 export interface GroupWithStats extends WorkGroup {
     memberCount: number;
@@ -7,7 +7,7 @@ export interface GroupWithStats extends WorkGroup {
 }
 
 export const groupApi = {
-    createGroup: async (data: GroupCreateRequest): Promise<WorkGroup> => {
+    createGroup: async (data: { name: string; description?: string }): Promise<WorkGroup> => {
         const response = await api.post<WorkGroup>('/group', data);
         return response.data;
     },
@@ -17,8 +17,13 @@ export const groupApi = {
         return response.data;
     },
 
-    getGroup: async (id: string): Promise<WorkGroup> => {
-        const response = await api.get<WorkGroup>(`/group/${id}`);
+    getGroup: async (id: string): Promise<GroupDetail> => {
+        const response = await api.get<GroupDetail>(`/group/${id}`);
+        return response.data;
+    },
+
+    getGroupStats: async (groupId: string): Promise<GroupStats> => {
+        const response = await api.get<GroupStats>(`/group/${groupId}/stats`);
         return response.data;
     },
 

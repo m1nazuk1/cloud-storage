@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User, Mail, Calendar, Shield, Key, CheckCircle, AlertCircle } from 'lucide-react';
+import { User, Mail, Calendar, Shield, Key, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { userUpdateSchema, passwordChangeSchema } from '../../utils/validation';
 import Card, { CardHeader, CardContent } from '../../components/ui/Card';
@@ -9,6 +9,7 @@ import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import { z } from "zod";
 import { userApi } from '../../api/user';
+import toast from "react-hot-toast";
 
 type ProfileFormData = {
     firstName?: string;
@@ -43,6 +44,15 @@ const Profile: React.FC = () => {
     const profileForm = useForm<ProfileFormData>({
         resolver: zodResolver(userUpdateSchema),
     });
+
+    const handleRefreshProfile = async () => {
+        try {
+            await refreshUserData();
+            toast.success('Profile data refreshed!');
+        } catch (error) {
+            console.error('Failed to refresh profile:', error);
+        }
+    };
 
     const passwordForm = useForm<PasswordFormData>({
         resolver: zodResolver(passwordChangeSchema.extend({
@@ -284,8 +294,18 @@ const Profile: React.FC = () => {
     }
 
     return (
+
         <div className="space-y-6">
             <h1 className="text-2xl font-bold text-gray-900">Profile Settings</h1>
+            <Button
+                variant="secondary"
+                onClick={handleRefreshProfile}
+                className="flex items-center"
+                title="Refresh profile data"
+            >
+                <RefreshCw className="mr-2 h-5 w-5" />
+                Refresh Profile
+            </Button>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Sidebar */}

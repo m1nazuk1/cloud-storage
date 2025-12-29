@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -35,20 +36,38 @@ public class SecurityUtils {
         return null;
     }
 
+    @Transactional(readOnly = true)
     public User getCurrentUser() {
-        String username = getCurrentUsername();
-        if (username == null) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() ||
+                authentication.getPrincipal() instanceof String) {
             return null;
         }
-        return userRepository.findByUsername(username)
-                .or(() -> userRepository.findByEmail(username))
-                .orElse(null);
+
+        try {
+            // Получаем username из SecurityContext
+            String username = authentication.getName();
+
+            // ПЕРЕЗАГРУЖАЕМ пользователя из базы данных
+            return userRepository.findByUsername(username)
+                    .or(() -> userRepository.findByEmail(username))
+                    .orElseThrow(() -> new RuntimeException("User not found: " + username));
+
+        } catch (Exception e) {
+            System.err.println("[SECURITY] Error getting current user: " + e.getMessage());
+            return null;
+        }
     }
 
+    /**
+     * Получает ID текущего пользователя
+     */
     public UUID getCurrentUserId() {
         User user = getCurrentUser();
         return user != null ? user.getId() : null;
     }
+
 
     public boolean isCurrentUser(UUID userId) {
         User currentUser = getCurrentUser();

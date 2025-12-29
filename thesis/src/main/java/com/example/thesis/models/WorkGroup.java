@@ -151,6 +151,19 @@ public class WorkGroup {
         return files.size();
     }
 
+    @Transient
+    public int getActiveMemberCount() {
+        return this.memberships != null ? this.memberships.size() : 0;
+    }
+
+    @Transient
+    public int getActiveFileCount() {
+        if (this.files == null) return 0;
+        return (int) this.files.stream()
+                .filter(f -> !f.isDeleted())
+                .count();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

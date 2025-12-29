@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '../types';
+import {AuthResponse, User} from '../types';
 import { userApi } from '../api/user';
 import { authApi } from '../api/auth';
 import { useToast } from './ToastContext';
@@ -29,19 +29,25 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [user, setUser] = useState<User | null>(() => {
+        const savedUser = localStorage.getItem('user');
+        return savedUser ? JSON.parse(savedUser) : null;
+    });
+    const [isLoading, setIsLoading] = useState(false);
     const toast = useToast();
 
+    // Метод для обновления данных пользователя
     const refreshUserData = async () => {
         try {
-            const userData = await userApi.getProfile();
-            setUser(userData);
-            localStorage.setItem('user', JSON.stringify(userData));
+            const response = await userApi.getProfile();
+            localStorage.setItem('user', JSON.stringify(response));
+            setUser(response);
         } catch (error) {
             console.error('Failed to refresh user data:', error);
         }
     };
+
+
 
     useEffect(() => {
         const initAuth = async () => {
@@ -60,15 +66,55 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         initAuth();
     }, []);
 
-    const login = async (email: string, password: string) => {
+    const authResponseToUser = (authResponse: AuthResponse): User => {
+        return {
+            id: authResponse.id,
+            email: authResponse.email,
+            username: authResponse.username,
+            firstName: authResponse.firstName || '',
+            lastName: authResponse.lastName || '',
+            enabled: true, // По умолчанию true после успешного логина
+            registrationDate: new Date().toISOString(), // Или возьмите из response если есть
+            roles: authResponse.roles || ['ROLE_USER']
+        };
+    };
+
+    const login = async (emailOrUsername: string, password: string) => {
+        setIsLoading(true);
         try {
-            // Убираем присваивание неиспользуемой переменной response
-            await authApi.login({ emailOrUsername: email, password });
-            await refreshUserData();
-            toast.success('Logged in successfully!');
+            // Используем LoginRequest объект
+            const response: AuthResponse = await authApi.login({
+                emailOrUsername,
+                password
+            });
+
+            // Сохраняем токен
+            localStorage.setItem('access_token', response.token);
+
+            // Конвертируем AuthResponse в User
+            const userData = authResponseToUser(response);
+
+            // Сохраняем пользователя
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData));
+
+            toast.success('Login successful!');
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Login failed');
-            throw error;
+            console.error('Login error:', error);
+
+            let message = 'Login failed';
+            if (error.response?.status === 401) {
+                message = 'Invalid username or password';
+            } else if (error.response?.status === 403) {
+                message = 'Account not activated. Check your email';
+            } else if (error.response?.data?.message) {
+                message = error.response.data.message;
+            }
+
+            toast.error(message);
+            throw new Error(message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -96,15 +142,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const updateUser = async (data: Partial<User>): Promise<User> => {
+        setIsLoading(true);
         try {
             const updatedUser = await userApi.updateProfile(data);
-            setUser(updatedUser);
-            localStorage.setItem('user', JSON.stringify(updatedUser));
+
+            // Обновляем данные в localStorage
+            const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+            const mergedUser = { ...currentUser, ...updatedUser };
+
+            localStorage.setItem('user', JSON.stringify(mergedUser));
+            setUser(mergedUser);
+
             toast.success('Profile updated successfully!');
-            return updatedUser; // Возвращаем обновленного пользователя
+            return mergedUser;
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Failed to update profile');
+            console.error('Update error:', error);
             throw error;
+        } finally {
+            setIsLoading(false);
         }
     };
 
