@@ -1,5 +1,8 @@
 package com.example.thesis.controller;
 
+import com.example.thesis.models.Membership;
+import com.example.thesis.models.User;
+import com.example.thesis.models.WorkGroup;
 import com.example.thesis.security.SecurityUtils;
 import com.example.thesis.service.GroupService;
 import com.example.thesis.service.FileService;
@@ -7,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/stats")
@@ -29,29 +30,37 @@ public class StatsController {
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> getUserStats() {
-        var currentUser = securityUtils.getCurrentUser();
+        User currentUser = securityUtils.getCurrentUser();
         UUID userId = currentUser.getId();
 
-        // Получаем группы пользователя
-        var groups = groupService.getUserGroups(userId);
+        List<WorkGroup> groups = groupService.getUserGroups(userId);
 
-        // Рассчитываем общее количество участников во всех группах
-        int totalMembers = 0;
+        // Правильный подсчет УНИКАЛЬНЫХ участников
+        Set<UUID> uniqueMembers = new HashSet<>();
         int totalFiles = 0;
 
-        for (var group : groups) {
-            // Получаем участников для каждой группы
-            var members = groupService.getGroupMembers(group.getId());
-            totalMembers += members.size();
+        for (WorkGroup group : groups) {
+            // Добавляем создателя группы
+            uniqueMembers.add(group.getCreator().getId());
 
-            // Получаем файлы для каждой группы
-            var files = fileService.getGroupFiles(group.getId());
-            totalFiles += files.size();
+            // Добавляем всех участников из memberships
+            if (group.getMemberships() != null) {
+                for (Membership membership : group.getMemberships()) {
+                    uniqueMembers.add(membership.getUser().getId());
+                }
+            }
+
+            // Подсчитываем файлы
+            if (group.getFiles() != null) {
+                totalFiles += group.getFiles().stream()
+                        .filter(f -> !f.isDeleted())
+                        .count();
+            }
         }
 
         Map<String, Object> stats = new HashMap<>();
         stats.put("totalGroups", groups.size());
-        stats.put("totalMembers", totalMembers);
+        stats.put("totalMembers", uniqueMembers.size()); // Уникальные пользователи
         stats.put("totalFiles", totalFiles);
         stats.put("totalStorageUsed", fileService.getUserStorageUsed(userId));
 

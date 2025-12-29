@@ -51,7 +51,7 @@ public class GroupController {
 
         List<WorkGroup> groups = groupService.getUserGroups(currentUser.getId());
 
-        // Конвертируем в DTO
+        // Конвертируем в DTO с правильным подсчетом
         List<SimpleGroupDTO> dtos = groups.stream()
                 .map(SimpleGroupDTO::fromEntity)
                 .collect(Collectors.toList());
@@ -59,6 +59,24 @@ public class GroupController {
         System.out.println("[INFO] Found " + dtos.size() + " groups for user: " + currentUser.getUsername());
 
         return ResponseEntity.ok(dtos);
+    }
+
+    @PostMapping("/join")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> joinGroupByToken(@RequestBody Map<String, String> request) {
+        User currentUser = securityUtils.getCurrentUser();
+        String token = request.get("token");
+
+        if (token == null || token.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Token is required");
+        }
+
+        try {
+            groupService.joinGroup(token, currentUser);
+            return ResponseEntity.ok(new AuthController.MessageResponse("Successfully joined group"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}/full")

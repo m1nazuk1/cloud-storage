@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Cloud, LogIn, Mail, Lock } from 'lucide-react';
 import { loginSchema } from '../../utils/validation';
 import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext'; // Добавляем
 import Button from '../../components/ui/Button';
 import Captcha from '../../components/ui/Captcha';
 
@@ -16,8 +17,10 @@ type LoginFormData = {
 const Login: React.FC = () => {
     const navigate = useNavigate();
     const { login, isLoading } = useAuth();
+    const toast = useToast(); // Используем toast
     const [captchaVerified, setCaptchaVerified] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [apiError, setApiError] = useState<string>(''); // Для ошибок с сервера
 
     const {
         register,
@@ -30,15 +33,30 @@ const Login: React.FC = () => {
 
     const onSubmit = async (data: LoginFormData) => {
         if (!captchaVerified) {
-            alert('Please complete the security verification');
+            toast.error('Please complete the security verification');
             return;
         }
+
+        setApiError(''); // Сбрасываем предыдущую ошибку
 
         try {
             await login(data.emailOrUsername, data.password);
             navigate('/dashboard');
-        } catch (error) {
-            // Error is handled by interceptor
+        } catch (error: any) {
+            // Получаем понятное сообщение об ошибке
+            let errorMessage = 'Login failed';
+
+            if (error.response?.data?.message) {
+                errorMessage = error.response.data.message;
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+
+            // Показываем ошибку под формой
+            setApiError(errorMessage);
+
+            // Или показываем toast (раскомментируйте если нужно)
+            // toast.error(errorMessage);
         }
     };
 
@@ -59,8 +77,6 @@ const Login: React.FC = () => {
                         Sign in to your CloudSync account
                     </p>
                 </div>
-
-
 
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 p-8">
                     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -118,6 +134,15 @@ const Login: React.FC = () => {
                                 )}
                             </div>
                         </div>
+
+                        {/* Отображение ошибки API */}
+                        {apiError && (
+                            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                                <p className="text-sm text-red-600 text-center">
+                                    ⚠️ {apiError}
+                                </p>
+                            </div>
+                        )}
 
                         {/* Капча */}
                         <Captcha onVerify={setCaptchaVerified} />

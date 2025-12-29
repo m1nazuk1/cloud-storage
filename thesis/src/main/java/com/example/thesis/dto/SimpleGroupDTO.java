@@ -84,14 +84,20 @@ public class SimpleGroupDTO {
     }
 
     public static SimpleGroupDTO fromEntity(WorkGroup group) {
-        return new SimpleGroupDTO(
-                group.getId(),
-                group.getName(),
-                group.getDescription(),
-                group.getCreationDate(),
-                group.getCreator().getUsername(),
-                group.getFiles().size(),
-                group.getMemberships().size()
-        );
+        SimpleGroupDTO dto = new SimpleGroupDTO();
+        dto.setId(group.getId());
+        dto.setName(group.getName());
+        dto.setDescription(group.getDescription());
+        dto.setCreationDate(group.getCreationDate());
+        dto.setCreatorUsername(group.getCreator().getUsername());
+
+        // Считаем правильно
+        dto.setMemberCount(group.getMemberships() != null ? group.getMemberships().size() : 0);
+        dto.setFileCount(group.getFiles() != null ?
+                (int) group.getFiles().stream()
+                        .filter(f -> !f.isDeleted())
+                        .count() : 0);
+
+        return dto;
     }
 }

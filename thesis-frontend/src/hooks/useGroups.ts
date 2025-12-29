@@ -64,13 +64,24 @@ export const useCreateGroup = () => {
     return useMutation({
         mutationFn: groupApi.createGroup,
         onSuccess: (newGroup) => {
+            // Обновляем кэш
             queryClient.setQueryData(['groups'], (old: WorkGroup[] | undefined) =>
                 old ? [...old, newGroup] : [newGroup]
             );
+
             toast.success('Group created successfully');
+
+            // Перезагружаем страницу через 1 секунду
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+
+            // ИЛИ перенаправляем на страницу группы
+            // navigate(`/groups/${newGroup.id}`);
         },
         onError: (error: any) => {
-            toast.error(error.response?.data?.message || 'Failed to create group');
+            const message = error.response?.data?.message || 'Failed to create group';
+            toast.error(message);
         },
     });
 };

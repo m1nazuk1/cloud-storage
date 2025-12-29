@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, Search, Users, FileText, MoreVertical, Folder } from 'lucide-react';
+import { Plus, Search, Users, FileText, MoreVertical, Folder, RefreshCw } from 'lucide-react';
 import { useGroups, useCreateGroup, useDeleteGroup } from '../../hooks/useGroups';
 import { groupCreateSchema } from '../../utils/validation';
 import { WorkGroup } from '../../types';
@@ -18,7 +18,7 @@ type GroupFormData = {
 const Groups: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const { groups, isLoading } = useGroups();
+    const { groups, isLoading, forceRefresh } = useGroups();
     const createGroupMutation = useCreateGroup();
     const deleteGroupMutation = useDeleteGroup();
     const navigate = useNavigate();
@@ -82,14 +82,25 @@ const Groups: React.FC = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-gray-900">Groups</h1>
-                <Button
-                    variant="primary"
-                    onClick={() => setShowCreateModal(true)}
-                    className="flex items-center"
-                >
-                    <Plus className="mr-2 h-5 w-5" />
-                    Create Group
-                </Button>
+                <div className="flex space-x-3">
+                    <Button
+                        variant="secondary"
+                        onClick={forceRefresh}
+                        className="flex items-center"
+                        title="Refresh groups"
+                    >
+                        <RefreshCw className="mr-2 h-5 w-5" />
+                        Refresh
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => setShowCreateModal(true)}
+                        className="flex items-center"
+                    >
+                        <Plus className="mr-2 h-5 w-5" />
+                        Create Group
+                    </Button>
+                </div>
             </div>
 
             <div className="relative max-w-md">
