@@ -28,6 +28,9 @@ public interface MembershipRepository extends JpaRepository<Membership, UUID> {
 
     List<Membership> findByGroupId(UUID groupId);
 
+    @Query("SELECT m FROM Membership m JOIN FETCH m.user WHERE m.group.id = :groupId")
+    List<Membership> findByGroupIdWithUsers(@Param("groupId") UUID groupId);
+
     List<Membership> findByUserId(UUID userId);
 
     List<Membership> findByGroupAndRole(WorkGroup group, MembershipRole role);

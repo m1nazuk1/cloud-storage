@@ -2,12 +2,13 @@ package com.example.thesis.controller;
 
 import com.example.thesis.dto.GroupCreateRequest;
 import com.example.thesis.dto.GroupDTO;
+import com.example.thesis.dto.GroupMembershipPrefsRequest;
 import com.example.thesis.dto.GroupUpdateRequest;
 import com.example.thesis.dto.GroupWithStats;
+import com.example.thesis.repository.MembershipRepository;
 import com.example.thesis.models.FileMetadata;
 import com.example.thesis.models.User;
 import com.example.thesis.models.WorkGroup;
-import com.example.thesis.repository.UserRepository;
 import com.example.thesis.security.SecurityUtils;
 import com.example.thesis.service.GroupService;
 import com.example.thesis.service.impl.FileServiceImpl;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 
 @RestController
 @RequestMapping("/api/group")
@@ -27,28 +29,14 @@ public class GroupController {
     private final GroupService groupService;
     private final SecurityUtils securityUtils;
     private final FileServiceImpl fileService;
-    private final UserRepository userRepository;
+    private final MembershipRepository membershipRepository;
 
-    public GroupController(GroupService groupService, SecurityUtils securityUtils, FileServiceImpl fileService, UserRepository userRepository) {
+    public GroupController(GroupService groupService, SecurityUtils securityUtils, FileServiceImpl fileService,
+                           MembershipRepository membershipRepository) {
         this.groupService = groupService;
         this.securityUtils = securityUtils;
         this.fileService = fileService;
-        this.userRepository = userRepository;
-    }
-
-    @GetMapping("/profile")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<User> getCurrentUserProfile() {
-        User currentUser = securityUtils.getCurrentUser();
-        if (currentUser == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        // Перезагружаем пользователя с полной информацией
-        User refreshedUser = userRepository.findById(currentUser.getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return ResponseEntity.ok(refreshedUser);
+        this.membershipRepository = membershipRepository;
     }
 
     @PostMapping
@@ -88,12 +76,28 @@ public class GroupController {
                         .count();
             }
 
-            dtos.add(GroupWithStats.fromEntity(group, memberCount, fileCount));
+            var mem = membershipRepository.findByUserIdAndGroupId(currentUser.getId(), group.getId()).orElse(null);
+            dtos.add(GroupWithStats.fromEntity(group, memberCount, fileCount, mem));
         }
+
+        dtos.sort(Comparator.comparing(GroupWithStats::isPinned).reversed()
+                .thenComparing(GroupWithStats::getName, String.CASE_INSENSITIVE_ORDER));
 
         System.out.println("[INFO] Found " + dtos.size() + " groups for user: " + currentUser.getUsername());
 
         return ResponseEntity.ok(dtos);
+    }
+
+    @PatchMapping("/{id}/preferences")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> updateMembershipPreferences(@PathVariable UUID id,
+                                                         @Valid @RequestBody GroupMembershipPrefsRequest request) {
+        try {
+            groupService.updateMembershipPreferences(id, securityUtils.getCurrentUser(), request);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        }
     }
 
 
@@ -165,6 +169,15 @@ public class GroupController {
         return ResponseEntity.ok(groups);
     }
 
+    /** Статический путь до /{id}, иначе "search" попадает в UUID и ломает поиск групп */
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<WorkGroup>> searchGroups(@RequestParam String query) {
+        User currentUser = securityUtils.getCurrentUser();
+        List<WorkGroup> groups = groupService.searchGroups(query, currentUser.getId());
+        return ResponseEntity.ok(groups);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<GroupDTO> getGroup(@PathVariable UUID id) {
@@ -202,10 +215,10 @@ public class GroupController {
 
     @GetMapping("/{id}/invite-token")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<String> getInviteToken(@PathVariable UUID id) {
+    public ResponseEntity<Map<String, String>> getInviteToken(@PathVariable UUID id) {
         User currentUser = securityUtils.getCurrentUser();
         String token = groupService.generateInviteToken(id, currentUser);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(Map.of("token", token));
     }
 
     @PostMapping("/join/{token}")
@@ -255,14 +268,6 @@ public class GroupController {
         User currentUser = securityUtils.getCurrentUser();
         groupService.changeMemberRole(groupId, userId, role, currentUser);
         return ResponseEntity.ok(new AuthController.MessageResponse("Role updated successfully"));
-    }
-
-    @GetMapping("/search")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<WorkGroup>> searchGroups(@RequestParam String query) {
-        User currentUser = securityUtils.getCurrentUser();
-        List<WorkGroup> groups = groupService.searchGroups(query, currentUser.getId());
-        return ResponseEntity.ok(groups);
     }
 
     @GetMapping("/{id}/stats")

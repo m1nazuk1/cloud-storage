@@ -2,6 +2,7 @@ package com.example.thesis.controller;
 
 import com.example.thesis.models.User;
 import com.example.thesis.security.SecurityUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Диагностика без утечки секретов (код активации не возвращается).
+ * Включение: {@code app.dev-tools-enabled=true}.
+ */
 @RestController
 @RequestMapping("/api/debug")
+@ConditionalOnProperty(name = "app.dev-tools-enabled", havingValue = "true")
 public class DebugController {
 
     private final SecurityUtils securityUtils;
@@ -31,8 +37,7 @@ public class DebugController {
         status.put("username", user.getUsername());
         status.put("email", user.getEmail());
         status.put("enabled", user.isEnabled());
-        status.put("activationCode", user.getActivationCode());
-        status.put("hasActivationCode", user.getActivationCode() != null);
+        status.put("hasPendingActivation", !user.isEnabled() && user.getActivationCode() != null);
 
         return ResponseEntity.ok(status);
     }

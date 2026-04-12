@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -51,24 +52,40 @@ public class AuthServiceImpl implements AuthService {
         this.userActivationService = userActivationService;
     }
 
+    private static String normalizeEmail(String email) {
+        if (email == null) {
+            return "";
+        }
+        return email.trim().toLowerCase(Locale.ROOT);
+    }
+
     @Override
     @Transactional
     public AuthResponse register(RegisterRequest request) {
-        System.out.println("[AUTH] Registering user: " + request.getEmail() + ", username: " + request.getUsername());
+        String email = normalizeEmail(request.getEmail());
+        String username = request.getUsername() != null ? request.getUsername().trim() : "";
+        if (email.isEmpty()) {
+            throw new RuntimeException("Укажите email");
+        }
+        if (username.isEmpty()) {
+            throw new RuntimeException("Укажите имя пользователя");
+        }
 
-        // Проверка уникальности email
-        if (userRepository.existsByEmail(request.getEmail())) {
-            User existingUser = userRepository.findByEmail(request.getEmail()).orElse(null);
+        System.out.println("[AUTH] Registering user: " + email + ", username: " + username);
+
+        // Проверка уникальности email (в БД храним в нижнем регистре)
+        if (userRepository.existsByEmail(email)) {
+            User existingUser = userRepository.findByEmail(email).orElse(null);
             if (existingUser != null) {
                 if (existingUser.isEnabled()) {
-                    System.out.println("[AUTH] Email already exists and is enabled: " + request.getEmail());
-                    throw new RuntimeException("Email '" + request.getEmail() + "' is already taken");
+                    System.out.println("[AUTH] Email already exists and is enabled: " + email);
+                    throw new RuntimeException("Этот email уже зарегистрирован");
                 } else {
                     // Пользователь существует, но не активирован - можем обновить
-                    System.out.println("[AUTH] Updating existing unactivated user: " + request.getEmail());
+                    System.out.println("[AUTH] Updating existing unactivated user: " + email);
 
                     // Обновляем данные
-                    existingUser.setUsername(request.getUsername());
+                    existingUser.setUsername(username);
                     existingUser.setPassword(passwordEncoder.encode(request.getPassword()));
                     existingUser.setFirstName(request.getFirstName());
                     existingUser.setLastName(request.getLastName());
@@ -94,15 +111,15 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // Проверка уникальности username
-        if (userRepository.existsByUsername(request.getUsername())) {
-            System.out.println("[AUTH] Username already taken: " + request.getUsername());
-            throw new RuntimeException("Username '" + request.getUsername() + "' is already taken");
+        if (userRepository.existsByUsername(username)) {
+            System.out.println("[AUTH] Username already taken: " + username);
+            throw new RuntimeException("Это имя пользователя уже занято");
         }
 
         // Создание нового пользователя
         User user = new User();
-        user.setEmail(request.getEmail());
-        user.setUsername(request.getUsername());
+        user.setEmail(email);
+        user.setUsername(username);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
@@ -137,13 +154,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public AuthResponse login(LoginRequest request) {
-        System.out.println("[AUTH] Login attempt: " + request.getEmailOrUsername());
+        String raw = request.getEmailOrUsername() != null ? request.getEmailOrUsername().trim() : "";
+        String loginKey = raw.contains("@") ? raw.toLowerCase(Locale.ROOT) : raw;
+        System.out.println("[AUTH] Login attempt: " + loginKey);
 
         try {
-            // Аутентификация пользователя
+            // Аутентификация пользователя (email — в нижнем регистре)
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getEmailOrUsername(),
+                            loginKey,
                             request.getPassword()
                     )
             );
@@ -154,9 +173,9 @@ public class AuthServiceImpl implements AuthService {
             org.springframework.security.core.userdetails.UserDetails userDetails =
                     (org.springframework.security.core.userdetails.UserDetails) authentication.getPrincipal();
 
-            // Находим нашего пользователя в БД
-            User user = userRepository.findByEmail(userDetails.getUsername())
-                    .or(() -> userRepository.findByUsername(userDetails.getUsername()))
+            // UserDetails.username — логин в БД (имя пользователя), не email
+            User user = userRepository.findByUsername(userDetails.getUsername())
+                    .or(() -> userRepository.findByEmailIgnoreCase(userDetails.getUsername()))
                     .orElseThrow(() -> {
                         System.out.println("[AUTH] User not found in DB: " + userDetails.getUsername());
                         return new RuntimeException("User not found");
@@ -164,31 +183,10 @@ public class AuthServiceImpl implements AuthService {
 
             System.out.println("[AUTH] User found: " + user.getUsername() + ", enabled: " + user.isEnabled());
 
-            // Проверяем, активирован ли аккаунт
+            // Неактивированные пользователи отсекаются в DaoAuthenticationProvider (UserDetails.enabled=false).
+            // Страховка от рассинхрона данных:
             if (!user.isEnabled()) {
-                System.out.println("[AUTH] Account not activated for: " + user.getEmail());
-
-                // Пытаемся отправить повторное письмо с активацией
-                if (user.getActivationCode() != null) {
-                    try {
-                        emailService.sendActivationEmail(user.getEmail(), user.getActivationCode());
-                        throw new RuntimeException("Account is not activated. We've sent a new activation email to " + user.getEmail());
-                    } catch (Exception e) {
-                        throw new RuntimeException("Account is not activated. Please check your email or contact support.");
-                    }
-                } else {
-                    // Если код активации утерян, генерируем новый
-                    String newActivationCode = UUID.randomUUID().toString();
-                    user.setActivationCode(newActivationCode);
-                    userRepository.save(user);
-
-                    try {
-                        emailService.sendActivationEmail(user.getEmail(), newActivationCode);
-                        throw new RuntimeException("Account is not activated. We've sent a new activation email to " + user.getEmail());
-                    } catch (Exception e) {
-                        throw new RuntimeException("Account is not activated. Please contact support for a new activation link.");
-                    }
-                }
+                throw new RuntimeException("Аккаунт не активирован. Подтвердите email по ссылке из письма.");
             }
 
             // Генерация JWT токена
@@ -370,7 +368,8 @@ public class AuthServiceImpl implements AuthService {
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
-                roles
+                roles,
+                user.isEnabled()
         );
     }
 }

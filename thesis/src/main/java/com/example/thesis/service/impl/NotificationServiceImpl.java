@@ -9,6 +9,7 @@ import com.example.thesis.repository.NotificationRepository;
 import com.example.thesis.repository.UserRepository;
 import com.example.thesis.repository.WorkGroupRepository;
 import com.example.thesis.repository.MembershipRepository;
+import com.example.thesis.models.Membership;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,16 +73,18 @@ public class NotificationServiceImpl implements NotificationService {
         WorkGroup group = workGroupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Group not found"));
 
-        // Получаем всех участников группы, кроме исключенного
-        List<UUID> userIds = membershipRepository.findUserIdsByGroupId(groupId);
+        // Участники через Membership: не уведомляем автора действия и тех, кто отключил уведомления по группе
+        List<Membership> memberships = membershipRepository.findByGroupIdWithUsers(groupId);
 
-        for (UUID userId : userIds) {
-            if (excludeUserId != null && userId.equals(excludeUserId)) {
+        for (Membership membership : memberships) {
+            User user = membership.getUser();
+            UUID userId = user.getId();
+            if (excludeUserId != null && excludeUserId.equals(userId)) {
                 continue;
             }
-
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+            if (membership.isNotificationsMuted()) {
+                continue;
+            }
 
             Notification notification = new Notification();
             notification.setType(type);
@@ -104,7 +107,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<Notification> getUserNotifications(UUID userId) {
-        return notificationRepository.findByUserId(userId);
+        return notificationRepository.findByUserIdWithGroup(userId);
     }
 
     @Override

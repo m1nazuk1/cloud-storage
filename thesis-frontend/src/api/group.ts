@@ -6,6 +6,13 @@ export interface GroupWithStats extends WorkGroup {
     fileCount: number;
 }
 
+export type GroupMembershipPrefs = {
+    notificationsMuted?: boolean;
+    pinned?: boolean;
+    /** hex или пустая строка для сброса цвета */
+    accentColor?: string | null;
+};
+
 export const groupApi = {
     createGroup: async (data: { name: string; description?: string }): Promise<WorkGroup> => {
         const response = await api.post<WorkGroup>('/group', data);
@@ -74,5 +81,9 @@ export const groupApi = {
     searchGroups: async (query: string): Promise<WorkGroup[]> => {
         const response = await api.get<WorkGroup[]>('/group/search', { params: { query } });
         return response.data;
+    },
+
+    updateMembershipPreferences: async (groupId: string, prefs: GroupMembershipPrefs): Promise<void> => {
+        await api.patch(`/group/${groupId}/preferences`, prefs);
     },
 };

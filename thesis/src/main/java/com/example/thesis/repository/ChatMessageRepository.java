@@ -43,7 +43,7 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, UUID> 
                                       @Param("since") LocalDateTime since);
 
     @Query("SELECT cm FROM ChatMessage cm WHERE cm.group.id = :groupId " +
-            "AND LOWER(cm.content) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
+            "AND LOWER(COALESCE(cm.content, '')) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
             "ORDER BY cm.timestamp DESC")
     List<ChatMessage> searchInGroupChat(@Param("groupId") UUID groupId,
                                         @Param("searchTerm") String searchTerm);

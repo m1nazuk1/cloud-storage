@@ -3,6 +3,7 @@ package com.example.thesis.service;
 import com.example.thesis.models.User;
 import com.example.thesis.dto.UserUpdateRequest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +15,20 @@ public interface UserService {
     User updateUser(UUID userId, UserUpdateRequest request);
     void deleteUser(UUID userId);
     List<User> searchUsers(String searchTerm);
+
+    /** Поиск пользователей; участников указанной группы можно исключить (для приглашений). */
+    List<User> searchUsers(String searchTerm, UUID excludeGroupId);
     void changePassword(UUID userId, String oldPassword, String newPassword);
     boolean isEmailAvailable(String email);
     boolean isUsernameAvailable(String username);
+
+    User uploadAvatar(UUID userId, MultipartFile file);
+
+    void deleteAvatar(UUID userId);
+
+    /** Байты файла аватара или null, если аватара нет */
+    byte[] readAvatarBytes(UUID userId);
+
+    /** MIME-тип аватара или application/octet-stream */
+    String getAvatarMimeType(UUID userId);
 }

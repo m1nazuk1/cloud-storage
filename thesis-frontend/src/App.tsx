@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { AuthProvider } from './contexts/AuthContext'
-import { SocketProvider } from './contexts/SocketContext'
 import Layout from './components/layout/Layout'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
@@ -9,36 +8,23 @@ import Activate from './pages/auth/Activate'
 import Dashboard from './pages/Dashboard'
 import Groups from './pages/groups/Groups'
 import GroupDetail from './pages/groups/GroupDetail'
+import GroupChat from './pages/chat/GroupChat'
 import Profile from './pages/profile/Profile'
+import Notifications from './pages/Notifications'
+import JoinGroup from './pages/groups/JoinGroup'
 import NotFound from './pages/NotFound'
 import PrivateRoute from './components/routes/PrivateRoute'
 import PublicRoute from './components/routes/PublicRoute'
 import ActivationSuccess from './pages/auth/ActivationSuccess'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import ResetPassword from './pages/auth/ResetPassword'
-import { useEffect } from 'react';
-
-
-//import Notifications from './pages/Notifications'
-
 
 function App() {
-    useEffect(() => {
-        const handleWebSocketError = () => {
-            console.log('WebSocket error handled gracefully');
-        };
-
-        window.addEventListener('error', handleWebSocketError);
-
-        return () => {
-            window.removeEventListener('error', handleWebSocketError);
-        };
-    }, []);
     return (
+        <ErrorBoundary>
         <Router>
             <AuthProvider>
-                <SocketProvider>
-                    <div className="min-h-screen bg-gray-50">
+                <div className="min-h-screen overflow-x-hidden">
                         <Routes>
                             {/* Public routes */}
                             <Route element={<PublicRoute />}>
@@ -56,43 +42,21 @@ function App() {
                                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
                                     <Route path="/dashboard" element={<Dashboard />} />
                                     <Route path="/groups" element={<Groups />} />
+                                    <Route path="/join/:token" element={<JoinGroup />} />
                                     <Route path="/groups/:id" element={<GroupDetail />} />
+                                    <Route path="/chat/:groupId" element={<GroupChat />} />
                                     <Route path="/profile" element={<Profile />} />
-                                    {/*<Route path="/notification" element={<Notifications />} />*/}
+                                    <Route path="/notifications" element={<Notifications />} />
                                 </Route>
                             </Route>
 
                             {/* 404 */}
                             <Route path="*" element={<NotFound />} />
                         </Routes>
-                    </div>
-                    <Toaster
-                        position="top-right"
-                        toastOptions={{
-                            duration: 4000,
-                            style: {
-                                background: '#1f2937',
-                                color: '#f9fafb',
-                                borderRadius: '0.5rem',
-                                border: '1px solid #374151',
-                            },
-                            success: {
-                                iconTheme: {
-                                    primary: '#10b981',
-                                    secondary: '#ffffff',
-                                },
-                            },
-                            error: {
-                                iconTheme: {
-                                    primary: '#ef4444',
-                                    secondary: '#ffffff',
-                                },
-                            },
-                        }}
-                    />
-                </SocketProvider>
+                </div>
             </AuthProvider>
         </Router>
+        </ErrorBoundary>
     )
 }
 

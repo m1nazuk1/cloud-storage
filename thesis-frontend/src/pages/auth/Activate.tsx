@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { XCircle, Loader } from 'lucide-react';
 import { authApi } from '../../api/auth';
 import Button from '../../components/ui/Button';
+import AuthShell from '../../components/layout/AuthShell';
 
 const Activate: React.FC = () => {
     const { code } = useParams<{ code: string }>();
@@ -14,67 +15,59 @@ const Activate: React.FC = () => {
         const activateAccount = async () => {
             if (!code) {
                 setStatus('error');
-                setMessage('Invalid activation code');
+                setMessage('Неверный код активации');
                 return;
             }
 
             try {
                 await authApi.activate(code);
-                // После успешной активации перенаправляем на красивую страницу
-                navigate(`/activation-success?email=${encodeURIComponent('user@example.com')}`);
-            } catch (error: any) {
+                navigate(`/activation-success`);
+            } catch (error: unknown) {
                 setStatus('error');
-                setMessage(error.response?.data?.message || 'Activation failed. The link may have expired.');
+                const msg =
+                    error && typeof error === 'object' && 'response' in error
+                        ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
+                        : undefined;
+                setMessage(msg || 'Не удалось активировать аккаунт. Ссылка могла устареть.');
             }
         };
 
         activateAccount();
     }, [code, navigate]);
 
-    // Показываем loading или error state только если остаемся на этой странице
     if (status === 'loading') {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full text-center">
-                    <div className="relative">
-                        <Loader className="h-16 w-16 text-primary-500 mx-auto mb-4 animate-spin" />
-                    </div>
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">Activating your account...</h2>
-                    <p className="text-gray-500">Please wait while we verify your account.</p>
+            <AuthShell showLogo={false}>
+                <div className="max-w-md w-full min-w-0 mx-1 text-center glass-panel dark:bg-slate-900/75 p-6 sm:p-10 border border-white/60 rounded-2xl">
+                    <Loader className="h-16 w-16 text-indigo-500 mx-auto mb-4 animate-spin" />
+                    <h2 className="text-xl font-semibold text-slate-800 mb-2">Активация аккаунта…</h2>
+                    <p className="text-slate-500">Подождите, проверяем ссылку.</p>
                 </div>
-            </div>
+            </AuthShell>
         );
     }
 
     if (status === 'error') {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full text-center">
-                    <XCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">Activation Failed</h2>
-                    <p className="text-gray-600 mb-6">{message}</p>
-                    <div className="space-y-4">
-                        <Button
-                            variant="primary"
-                            onClick={() => navigate('/login')}
-                            className="w-full"
-                        >
-                            Go to Login
+            <AuthShell>
+                <div className="max-w-md w-full min-w-0 mx-1 text-center glass-panel dark:bg-slate-900/75 p-6 sm:p-10 border border-white/60 rounded-2xl">
+                    <XCircle className="h-16 w-16 text-rose-500 mx-auto mb-4" />
+                    <h2 className="text-2xl font-bold text-slate-900 mb-3">Ошибка активации</h2>
+                    <p className="text-slate-600 mb-6">{message}</p>
+                    <div className="space-y-3">
+                        <Button variant="primary" onClick={() => navigate('/login')} className="w-full rounded-xl">
+                            Ко входу
                         </Button>
-                        <Button
-                            variant="secondary"
-                            onClick={() => navigate('/register')}
-                            className="w-full"
-                        >
-                            Register Again
+                        <Button variant="secondary" onClick={() => navigate('/register')} className="w-full rounded-xl">
+                            Регистрация снова
                         </Button>
                     </div>
                 </div>
-            </div>
+            </AuthShell>
         );
     }
 
-    return null; // В случае успеха компонент не рендерится (redirect)
+    return null;
 };
 
 export default Activate;

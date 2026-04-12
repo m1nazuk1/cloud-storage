@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router-dom';
-import { Cloud, UserPlus, Mail, User, Lock, CheckCircle } from 'lucide-react';
+import { UserPlus, Mail, User, Lock, CheckCircle } from 'lucide-react';
 import { registerSchema } from '../../utils/validation';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../../components/ui/Button';
 import Captcha from '../../components/ui/Captcha';
+import AuthShell from '../../components/layout/AuthShell';
 import toast from 'react-hot-toast';
 
 type RegisterFormData = {
@@ -36,7 +37,7 @@ const Register: React.FC = () => {
 
     const onSubmit = async (data: RegisterFormData) => {
         if (!captchaVerified) {
-            toast.error('Please complete the security verification');
+            toast.error('Пройдите проверку');
             return;
         }
 
@@ -48,8 +49,8 @@ const Register: React.FC = () => {
             // Показываем уведомление
             toast.success(
                 <div className="space-y-2">
-                    <div className="font-semibold">🎉 Registration Successful!</div>
-                    <div className="text-sm">Please check your email to activate your account.</div>
+                    <div className="font-semibold">🎉 Регистрация прошла успешно</div>
+                    <div className="text-sm">Проверьте почту для активации аккаунта.</div>
                 </div>,
                 { duration: 8000 }
             );
@@ -62,28 +63,28 @@ const Register: React.FC = () => {
 
     if (submitted) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full">
-                    <div className="text-center mb-8">
-                        <div className="flex justify-center mb-6">
-                            <CheckCircle className="h-20 w-20 text-green-500 animate-bounce-slow" />
+            <AuthShell>
+                <div className="max-w-md w-full min-w-0 px-1">
+                    <div className="text-center mb-6 sm:mb-8">
+                        <div className="flex justify-center mb-4 sm:mb-6">
+                            <CheckCircle className="h-16 w-16 sm:h-20 sm:w-20 text-green-500 animate-bounce-slow" />
                         </div>
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                            Check Your Email!
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+                            Проверьте почту
                         </h2>
                     </div>
 
-                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 p-8">
+                    <div className="glass-panel dark:bg-slate-900/75 dark:border-slate-600 p-5 sm:p-8 border border-white/60 rounded-2xl">
                         <div className="space-y-6">
                             <div className="text-center">
                                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-4">
                                     <Mail className="h-8 w-8 text-primary-600" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                    Activation Email Sent
+                                    Письмо отправлено
                                 </h3>
                                 <p className="text-gray-600 mb-4">
-                                    We've sent an activation link to:
+                                    Ссылка для активации отправлена на:
                                 </p>
                                 <p className="font-medium text-primary-700 bg-primary-50 py-2 px-4 rounded-lg">
                                     {registeredEmail}
@@ -98,8 +99,8 @@ const Register: React.FC = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <p className="font-medium text-gray-900">Check your inbox</p>
-                                        <p className="text-sm text-gray-600">Look for an email from CloudSync</p>
+                                        <p className="font-medium text-gray-900">Откройте почту</p>
+                                        <p className="text-sm text-gray-600">Найдите письмо от сервиса</p>
                                     </div>
                                 </div>
 
@@ -110,8 +111,8 @@ const Register: React.FC = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <p className="font-medium text-gray-900">Click activation link</p>
-                                        <p className="text-sm text-gray-600">Verify your email address</p>
+                                        <p className="font-medium text-gray-900">Перейдите по ссылке</p>
+                                        <p className="text-sm text-gray-600">Подтвердите адрес email</p>
                                     </div>
                                 </div>
 
@@ -122,17 +123,17 @@ const Register: React.FC = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <p className="font-medium text-gray-900">Start using CloudSync</p>
-                                        <p className="text-sm text-gray-600">Login with your new account</p>
+                                        <p className="font-medium text-gray-900">Войдите в систему</p>
+                                        <p className="text-sm text-gray-600">Используйте новый аккаунт</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="pt-4">
                                 <p className="text-sm text-gray-500 text-center">
-                                    Didn't receive the email? Check your spam folder or{' '}
-                                    <button className="text-primary-600 hover:text-primary-700 font-medium">
-                                        resend activation email
+                                    Не пришло письмо? Проверьте спам или{' '}
+                                    <button type="button" className="text-primary-600 hover:text-primary-700 font-medium">
+                                        запросите повторно
                                     </button>
                                 </p>
                             </div>
@@ -143,49 +144,43 @@ const Register: React.FC = () => {
                                 onClick={() => navigate('/login')}
                                 className="py-3 rounded-xl"
                             >
-                                Continue to Login
+                                Перейти ко входу
                             </Button>
 
 
                         </div>
                     </div>
                 </div>
-            </div>
+            </AuthShell>
         );
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
+        <AuthShell>
+            <div className="max-w-md w-full min-w-0 space-y-6 sm:space-y-8 px-1">
                 <div className="text-center">
-                    <div className="flex justify-center mb-4">
-                        <div className="relative">
-                            <Cloud className="h-16 w-16 text-primary-600 animate-pulse-slow" />
-                            <div className="absolute inset-0 bg-primary-200 rounded-full blur-xl opacity-30"></div>
-                        </div>
-                    </div>
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                        Create Account
+                    <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-600 via-violet-600 to-teal-600 bg-clip-text text-transparent">
+                        Регистрация
                     </h2>
-                    <p className="mt-2 text-gray-600">
-                        Join CloudSync for secure file sharing
+                    <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+                        Создайте аккаунт для доступа к файлам
                     </p>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 p-8">
-                    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="grid grid-cols-2 gap-4">
+                <div className="glass-panel dark:bg-slate-900/75 dark:border-slate-600 p-5 sm:p-8 border border-white/60 rounded-2xl">
+                    <form className="space-y-5 sm:space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    First Name
+                                    Имя
                                 </label>
                                 <div className="relative">
                                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                                     <input
                                         type="text"
                                         autoComplete="given-name"
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50"
-                                        placeholder="Optional"
+                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50 dark:bg-slate-900/40 dark:border-slate-600 dark:text-slate-100"
+                                        placeholder="Необязательно"
                                         {...register('firstName')}
                                     />
                                 </div>
@@ -193,15 +188,15 @@ const Register: React.FC = () => {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Last Name
+                                    Фамилия
                                 </label>
                                 <div className="relative">
                                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                                     <input
                                         type="text"
                                         autoComplete="family-name"
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50"
-                                        placeholder="Optional"
+                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50 dark:bg-slate-900/40 dark:border-slate-600 dark:text-slate-100"
+                                        placeholder="Необязательно"
                                         {...register('lastName')}
                                     />
                                 </div>
@@ -217,10 +212,10 @@ const Register: React.FC = () => {
                                 <input
                                     type="email"
                                     autoComplete="email"
-                                    className={`w-full pl-10 pr-4 py-3 border ${
+                                    className={`w-full pl-10 pr-4 py-3 border text-base sm:text-sm ${
                                         errors.email ? 'border-red-300' : 'border-gray-300'
-                                    } rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50`}
-                                    placeholder="Enter email"
+                                    } rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50 dark:bg-slate-900/40 dark:border-slate-600 dark:text-slate-100`}
+                                    placeholder="Ваш email"
                                     {...register('email')}
                                 />
                             </div>
@@ -233,17 +228,17 @@ const Register: React.FC = () => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Username *
+                                Логин *
                             </label>
                             <div className="relative">
                                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                                 <input
                                     type="text"
                                     autoComplete="username"
-                                    className={`w-full pl-10 pr-4 py-3 border ${
+                                    className={`w-full pl-10 pr-4 py-3 border text-base sm:text-sm ${
                                         errors.username ? 'border-red-300' : 'border-gray-300'
-                                    } rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50`}
-                                    placeholder="Enter username"
+                                    } rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50 dark:bg-slate-900/40 dark:border-slate-600 dark:text-slate-100`}
+                                    placeholder="Имя пользователя"
                                     {...register('username')}
                                 />
                             </div>
@@ -256,17 +251,17 @@ const Register: React.FC = () => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Password *
+                                Пароль *
                             </label>
                             <div className="relative">
                                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     autoComplete="new-password"
-                                    className={`w-full pl-10 pr-12 py-3 border ${
+                                    className={`w-full pl-10 pr-12 py-3 border text-base sm:text-sm ${
                                         errors.password ? 'border-red-300' : 'border-gray-300'
-                                    } rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50`}
-                                    placeholder="Enter password"
+                                    } rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400 bg-white/50 dark:bg-slate-900/40 dark:border-slate-600 dark:text-slate-100`}
+                                    placeholder="Не менее 6 символов"
                                     {...register('password')}
                                 />
                                 <button
@@ -283,7 +278,7 @@ const Register: React.FC = () => {
                                 </p>
                             )}
                             <p className="mt-1 text-xs text-gray-500">
-                                Password must be at least 6 characters long
+                                Минимум 6 символов
                             </p>
                         </div>
 
@@ -300,21 +295,21 @@ const Register: React.FC = () => {
                             className="flex items-center justify-center py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
                         >
                             <UserPlus className="mr-2 h-5 w-5" />
-                            Create Account
+                            Зарегистрироваться
                         </Button>
 
                         <div className="text-center">
                             <p className="text-sm text-gray-600">
-                                Already have an account?{' '}
-                                <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500 transition-colors">
-                                    Sign in
+                                Уже есть аккаунт?{' '}
+                                <Link to="/login" className="font-semibold text-indigo-600 hover:text-violet-600 transition-colors">
+                                    Войти
                                 </Link>
                             </p>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+        </AuthShell>
     );
 };
 

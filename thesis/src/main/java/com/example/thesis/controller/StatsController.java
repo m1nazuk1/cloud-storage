@@ -1,11 +1,11 @@
 package com.example.thesis.controller;
 
-import com.example.thesis.models.Membership;
-import com.example.thesis.models.User;
 import com.example.thesis.models.WorkGroup;
+import com.example.thesis.repository.FileMetadataRepository;
 import com.example.thesis.security.SecurityUtils;
 import com.example.thesis.service.GroupService;
 import com.example.thesis.service.FileService;
+import com.example.thesis.service.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,93 +20,45 @@ public class StatsController {
     private final GroupService groupService;
     private final FileService fileService;
     private final SecurityUtils securityUtils;
+    private final NotificationService notificationService;
+    private final FileMetadataRepository fileMetadataRepository;
 
-    public StatsController(GroupService groupService, FileService fileService, SecurityUtils securityUtils) {
+    public StatsController(GroupService groupService, FileService fileService, SecurityUtils securityUtils,
+                           NotificationService notificationService, FileMetadataRepository fileMetadataRepository) {
         this.groupService = groupService;
         this.fileService = fileService;
         this.securityUtils = securityUtils;
+        this.notificationService = notificationService;
+        this.fileMetadataRepository = fileMetadataRepository;
     }
 
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> getUserStats() {
-        User currentUser = securityUtils.getCurrentUser();
-        UUID userId = currentUser.getId();
-
-        List<WorkGroup> groups = groupService.getUserGroups(userId);
-
-        // Правильный подсчет УНИКАЛЬНЫХ участников
-        Set<UUID> uniqueMembers = new HashSet<>();
-        int totalFiles = 0;
-
-        for (WorkGroup group : groups) {
-            // Добавляем создателя группы
-            uniqueMembers.add(group.getCreator().getId());
-
-            // Добавляем всех участников из memberships
-            if (group.getMemberships() != null) {
-                for (Membership membership : group.getMemberships()) {
-                    uniqueMembers.add(membership.getUser().getId());
-                }
-            }
-
-            // Подсчитываем файлы
-            if (group.getFiles() != null) {
-                totalFiles += group.getFiles().stream()
-                        .filter(f -> !f.isDeleted())
-                        .count();
-            }
-        }
-
-        Map<String, Object> stats = new HashMap<>();
-        stats.put("totalGroups", groups.size());
-        stats.put("totalMembers", uniqueMembers.size()); // Уникальные пользователи
-        stats.put("totalFiles", totalFiles);
-        stats.put("totalStorageUsed", fileService.getUserStorageUsed(userId));
-
-        return ResponseEntity.ok(stats);
+        return ResponseEntity.ok(buildUserStats(securityUtils.getCurrentUser().getId()));
     }
 
     @GetMapping("/user/quick")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<DashboardStats> getUserQuickStats() {
-        var currentUser = securityUtils.getCurrentUser();
-        UUID userId = currentUser.getId();
-
-        var groups = groupService.getUserGroups(userId);
-
-        DashboardStats stats = new DashboardStats();
-        stats.setTotalGroups(groups.size());
-        stats.setTotalMembers(0);
-        stats.setTotalFiles(0);
-
-        // Оптимизированный подсчет
-        for (var group : groups) {
-            // Для подсчета участников используем репозиторий напрямую или добавляем метод в сервис
-            stats.setTotalMembers(stats.getTotalMembers() + group.getMemberCount());
-            stats.setTotalFiles(stats.getTotalFiles() + group.getFileCount());
-        }
-
-        return ResponseEntity.ok(stats);
+    public ResponseEntity<Map<String, Object>> getUserQuickStats() {
+        return ResponseEntity.ok(buildUserStats(securityUtils.getCurrentUser().getId()));
     }
 
-    static class DashboardStats {
-        private int totalGroups;
-        private int totalMembers;
-        private int totalFiles;
-        private Long totalStorageUsed;
+    private Map<String, Object> buildUserStats(UUID userId) {
+        List<WorkGroup> groups = groupService.getUserGroups(userId);
 
-        // Getters and Setters
-        public int getTotalGroups() { return totalGroups; }
-        public void setTotalGroups(int totalGroups) { this.totalGroups = totalGroups; }
+        Long filesRow = fileMetadataRepository.countActiveFilesInUserGroups(userId);
+        int totalFiles = filesRow != null ? filesRow.intValue() : 0;
 
-        public int getTotalMembers() { return totalMembers; }
-        public void setTotalMembers(int totalMembers) { this.totalMembers = totalMembers; }
+        Long unread = notificationService.getUnreadCount(userId);
+        long unreadNotifications = unread != null ? unread : 0L;
 
-        public int getTotalFiles() { return totalFiles; }
-        public void setTotalFiles(int totalFiles) { this.totalFiles = totalFiles; }
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("totalGroups", groups.size());
+        stats.put("totalFiles", totalFiles);
+        stats.put("totalStorageUsed", fileService.getUserStorageUsed(userId));
+        stats.put("unreadNotifications", unreadNotifications);
 
-        public Long getTotalStorageUsed() { return totalStorageUsed; }
-        public void setTotalStorageUsed(Long totalStorageUsed) { this.totalStorageUsed = totalStorageUsed; }
+        return stats;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.thesis.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.example.thesis.models.enums.NotificationType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,6 +38,7 @@ public class Notification {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @JsonIgnoreProperties({"memberships", "files", "chatMessages", "notifications", "creator"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
     private WorkGroup group;

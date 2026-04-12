@@ -31,20 +31,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
         logger.info("Loading user by username or email: {}", usernameOrEmail);
 
-        // Сначала пробуем найти по username
         User user = userRepository.findByUsername(usernameOrEmail)
-                .or(() -> {
-                    logger.info("User not found by username: {}, trying email", usernameOrEmail);
-                    return userRepository.findByEmail(usernameOrEmail);
-                })
-                .orElseThrow(() -> {
-                    logger.error("User not found with username or email: {}", usernameOrEmail);
-                    // Проверим, существует ли пользователь в принципе
-                    logger.error("All users in DB: {}", userRepository.findAll().stream()
-                            .map(u -> u.getUsername() + "(" + u.getEmail() + ")")
-                            .collect(Collectors.joining(", ")));
-                    return new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail);
-                });
+                .or(() -> userRepository.findByEmailIgnoreCase(usernameOrEmail))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail));
 
         logger.info("User found: {}, enabled: {}, roles: {}",
                 user.getUsername(), user.isEnabled(), user.getRoles());
@@ -57,9 +46,15 @@ public class CustomUserDetailsService implements UserDetailsService {
                 })
                 .collect(Collectors.toList());
 
+        // Обязательно передаём реальный enabled — иначе Spring считает аккаунт всегда включённым и
+        // неактивированные пользователи проходят проверку пароля, после чего ломается логика входа.
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
+                user.isEnabled(),
+                true,
+                true,
+                true,
                 authorities
         );
     }
@@ -81,6 +76,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
+                user.isEnabled(),
+                true,
+                true,
+                true,
                 authorities
         );
     }

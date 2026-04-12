@@ -30,6 +30,7 @@ public class User {
     @Column(nullable = false)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -38,6 +39,10 @@ public class User {
 
     @Column(name = "last_name")
     private String lastName;
+
+    /** Имя файла аватара в каталоге uploads/avatars/{userId}/ */
+    @Column(name = "avatar_stored_name", length = 255)
+    private String avatarStoredName;
 
     @Column(name = "is_enabled", nullable = false)
     private boolean enabled = false;
@@ -59,15 +64,36 @@ public class User {
     @JsonIgnore
     private Set<WorkGroup> createdGroups = new HashSet<>();
 
+    /** Не сериализуем в JSON — иначе User→Membership→User→… превышает лимит глубины Jackson и ломает API */
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Membership> memberships = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "uploader", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileMetadata> uploadedFiles = new HashSet<>();
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<ChatMessage> sentMessages = new HashSet<>();
+
+    @JsonIgnore
+    public String getAvatarStoredName() {
+        return avatarStoredName;
+    }
+
+    public void setAvatarStoredName(String avatarStoredName) {
+        this.avatarStoredName = avatarStoredName;
+    }
+
+    /** Относительный URL для фронта (база API подставляется на клиенте). */
+    @com.fasterxml.jackson.annotation.JsonProperty("avatarUrl")
+    public String getAvatarUrl() {
+        if (avatarStoredName == null || avatarStoredName.isBlank()) {
+            return null;
+        }
+        return "/api/user/avatar/" + id;
+    }
 
     // ВРЕМЕННО КОММЕНТИРУЕМ, ЕСЛИ ЭТО ВЫЗЫВАЕТ ПРОБЛЕМЫ
     /*
@@ -193,6 +219,7 @@ public class User {
         this.createdGroups = createdGroups;
     }
 
+    @JsonIgnore
     public Set<Membership> getMemberships() {
         return memberships;
     }
@@ -201,6 +228,7 @@ public class User {
         this.memberships = memberships;
     }
 
+    @JsonIgnore
     public Set<FileMetadata> getUploadedFiles() {
         return uploadedFiles;
     }
@@ -209,6 +237,7 @@ public class User {
         this.uploadedFiles = uploadedFiles;
     }
 
+    @JsonIgnore
     public Set<ChatMessage> getSentMessages() {
         return sentMessages;
     }

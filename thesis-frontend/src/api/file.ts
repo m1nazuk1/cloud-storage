@@ -14,6 +14,16 @@ export const fileApi = {
         return response.data;
     },
 
+    /** Вложения чата (не показываются в общем списке файлов группы). */
+    uploadChatMedia: async (groupId: string, file: File): Promise<FileMetadata> => {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await api.post<FileMetadata>(`/files/chat-upload/${groupId}`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        return response.data;
+    },
+
     downloadFile: async (fileId: string): Promise<Blob> => {
         const response = await api.get(`/files/download/${fileId}`, {
             responseType: 'blob',
@@ -41,14 +51,27 @@ export const fileApi = {
         return response.data;
     },
 
-    deleteFile: async (fileId: string): Promise<void> => {
-        await api.delete(`/files/${fileId}`);
+    deleteFile: async (fileId: string, expectedVersion?: number): Promise<void> => {
+        await api.delete(`/files/${fileId}`, {
+            params: expectedVersion !== undefined ? { expectedVersion } : {},
+        });
     },
 
-    renameFile: async (fileId: string, newName: string): Promise<FileMetadata> => {
+    renameFile: async (fileId: string, newName: string, expectedVersion?: number): Promise<FileMetadata> => {
         const response = await api.put<FileMetadata>(`/files/${fileId}/rename`, null, {
-            params: { newName },
+            params: { newName, ...(expectedVersion !== undefined ? { expectedVersion } : {}) },
         });
+        return response.data;
+    },
+
+    /** Настройки гибридного хранилища (для отображения / отчёта). */
+    getStorageSettings: async (): Promise<{
+        objectStorageEnabled: boolean;
+        newFilesTarget: string;
+        hybridMode: boolean;
+        description: string;
+    }> => {
+        const response = await api.get('/files/storage/settings');
         return response.data;
     },
 

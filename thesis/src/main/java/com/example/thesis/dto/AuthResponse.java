@@ -16,12 +16,13 @@ public class AuthResponse {
     private String firstName;
     private String lastName;
     private Set<String> roles;
+    private boolean enabled;
 
     // Constructors
     public AuthResponse() {}
 
     public AuthResponse(String token, UUID id, String email, String username,
-                        String firstName, String lastName, Set<String> roles) {
+                        String firstName, String lastName, Set<String> roles, boolean enabled) {
         this.token = token;
         this.id = id;
         this.email = email;
@@ -29,6 +30,7 @@ public class AuthResponse {
         this.firstName = firstName;
         this.lastName = lastName;
         this.roles = roles;
+        this.enabled = enabled;
     }
 
 
@@ -40,6 +42,7 @@ public class AuthResponse {
         this.username = user.getUsername();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
+        this.enabled = user.isEnabled();
 
         // Конвертируем Role в String
         if (user.getRoles() != null) {
@@ -75,4 +78,7 @@ public class AuthResponse {
 
     public Set<String> getRoles() { return roles; }
     public void setRoles(Set<String> roles) { this.roles = roles; }
+
+    public boolean isEnabled() { return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
 }

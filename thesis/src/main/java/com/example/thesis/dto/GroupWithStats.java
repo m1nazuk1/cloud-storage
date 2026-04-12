@@ -1,5 +1,6 @@
 package com.example.thesis.dto;
 
+import com.example.thesis.models.Membership;
 import com.example.thesis.models.User;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,10 @@ public class GroupWithStats {
     private User creator;
     private int memberCount;
     private int fileCount;
+    /** Настройки текущего пользователя для этой группы */
+    private boolean notificationsMuted;
+    private boolean pinned;
+    private String accentColor;
 
     public UUID getId() {
         return id;
@@ -80,6 +85,30 @@ public class GroupWithStats {
         this.fileCount = fileCount;
     }
 
+    public boolean isNotificationsMuted() {
+        return notificationsMuted;
+    }
+
+    public void setNotificationsMuted(boolean notificationsMuted) {
+        this.notificationsMuted = notificationsMuted;
+    }
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
+    }
+
+    public String getAccentColor() {
+        return accentColor;
+    }
+
+    public void setAccentColor(String accentColor) {
+        this.accentColor = accentColor;
+    }
+
     public String getCreatorUsername() {
         return creatorUsername;
     }
@@ -105,7 +134,8 @@ public class GroupWithStats {
 
     public static GroupWithStats fromEntity(com.example.thesis.models.WorkGroup group,
                                             int memberCount,
-                                            int fileCount) {
+                                            int fileCount,
+                                            Membership forCurrentUser) {
         GroupWithStats dto = new GroupWithStats();
         dto.setId(group.getId());
         dto.setName(group.getName());
@@ -114,6 +144,11 @@ public class GroupWithStats {
         dto.setCreatorUsername(group.getCreator() != null ? group.getCreator().getUsername() : "Unknown");
         dto.setMemberCount(memberCount);
         dto.setFileCount(fileCount);
+        if (forCurrentUser != null) {
+            dto.setNotificationsMuted(forCurrentUser.isNotificationsMuted());
+            dto.setPinned(forCurrentUser.isPinned());
+            dto.setAccentColor(forCurrentUser.getAccentColor());
+        }
         return dto;
     }
 }

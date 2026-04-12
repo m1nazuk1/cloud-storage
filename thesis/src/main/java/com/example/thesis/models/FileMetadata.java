@@ -1,6 +1,7 @@
 package com.example.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.thesis.models.enums.StorageBackend;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -43,23 +44,44 @@ public class FileMetadata {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
-    @Column(name = "version")
+    /**
+     * Оптимистическая блокировка: при каждом успешном изменении метаданных увеличивается.
+     * Клиент передаёт ожидаемую версию при переименовании/удалении — при расхождении 409 Conflict.
+     */
+    @Version
+    @Column(name = "version", nullable = false)
     private Integer version = 1;
+
+    /** Где физически лежат байты файла (гибридное облако). */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "storage_backend", nullable = false, length = 32, columnDefinition = "varchar(32) default 'LOCAL'")
+    private StorageBackend storageBackend = StorageBackend.LOCAL;
+
+    /** Ключ объекта в S3/MinIO; для LOCAL не используется. */
+    @Column(name = "object_key")
+    private String objectKey;
 
     @Column(name = "is_deleted")
     private boolean deleted = false;
+
+    /** Файл загружен в чат — не показывать в списке файлов группы */
+    @Column(name = "chat_media", nullable = false)
+    private boolean chatMedia = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uploader_id", nullable = false)
     private User uploader;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
     private WorkGroup parentGroup;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "attachment", cascade = CascadeType.ALL)
     private ChatMessage chatMessage;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "file", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileHistory> history = new HashSet<>();
 
@@ -155,12 +177,36 @@ public class FileMetadata {
         this.version = version;
     }
 
+    public StorageBackend getStorageBackend() {
+        return storageBackend;
+    }
+
+    public void setStorageBackend(StorageBackend storageBackend) {
+        this.storageBackend = storageBackend;
+    }
+
+    public String getObjectKey() {
+        return objectKey;
+    }
+
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
+    }
+
     public boolean isDeleted() {
         return deleted;
     }
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public boolean isChatMedia() {
+        return chatMedia;
+    }
+
+    public void setChatMedia(boolean chatMedia) {
+        this.chatMedia = chatMedia;
     }
 
     public User getUploader() {
@@ -171,6 +217,7 @@ public class FileMetadata {
         this.uploader = uploader;
     }
 
+    @JsonIgnore
     public WorkGroup getParentGroup() {
         return parentGroup;
     }
@@ -179,6 +226,11 @@ public class FileMetadata {
         this.parentGroup = parentGroup;
     }
 
+    public UUID getGroupId() {
+        return parentGroup != null ? parentGroup.getId() : null;
+    }
+
+    @JsonIgnore
     public ChatMessage getChatMessage() {
         return chatMessage;
     }
@@ -187,6 +239,7 @@ public class FileMetadata {
         this.chatMessage = chatMessage;
     }
 
+    @JsonIgnore
     public Set<FileHistory> getHistory() {
         return history;
     }

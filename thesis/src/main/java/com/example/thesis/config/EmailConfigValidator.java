@@ -17,24 +17,32 @@ public class EmailConfigValidator {
     @Value("${spring.mail.username}")
     private String mailUsername;
 
+    @Value("${spring.mail.password:}")
+    private String mailPassword;
+
     public EmailConfigValidator(EmailServiceImpl emailService) {
         this.emailService = emailService;
     }
 
     @PostConstruct
     public void validateEmailConfig() {
-        logger.info("=== Validating Email Configuration ===");
+        logger.info("=== Проверка почты (SMTP) ===");
         logger.info("Mail Username: {}", mailUsername);
 
         if (mailUsername == null || mailUsername.isEmpty()) {
-            logger.warn("⚠️  Email username is not configured!");
+            logger.warn("⚠️ spring.mail.username не задан — отправка писем невозможна.");
         } else if (mailUsername.contains("mailtrap") || mailUsername.contains("example")) {
-            logger.warn("⚠️  Using test email configuration. Switch to real email for production.");
+            logger.warn("⚠️ Тестовая почта (mailtrap/example). Для реальных писем настройте SMTP.");
         } else {
-            logger.info("✅ Using real email configuration: {}", mailUsername);
+            logger.info("✅ SMTP user: {}", mailUsername);
         }
 
+        if (mailPassword == null || mailPassword.isBlank()) {
+            logger.error("❌ spring.mail.password / MAIL_PASSWORD пустой — регистрация не сможет отправить письмо активации. Задайте пароль приложения Яндекса в переменной MAIL_PASSWORD.");
+        } else {
+            logger.info("✅ Пароль SMTP задан (переменная MAIL_PASSWORD)");
+        }
 
-        logger.info("=====================================");
+        logger.info("===============================");
     }
 }

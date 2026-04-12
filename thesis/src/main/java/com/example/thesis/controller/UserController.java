@@ -5,13 +5,20 @@ import com.example.thesis.models.User;
 import com.example.thesis.security.SecurityUtils;
 import com.example.thesis.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * ВАЖНО: все статические пути (/search, /check-*) должны быть ВЫШЕ /{id}, иначе Spring
+ * сопоставит "search" с переменной {id} и поиск пользователей сломается.
+ */
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -32,14 +39,29 @@ public class UserController {
         if (currentUser == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(currentUser);
+        // Всегда свежая сущность из БД (enabled/роли после любых транзакций, без «устаревшего» User из контекста)
+        User fresh = userService.getUserById(currentUser.getId());
+        return ResponseEntity.ok(fresh);
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @securityUtils.isCurrentUser(#id)")
-    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+    @GetMapping("/search")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<User>> searchUsers(@RequestParam String query,
+                                                  @RequestParam(required = false) UUID excludeGroupId) {
+        List<User> users = userService.searchUsers(query, excludeGroupId);
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmailAvailability(@RequestParam String email) {
+        boolean available = userService.isEmailAvailable(email);
+        return ResponseEntity.ok(available);
+    }
+
+    @GetMapping("/check-username")
+    public ResponseEntity<Boolean> checkUsernameAvailability(@RequestParam String username) {
+        boolean available = userService.isUsernameAvailable(username);
+        return ResponseEntity.ok(available);
     }
 
     @PutMapping("/profile")
@@ -54,38 +76,41 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<User> updateUser(@PathVariable UUID id,
-                                           @Valid @RequestBody UserUpdateRequest request) {
-        User updatedUser = userService.updateUser(id, request);
-        return ResponseEntity.ok(updatedUser);
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @securityUtils.isCurrentUser(#id)")
-    public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/search")
+    @PostMapping(value = "/profile/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<User>> searchUsers(@RequestParam String query) {
-        List<User> users = userService.searchUsers(query);
-        return ResponseEntity.ok(users);
+    public ResponseEntity<User> uploadAvatar(@RequestParam("file") MultipartFile file) {
+        User currentUser = securityUtils.getCurrentUser();
+        if (currentUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+        User updated = userService.uploadAvatar(currentUser.getId(), file);
+        return ResponseEntity.ok(updated);
     }
 
-    @GetMapping("/check-email")
-    public ResponseEntity<Boolean> checkEmailAvailability(@RequestParam String email) {
-        boolean available = userService.isEmailAvailable(email);
-        return ResponseEntity.ok(available);
+    @DeleteMapping("/profile/avatar")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<User> deleteAvatar() {
+        User currentUser = securityUtils.getCurrentUser();
+        if (currentUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userService.deleteAvatar(currentUser.getId());
+        User fresh = userService.getUserById(currentUser.getId());
+        return ResponseEntity.ok(fresh);
     }
 
-    @GetMapping("/check-username")
-    public ResponseEntity<Boolean> checkUsernameAvailability(@RequestParam String username) {
-        boolean available = userService.isUsernameAvailable(username);
-        return ResponseEntity.ok(available);
+    @GetMapping("/avatar/{userId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<byte[]> getAvatar(@PathVariable UUID userId) {
+        byte[] data = userService.readAvatarBytes(userId);
+        if (data == null || data.length == 0) {
+            return ResponseEntity.notFound().build();
+        }
+        String mime = userService.getAvatarMimeType(userId);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CACHE_CONTROL, "private, max-age=3600")
+                .contentType(MediaType.parseMediaType(mime))
+                .body(data);
     }
 
     @PostMapping("/change-password")
@@ -105,5 +130,27 @@ public class UserController {
                     .badRequest()
                     .body(new AuthController.ErrorResponse(e.getMessage()));
         }
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or @securityUtils.isCurrentUser(#id)")
+    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<User> updateUser(@PathVariable UUID id,
+                                           @Valid @RequestBody UserUpdateRequest request) {
+        User updatedUser = userService.updateUser(id, request);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or @securityUtils.isCurrentUser(#id)")
+    public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
     }
 }

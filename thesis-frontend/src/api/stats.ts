@@ -2,9 +2,10 @@ import api from './axios';
 
 export interface UserStats {
     totalGroups: number;
-    totalMembers: number;
     totalFiles: number;
     totalStorageUsed: number;
+    /** Непрочитанные уведомления */
+    unreadNotifications: number;
 }
 
 export const statsApi = {

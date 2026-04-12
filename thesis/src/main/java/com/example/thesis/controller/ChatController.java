@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,14 +22,11 @@ public class ChatController {
 
     private final ChatService chatService;
     private final SecurityUtils securityUtils;
-    private final SimpMessagingTemplate messagingTemplate;
 
     public ChatController(ChatService chatService,
-                          SecurityUtils securityUtils,
-                          SimpMessagingTemplate messagingTemplate) {
+                          SecurityUtils securityUtils) {
         this.chatService = chatService;
         this.securityUtils = securityUtils;
-        this.messagingTemplate = messagingTemplate;
     }
 
     // REST endpoints
@@ -87,9 +83,7 @@ public class ChatController {
                                      @Payload ChatMessageRequest request) {
         var currentUser = securityUtils.getCurrentUser();
         if (currentUser != null) {
-            ChatMessage message = chatService.sendMessage(request, currentUser);
-            // Сообщение будет отправлено через @SendTo аннотацию или messagingTemplate
-            messagingTemplate.convertAndSend("/topic/group." + groupId + ".chat", message);
+            chatService.sendMessage(request, currentUser);
         }
     }
 
@@ -99,7 +93,6 @@ public class ChatController {
         var currentUser = securityUtils.getCurrentUser();
         if (currentUser != null) {
             chatService.editMessage(request.getMessageId(), request.getNewContent(), currentUser);
-            messagingTemplate.convertAndSend("/topic/group." + groupId + ".chat.update", request);
         }
     }
 
@@ -109,7 +102,6 @@ public class ChatController {
         var currentUser = securityUtils.getCurrentUser();
         if (currentUser != null) {
             chatService.deleteMessage(request.getMessageId(), currentUser);
-            messagingTemplate.convertAndSend("/topic/group." + groupId + ".chat.delete", request);
         }
     }
 

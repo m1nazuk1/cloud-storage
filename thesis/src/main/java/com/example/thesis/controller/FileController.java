@@ -1,5 +1,6 @@
 package com.example.thesis.controller;
 
+import com.example.thesis.config.StorageProperties;
 import com.example.thesis.dto.FileDTO;
 import com.example.thesis.dto.FileMetadataDTO;
 import com.example.thesis.models.FileMetadata;
@@ -26,25 +27,57 @@ public class FileController {
 
     private final FileService fileService;
     private final SecurityUtils securityUtils;
+    private final StorageProperties storageProperties;
 
-    public FileController(FileService fileService, SecurityUtils securityUtils) {
+    public FileController(FileService fileService, SecurityUtils securityUtils,
+                          StorageProperties storageProperties) {
         this.fileService = fileService;
         this.securityUtils = securityUtils;
+        this.storageProperties = storageProperties;
+    }
+
+    /** Настройки гибридного хранилища (для UI и отчёта). */
+    @GetMapping("/storage/settings")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<StorageSettingsResponse> getStorageSettings() {
+        boolean s3 = storageProperties.isObjectEnabled();
+        String target = storageProperties.getNewFiles();
+        StorageSettingsResponse r = new StorageSettingsResponse();
+        r.setObjectStorageEnabled(s3);
+        r.setNewFilesTarget(target);
+        r.setHybridMode(s3);
+        if (s3 && storageProperties.isNewFilesObject()) {
+            r.setDescription("Гибридное облако: новые файлы — в объектном хранилище (S3/MinIO), ранее загруженные могут оставаться на локальном диске.");
+        } else if (s3) {
+            r.setDescription("Объектное хранилище подключено; новые файлы пишутся на локальный диск (режим new-files=local).");
+        } else {
+            r.setDescription("Локальное хранилище на сервере; объектное хранилище отключено.");
+        }
+        return ResponseEntity.ok(r);
     }
 
     @PostMapping("/upload/{groupId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<FileMetadata> uploadFile(@PathVariable UUID groupId,
-                                                   @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<FileDTO> uploadFile(@PathVariable UUID groupId,
+                                              @RequestParam("file") MultipartFile file) {
         System.out.println("[INFO] Uploading file to group: " + groupId + ", file: " + file.getOriginalFilename());
 
         var currentUser = securityUtils.getCurrentUser();
         FileMetadata uploadedFile = fileService.uploadFile(file, groupId, currentUser);
 
         System.out.println("[INFO] File uploaded successfully: " + uploadedFile.getId());
-        return ResponseEntity.ok(uploadedFile);
+        return ResponseEntity.ok(FileDTO.fromEntity(uploadedFile));
     }
 
+    /** Загрузка вложений для чата (не попадает в список файлов группы как обычные файлы). */
+    @PostMapping("/chat-upload/{groupId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<FileDTO> uploadChatMedia(@PathVariable UUID groupId,
+                                                   @RequestParam("file") MultipartFile file) {
+        var currentUser = securityUtils.getCurrentUser();
+        FileMetadata uploadedFile = fileService.uploadChatMedia(file, groupId, currentUser);
+        return ResponseEntity.ok(FileDTO.fromEntity(uploadedFile));
+    }
 
     @GetMapping("/download/{fileId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -86,20 +119,22 @@ public class FileController {
 
     @DeleteMapping("/{fileId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> deleteFile(@PathVariable UUID fileId) {
+    public ResponseEntity<?> deleteFile(@PathVariable UUID fileId,
+                                        @RequestParam(required = false) Integer expectedVersion) {
         var currentUser = securityUtils.getCurrentUser();
-        fileService.deleteFile(fileId, currentUser);
+        fileService.deleteFile(fileId, currentUser, expectedVersion);
         return ResponseEntity.ok(new AuthController.MessageResponse("File deleted successfully"));
     }
 
     @PutMapping("/{fileId}/rename")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<FileMetadata> renameFile(@PathVariable UUID fileId,
-                                                   @RequestParam String newName) {
+    public ResponseEntity<FileDTO> renameFile(@PathVariable UUID fileId,
+                                              @RequestParam String newName,
+                                              @RequestParam(required = false) Integer expectedVersion) {
         var currentUser = securityUtils.getCurrentUser();
-        fileService.renameFile(fileId, newName, currentUser);
+        fileService.renameFile(fileId, newName, currentUser, expectedVersion);
         FileMetadata updatedFile = fileService.getFileMetadata(fileId);
-        return ResponseEntity.ok(updatedFile);
+        return ResponseEntity.ok(FileDTO.fromEntity(updatedFile));
     }
 
     @GetMapping("/{fileId}/history")
@@ -152,9 +187,10 @@ public class FileController {
     @PutMapping("/{fileId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<FileMetadata> updateFile(@PathVariable UUID fileId,
-                                                   @RequestParam("file") MultipartFile file) {
+                                                   @RequestParam("file") MultipartFile file,
+                                                   @RequestParam(required = false) Integer expectedVersion) {
         var currentUser = securityUtils.getCurrentUser();
-        FileMetadata updatedFile = fileService.updateFile(file, fileId, currentUser);
+        FileMetadata updatedFile = fileService.updateFile(file, fileId, currentUser, expectedVersion);
         return ResponseEntity.ok(updatedFile);
     }
 
@@ -176,6 +212,45 @@ public class FileController {
         public String getStorageUsedFormatted() { return storageUsedFormatted; }
         public void setStorageUsedFormatted(String storageUsedFormatted) {
             this.storageUsedFormatted = storageUsedFormatted;
+        }
+    }
+
+    public static class StorageSettingsResponse {
+        private boolean objectStorageEnabled;
+        private String newFilesTarget;
+        private boolean hybridMode;
+        private String description;
+
+        public boolean isObjectStorageEnabled() {
+            return objectStorageEnabled;
+        }
+
+        public void setObjectStorageEnabled(boolean objectStorageEnabled) {
+            this.objectStorageEnabled = objectStorageEnabled;
+        }
+
+        public String getNewFilesTarget() {
+            return newFilesTarget;
+        }
+
+        public void setNewFilesTarget(String newFilesTarget) {
+            this.newFilesTarget = newFilesTarget;
+        }
+
+        public boolean isHybridMode() {
+            return hybridMode;
+        }
+
+        public void setHybridMode(boolean hybridMode) {
+            this.hybridMode = hybridMode;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
     }
 }

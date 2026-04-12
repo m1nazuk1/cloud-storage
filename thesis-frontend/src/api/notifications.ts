@@ -1,7 +1,16 @@
 import api from './axios';
 import { Notification } from '../types';
 
+/**
+ * Единый клиент уведомлений (список, счётчик, dropdown, страница).
+ */
 export const notificationApi = {
+    getAll: async (): Promise<Notification[]> => {
+        const response = await api.get<Notification[]>('/notifications');
+        return response.data;
+    },
+
+    /** Алиас для совместимости с хуками/dropdown */
     getNotifications: async (): Promise<Notification[]> => {
         const response = await api.get<Notification[]>('/notifications');
         return response.data;

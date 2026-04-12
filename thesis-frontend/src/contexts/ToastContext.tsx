@@ -26,23 +26,41 @@ interface ToastProviderProps {
     children: ReactNode;
 }
 
+function toToastText(message: unknown): string {
+    if (typeof message === 'string') {
+        return message;
+    }
+    if (message == null) {
+        return '';
+    }
+    if (typeof message === 'object' && message !== null && 'message' in message) {
+        const m = (message as { message?: unknown }).message;
+        if (typeof m === 'string') return m;
+    }
+    try {
+        return JSON.stringify(message);
+    } catch {
+        return String(message);
+    }
+}
+
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     const success = (message: string) => {
-        toast.success(message, {
+        toast.success(toToastText(message), {
             duration: 4000,
             position: 'top-right',
         });
     };
 
     const error = (message: string) => {
-        toast.error(message, {
+        toast.error(toToastText(message), {
             duration: 5000,
             position: 'top-right',
         });
     };
 
     const loading = (message: string) => {
-        return toast.loading(message, {
+        return toast.loading(toToastText(message), {
             position: 'top-right',
         });
     };
@@ -75,20 +93,22 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                 toastOptions={{
                     duration: 4000,
                     style: {
-                        background: '#1f2937',
-                        color: '#f9fafb',
-                        borderRadius: '0.5rem',
-                        border: '1px solid #374151',
+                        background: 'rgba(255, 255, 255, 0.95)',
+                        color: '#1e293b',
+                        borderRadius: '0.875rem',
+                        border: '1px solid rgba(99, 102, 241, 0.25)',
+                        boxShadow: '0 18px 40px -12px rgba(49, 46, 129, 0.25)',
+                        backdropFilter: 'blur(12px)',
                     },
                     success: {
                         iconTheme: {
-                            primary: '#10b981',
+                            primary: '#059669',
                             secondary: '#ffffff',
                         },
                     },
                     error: {
                         iconTheme: {
-                            primary: '#ef4444',
+                            primary: '#dc2626',
                             secondary: '#ffffff',
                         },
                     },

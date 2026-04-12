@@ -30,35 +30,40 @@ public interface FileMetadataRepository extends JpaRepository<FileMetadata, UUID
     Optional<FileMetadata> findByStoredName(String storedName);
 
     @Query("SELECT f FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false " +
-            "ORDER BY f.uploadDate DESC")
+            "AND f.chatMedia = false ORDER BY f.uploadDate DESC")
     List<FileMetadata> findActiveFilesByGroupId(@Param("groupId") UUID groupId);
 
     @Query("SELECT f FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false " +
-            "ORDER BY f.uploadDate DESC")
+            "AND f.chatMedia = false ORDER BY f.uploadDate DESC")
     Page<FileMetadata> findActiveFilesByGroupId(@Param("groupId") UUID groupId, Pageable pageable);
 
     @Query("SELECT f FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.uploader.id = :userId " +
-            "AND f.deleted = false ORDER BY f.uploadDate DESC")
+            "AND f.deleted = false AND f.chatMedia = false ORDER BY f.uploadDate DESC")
     List<FileMetadata> findUserFilesInGroup(@Param("userId") UUID userId, @Param("groupId") UUID groupId);
 
-    @Query("SELECT COUNT(f) FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false")
+    @Query("SELECT COUNT(f) FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false AND f.chatMedia = false")
     Long countActiveFilesByGroupId(@Param("groupId") UUID groupId);
 
-    @Query("SELECT SUM(f.fileSize) FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false")
+    /** Все неудалённые файлы во всех группах, где состоит пользователь */
+    @Query("SELECT COUNT(f) FROM FileMetadata f WHERE f.deleted = false AND f.parentGroup.id IN " +
+            "(SELECT m.group.id FROM Membership m WHERE m.user.id = :userId)")
+    Long countActiveFilesInUserGroups(@Param("userId") UUID userId);
+
+    @Query("SELECT SUM(f.fileSize) FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false AND f.chatMedia = false")
     Long getTotalStorageByGroupId(@Param("groupId") UUID groupId);
 
     @Query("SELECT SUM(f.fileSize) FROM FileMetadata f WHERE f.uploader.id = :userId AND f.deleted = false")
     Long getTotalStorageByUserId(@Param("userId") UUID userId);
 
     @Query("SELECT f FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false " +
-            "AND (LOWER(f.originalName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
+            "AND f.chatMedia = false AND (LOWER(f.originalName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
             "OR LOWER(f.fileType) LIKE LOWER(CONCAT('%', :searchTerm, '%'))) " +
             "ORDER BY f.uploadDate DESC")
     List<FileMetadata> searchFilesInGroup(@Param("groupId") UUID groupId,
                                           @Param("searchTerm") String searchTerm);
 
     @Query("SELECT f FROM FileMetadata f WHERE f.parentGroup.id = :groupId " +
-            "AND f.fileType IN :fileTypes AND f.deleted = false " +
+            "AND f.fileType IN :fileTypes AND f.deleted = false AND f.chatMedia = false " +
             "ORDER BY f.uploadDate DESC")
     List<FileMetadata> findFilesByTypesInGroup(@Param("groupId") UUID groupId,
                                                @Param("fileTypes") List<String> fileTypes);
@@ -80,11 +85,11 @@ public interface FileMetadataRepository extends JpaRepository<FileMetadata, UUID
     void renameFile(@Param("fileId") UUID fileId, @Param("newName") String newName);
 
     @Query("SELECT DISTINCT f.fileType FROM FileMetadata f WHERE f.parentGroup.id = :groupId " +
-            "AND f.deleted = false AND f.fileType IS NOT NULL")
+            "AND f.deleted = false AND f.chatMedia = false AND f.fileType IS NOT NULL")
     List<String> findDistinctFileTypesByGroupId(@Param("groupId") UUID groupId);
 
     @Query("SELECT f FROM FileMetadata f WHERE f.parentGroup.id = :groupId " +
-            "AND f.uploadDate >= :startDate AND f.deleted = false " +
+            "AND f.uploadDate >= :startDate AND f.deleted = false AND f.chatMedia = false " +
             "ORDER BY f.uploadDate DESC")
     List<FileMetadata> findRecentFiles(@Param("groupId") UUID groupId,
                                        @Param("startDate") java.time.LocalDateTime startDate);

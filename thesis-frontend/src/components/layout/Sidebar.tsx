@@ -8,12 +8,29 @@ import {
     LogOut,
     ChevronLeft,
     ChevronRight,
-    Cloud
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import BrandCloudButton from './BrandCloudButton';
 
-const Sidebar: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(false);
+interface SidebarProps {
+    mobileOpen?: boolean;
+    onMobileClose?: () => void;
+    collapsed?: boolean;
+    onCollapsedChange?: (collapsed: boolean) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({
+    mobileOpen = false,
+    onMobileClose,
+    collapsed: collapsedProp,
+    onCollapsedChange,
+}) => {
+    const [collapsedLocal, setCollapsedLocal] = useState(false);
+    const collapsed = collapsedProp !== undefined ? collapsedProp : collapsedLocal;
+    const setCollapsed = (next: boolean) => {
+        onCollapsedChange?.(next);
+        if (!onCollapsedChange) setCollapsedLocal(next);
+    };
     const { logout, user } = useAuth();
     const navigate = useNavigate();
 
@@ -22,101 +39,112 @@ const Sidebar: React.FC = () => {
         navigate('/login');
     };
 
+    const closeMobile = () => onMobileClose?.();
+
     const navItems = [
-        { to: '/dashboard', icon: Home, label: 'Dashboard' },
-        { to: '/groups', icon: Folder, label: 'Groups' },
-        { to: '/notifications', icon: Bell, label: 'Notifications' },
-        { to: '/profile', icon: User, label: 'Profile' },
+        { to: '/dashboard', icon: Home, label: 'Главная' },
+        { to: '/groups', icon: Folder, label: 'Группы' },
+        { to: '/notifications', icon: Bell, label: 'Уведомления' },
+        { to: '/profile', icon: User, label: 'Профиль' },
     ];
+
+    const linkClass = ({ isActive }: { isActive: boolean }) =>
+        `group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 active:scale-[0.98] ${
+            isActive
+                ? 'bg-gradient-to-r from-indigo-500/35 to-violet-500/25 text-white shadow-lg shadow-indigo-950/40 border border-white/10'
+                : 'text-slate-300 hover:bg-white/10 hover:text-white'
+        }`;
 
     return (
         <>
-            {/* Mobile sidebar */}
-            <div className="lg:hidden fixed inset-0 z-40 flex">
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-                <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
-                    <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-                        <div className="flex items-center flex-shrink-0 px-4">
-                            <Cloud className="h-8 w-8 text-primary-600" />
-                            <span className="ml-3 text-xl font-bold text-gray-900">CloudSync</span>
+            {mobileOpen && (
+                <div className="lg:hidden fixed inset-0 z-50 flex">
+                    <button
+                        type="button"
+                        className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm cursor-default"
+                        aria-label="Закрыть меню"
+                        onClick={closeMobile}
+                    />
+                    <div className="relative flex flex-col max-w-[min(100vw-2rem,20rem)] w-full max-h-[100dvh] bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 shadow-2xl shadow-indigo-950/50 border-r border-white/10">
+                        <div className="flex-1 h-0 pt-6 pb-4 overflow-y-auto">
+                            <div className="flex items-center flex-shrink-0 px-4">
+                                <BrandCloudButton className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 to-violet-500 shadow-lg shadow-indigo-500/30 border-0 p-0 cursor-pointer hover:brightness-110 active:scale-[0.97] transition-[filter,transform] duration-200" />
+                                <span className="ml-3 text-xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
+                                    Облако
+                                </span>
+                            </div>
+                            <nav className="mt-8 px-3 space-y-1">
+                                {navItems.map((item) => (
+                                    <NavLink
+                                        key={item.to}
+                                        to={item.to}
+                                        onClick={closeMobile}
+                                        className={linkClass}
+                                    >
+                                        <item.icon className="mr-3 h-5 w-5 shrink-0 opacity-90" />
+                                        {item.label}
+                                    </NavLink>
+                                ))}
+                            </nav>
                         </div>
-                        <nav className="mt-5 px-2 space-y-1">
-                            {navItems.map((item) => (
-                                <NavLink
-                                    key={item.to}
-                                    to={item.to}
-                                    className={({ isActive }) =>
-                                        `group flex items-center px-2 py-2 text-base font-medium rounded-md ${
-                                            isActive
-                                                ? 'bg-primary-50 text-primary-700'
-                                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                        }`
-                                    }
-                                >
-                                    <item.icon className="mr-4 h-6 w-6" />
-                                    {item.label}
-                                </NavLink>
-                            ))}
-                        </nav>
-                    </div>
-                    <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-                        <div className="flex items-center">
-                            <div className="ml-3">
-                                <p className="text-sm font-medium text-gray-700">{user?.username}</p>
-                                <p className="text-xs text-gray-500">{user?.email}</p>
+                        <div className="flex-shrink-0 border-t border-white/10 p-4 pb-safe">
+                            <div className="flex items-center">
+                                <div className="min-w-0 flex-1">
+                                    <p className="text-sm font-medium text-white truncate">{user?.username}</p>
+                                    <p className="text-xs text-slate-400 truncate">{user?.email}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
 
-            {/* Desktop sidebar */}
-            <div className={`hidden lg:fixed lg:inset-y-0 lg:flex lg:flex-col ${collapsed ? 'lg:w-20' : 'lg:w-64'}`}>
-                <div className="flex flex-col flex-grow bg-white border-r border-gray-200 pt-5 pb-4 overflow-y-auto">
+            <div
+                className={`hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex lg:flex-col transition-[width] duration-300 ease-out ${
+                    collapsed ? 'lg:w-20' : 'lg:w-64'
+                }`}
+            >
+                <div className="flex flex-col flex-grow bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 border-r border-white/10 pt-6 pb-4 overflow-y-auto shadow-xl shadow-indigo-950/30">
                     <div className="flex items-center flex-shrink-0 px-4">
-                        <Cloud className="h-8 w-8 text-primary-600" />
+                        <BrandCloudButton className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 to-violet-500 shadow-lg shadow-indigo-500/25 border-0 p-0 cursor-pointer hover:brightness-110 active:scale-[0.97] transition-[filter,transform] duration-200" />
                         {!collapsed && (
-                            <span className="ml-3 text-xl font-bold text-gray-900">CloudSync</span>
+                            <span className="ml-3 text-xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
+                                Облако
+                            </span>
                         )}
                         <button
+                            type="button"
                             onClick={() => setCollapsed(!collapsed)}
-                            className="ml-auto p-1 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none"
+                            className="ml-auto p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
+                            aria-label={collapsed ? 'Развернуть меню' : 'Свернуть меню'}
                         >
                             {collapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
                         </button>
                     </div>
-                    <nav className="mt-5 flex-1 px-2 space-y-1">
+                    <nav className="mt-8 flex-1 px-3 space-y-1">
                         {navItems.map((item) => (
-                            <NavLink
-                                key={item.to}
-                                to={item.to}
-                                className={({ isActive }) =>
-                                    `group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
-                                        isActive
-                                            ? 'bg-primary-50 text-primary-700'
-                                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                    }`
-                                }
-                            >
-                                <item.icon className="mr-3 h-5 w-5" />
+                            <NavLink key={item.to} to={item.to} className={linkClass} title={collapsed ? item.label : undefined}>
+                                <item.icon className={`${collapsed ? 'mr-0' : 'mr-3'} h-5 w-5 shrink-0 opacity-90`} />
                                 {!collapsed && item.label}
                             </NavLink>
                         ))}
                     </nav>
-                    <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-                        <div className="flex items-center w-full">
-                            <div className={`${collapsed ? 'ml-0' : 'ml-3'} flex-1`}>
+                    <div className="flex-shrink-0 border-t border-white/10 p-4 mt-auto">
+                        <div className="flex items-center w-full gap-2">
+                            <div className={`${collapsed ? 'ml-0' : 'ml-0'} flex-1 min-w-0`}>
                                 {!collapsed && (
                                     <>
-                                        <p className="text-sm font-medium text-gray-700 truncate">{user?.username}</p>
-                                        <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                                        <p className="text-sm font-medium text-white truncate">{user?.username}</p>
+                                        <p className="text-xs text-slate-400 truncate">{user?.email}</p>
                                     </>
                                 )}
                             </div>
                             <button
+                                type="button"
                                 onClick={handleLogout}
-                                className="ml-2 p-1 text-gray-400 hover:text-gray-500"
-                                title="Logout"
+                                className="shrink-0 p-2 rounded-lg text-slate-400 hover:text-rose-300 hover:bg-white/10 transition-colors"
+                                title="Выйти"
+                                aria-label="Выйти"
                             >
                                 <LogOut className="h-5 w-5" />
                             </button>

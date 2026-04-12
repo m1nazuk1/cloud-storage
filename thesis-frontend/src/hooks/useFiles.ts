@@ -20,10 +20,16 @@ export const useUploadFile = (groupId: string) => {
         mutationFn: (file: File) => fileApi.uploadFile(groupId, file),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['files', groupId] });
-            toast.success('File uploaded successfully');
+            queryClient.invalidateQueries({ queryKey: ['group', groupId] });
+            queryClient.invalidateQueries({ queryKey: ['group', groupId, 'members'] });
+            queryClient.invalidateQueries({ queryKey: ['notifications'] });
+            queryClient.invalidateQueries({ queryKey: ['user-stats'] });
+            queryClient.invalidateQueries({ queryKey: ['recent-activity'] });
+            queryClient.invalidateQueries({ queryKey: ['storage-settings'] });
+            toast.success('Файл загружен');
         },
         onError: (error: any) => {
-            toast.error(error.response?.data?.message || 'Failed to upload file');
+            toast.error(error.response?.data?.message || 'Не удалось загрузить файл');
         },
     });
 };
@@ -33,13 +39,14 @@ export const useDeleteFile = () => {
     const toast = useToast();
 
     return useMutation({
-        mutationFn: fileApi.deleteFile,
-        onSuccess: (_) => {
+        mutationFn: (args: { fileId: string; expectedVersion?: number }) =>
+            fileApi.deleteFile(args.fileId, args.expectedVersion),
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['files'] });
-            toast.success('File deleted successfully');
-        },
-        onError: (error: any) => {
-            toast.error(error.response?.data?.message || 'Failed to delete file');
+            queryClient.invalidateQueries({ queryKey: ['group'] });
+            queryClient.invalidateQueries({ queryKey: ['notifications'] });
+            queryClient.invalidateQueries({ queryKey: ['storage-settings'] });
+            toast.success('Файл удалён');
         },
     });
 };

@@ -1,7 +1,6 @@
 package com.example.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -36,15 +35,20 @@ public class WorkGroup {
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator;
 
+    /** Не отдаём в JSON целиком — счётчики считаются в DTO на сервере */
+    @JsonIgnore
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Membership> memberships = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "parentGroup", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<FileMetadata> files = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ChatMessage> chatMessages = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Notification> notifications = new HashSet<>();
 
@@ -111,6 +115,7 @@ public class WorkGroup {
         this.creator = creator;
     }
 
+    @JsonIgnore
     public Set<Membership> getMemberships() {
         return memberships;
     }
@@ -119,6 +124,7 @@ public class WorkGroup {
         this.memberships = memberships;
     }
 
+    @JsonIgnore
     public Set<FileMetadata> getFiles() {
         return files;
     }
@@ -127,6 +133,7 @@ public class WorkGroup {
         this.files = files;
     }
 
+    @JsonIgnore
     public Set<ChatMessage> getChatMessages() {
         return chatMessages;
     }
@@ -135,6 +142,7 @@ public class WorkGroup {
         this.chatMessages = chatMessages;
     }
 
+    @JsonIgnore
     public Set<Notification> getNotifications() {
         return notifications;
     }

@@ -9,13 +9,13 @@ import com.example.thesis.security.JwtTokenProvider;
 import com.example.thesis.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,20 +31,20 @@ public class AuthController {
 
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider tokenProvider;
-    private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private JavaMailSender mailSender;
+    private final UserRepository userRepository;
+
+    @Value("${app.frontend.url:http://localhost:3000}")
+    private String frontendUrl;
 
     public AuthController(AuthService authService,
                           AuthenticationManager authenticationManager,
-                          JwtTokenProvider tokenProvider, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+                          JwtTokenProvider jwtTokenProvider,
+                          UserRepository userRepository) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
-        this.tokenProvider = tokenProvider;
-        this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/register")
@@ -80,40 +80,23 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(jwt, "Bearer", user));
     }
 
-    @PostMapping("/test-smtp")
-    public ResponseEntity<?> testSmtpConnection() {
-        try {
-            System.out.println("\n=== TESTING SMTP CONNECTION ===");
-            System.out.println("Host: sandbox.smtp.mailtrap.io");
-            System.out.println("Port: 2525");
-            System.out.println("Username: 9a2f908307f8d0");
-
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("no-reply@thesis-app.com");
-            message.setTo("test@example.com");
-            message.setSubject("SMTP Test from Thesis");
-            message.setText("Test email sent at: " + new java.util.Date());
-
-            mailSender.send(message);
-
-            return ResponseEntity.ok("SMTP connection successful! Check Mailtrap.");
-        } catch (Exception e) {
-            return ResponseEntity.status(500)
-                    .body("SMTP connection failed:\n" +
-                            "Error: " + e.getMessage() + "\n" +
-                            "Cause: " + (e.getCause() != null ? e.getCause().getMessage() : "none"));
-        }
-    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             AuthResponse response = authService.login(loginRequest);
             return ResponseEntity.ok(response);
+        } catch (DisabledException e) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body(new ErrorResponse("Подтвердите email по ссылке из письма. Проверьте папку «Спам»."));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(new ErrorResponse("Неверный логин или пароль"));
         } catch (RuntimeException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body(new ErrorResponse(e.getMessage()));
+                    .body(new ErrorResponse(e.getMessage() != null ? e.getMessage() : "Не удалось войти"));
         }
     }
 
@@ -124,17 +107,16 @@ public class AuthController {
         try {
             authService.activateAccount(code);
 
-            // Перенаправляем на фронтенд с параметром успеха
-            String frontendUrl = "http://localhost:3000/activation-success";
-            response.sendRedirect(frontendUrl);
+            String target = frontendUrl.replaceAll("/$", "") + "/login?activated=1";
+            response.sendRedirect(target);
             return null; // Возвращаем null так как redirect уже обработан
 
         } catch (RuntimeException e) {
             // Для ошибок также перенаправляем на фронтенд с параметром ошибки
             try {
-                String frontendUrl = "http://localhost:3000/activate?error=" +
+                String target = frontendUrl.replaceAll("/$", "") + "/login?activationError=" +
                         URLEncoder.encode(e.getMessage(), "UTF-8");
-                response.sendRedirect(frontendUrl);
+                response.sendRedirect(target);
                 return null;
             } catch (IOException ex) {
                 return ResponseEntity
@@ -204,16 +186,16 @@ public class AuthController {
             // Логика проверки токена (можно вынести в сервис)
             // Для простоты просто проверяем наличие пользователя с таким токеном
             if (userRepository.findByActivationCode(token).isEmpty()) {
-                String frontendUrl = "http://localhost:3000/reset-password?error=" +
+                String target = frontendUrl.replaceAll("/$", "") + "/reset-password?error=" +
                         URLEncoder.encode("Invalid or expired reset token", "UTF-8");
-                response.sendRedirect(frontendUrl);
+                response.sendRedirect(target);
                 return null;
             }
 
             // Если токен валиден, редиректим на фронтенд с токеном
-            String frontendUrl = "http://localhost:3000/reset-password?token=" +
+            String target = frontendUrl.replaceAll("/$", "") + "/reset-password?token=" +
                     URLEncoder.encode(token, "UTF-8");
-            response.sendRedirect(frontendUrl);
+            response.sendRedirect(target);
             return null;
 
         } catch (IOException e) {

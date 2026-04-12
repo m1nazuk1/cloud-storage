@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Service
@@ -21,8 +22,9 @@ public class EmailServiceImpl implements EmailService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
 
-    @Value("${app.base-url:http://localhost:8080}")
-    private String baseUrl;
+    /** Публичный URL SPA (кнопки в письмах ведут сюда, а не на :8080/api — так почтовые клиенты стабильнее открывают ссылку) */
+    @Value("${app.frontend.url:http://localhost:3000}")
+    private String frontendUrl;
 
     @Value("${spring.mail.username}")
     private String fromEmail;
@@ -39,9 +41,10 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Async
     public void sendActivationEmail(String to, String activationCode) {
-        String activationLink = baseUrl + "/api/auth/activate/" + activationCode;
+        String root = frontendUrl.replaceAll("/$", "");
+        // Страница /activate/:code вызывает API; ссылка сразу на фронт — лучше для встроенных браузеров почты
+        String activationLink = root + "/activate/" + activationCode;
 
         Context context = new Context();
         context.setVariable("activationLink", activationLink);
@@ -55,9 +58,9 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Async
     public void sendPasswordResetEmail(String to, String resetToken) {
-        String resetLink = baseUrl + "/api/auth/reset-password?token=" + resetToken;
+        String root = frontendUrl.replaceAll("/$", "");
+        String resetLink = root + "/reset-password?token=" + URLEncoder.encode(resetToken, StandardCharsets.UTF_8);
 
         Context context = new Context();
         context.setVariable("resetLink", resetLink);
@@ -71,9 +74,9 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Async
     public void sendGroupInvitationEmail(String to, String groupName, String inviterName, String inviteToken) {
-        String inviteLink = baseUrl + "/api/group/join/" + inviteToken;
+        String root = frontendUrl.replaceAll("/$", "");
+        String inviteLink = root + "/join/" + inviteToken;
 
         Context context = new Context();
         context.setVariable("groupName", groupName);

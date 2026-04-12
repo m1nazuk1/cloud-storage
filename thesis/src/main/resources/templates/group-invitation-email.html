@@ -3,114 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Приглашение в группу - Thesis Cloud Storage</title>
+    <title>Приглашение в группу — Thesis Cloud Storage</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, Helvetica, sans-serif;
+            line-height: 1.65;
+            color: #1e293b;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #ffffff;
+        .wrap { max-width: 600px; margin: 0 auto; padding: 32px 16px; }
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px -12px rgba(49, 46, 129, 0.18);
+            border: 1px solid rgba(99, 102, 241, 0.12);
         }
         .header {
-            background-color: #9C27B0;
-            color: white;
-            padding: 20px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 52%, #0d9488 100%);
+            color: #ffffff;
+            padding: 28px 24px;
             text-align: center;
-            border-radius: 5px 5px 0 0;
         }
-        .content {
-            padding: 30px 20px;
-        }
+        .header h1 { margin: 0; font-size: 22px; font-weight: 700; }
+        .content { padding: 28px 26px 26px 26px; }
         .inviter {
-            background-color: #F3E5F5;
-            padding: 15px;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #eef2ff 0%, #faf5ff 100%);
+            padding: 18px 20px;
+            border-radius: 12px;
             margin: 20px 0;
-            border-left: 4px solid #9C27B0;
-        }
-        .button {
-            display: inline-block;
-            padding: 14px 28px;
-            background-color: #9C27B0;
-            color: white !important;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 20px 0;
-            font-weight: bold;
+            border-left: 4px solid #7c3aed;
         }
         .features {
-            margin: 25px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
+            margin: 22px 0;
+            padding: 18px 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
         }
         .feature-item {
             margin: 10px 0;
-            padding-left: 20px;
+            padding-left: 22px;
             position: relative;
+            color: #334155;
+            font-size: 14px;
         }
         .feature-item:before {
             content: "✓";
-            color: #9C27B0;
+            color: #0d9488;
             position: absolute;
             left: 0;
             font-weight: bold;
         }
         .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+            margin-top: 0;
+            padding: 22px 26px;
+            border-top: 1px solid #e2e8f0;
             font-size: 12px;
-            color: #777;
+            color: #64748b;
             text-align: center;
+            background: #f8fafc;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1 style="margin: 0;">👥 Приглашение в группу</h1>
-    </div>
-
-    <div class="content">
-        <h2 style="color: #7B1FA2;">Вас пригласили в группу "<span th:text="${groupName}"></span>"</h2>
-
-        <div class="inviter">
-            <p><strong>Приглашение от:</strong> <span th:text="${inviterName}"></span></p>
-            <p>Присоединяйтесь к группе для совместной работы с файлами и общения!</p>
+<div class="wrap">
+    <div class="card">
+        <div class="header">
+            <h1>Приглашение в группу</h1>
         </div>
+        <div class="content">
+            <h2 style="color: #4338ca; margin-top: 0; font-size: 20px;">
+                Вас пригласили в группу «<span th:text="${groupName}"></span>»
+            </h2>
 
-        <div style="text-align: center;">
-            <a th:href="${inviteLink}" class="button">Присоединиться к группе</a>
+            <div class="inviter">
+                <p style="margin: 0 0 8px 0;"><strong>Приглашение от:</strong> <span th:text="${inviterName}"></span></p>
+                <p style="margin: 0; color: #475569; font-size: 14px;">Присоединяйтесь, чтобы вместе работать с файлами и общаться в чате.</p>
+            </div>
+
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto;">
+                <tr>
+                    <td align="center" style="border-radius: 12px; background: linear-gradient(135deg, #4f46e5 0%, #6d28d9 50%, #0f766e 100%);">
+                        <a th:href="${inviteLink}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style="display: inline-block; padding: 16px 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; color: #ffffff !important; text-decoration: none; line-height: 22px; border-radius: 12px;">
+                            Присоединиться к группе
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="features">
+                <h3 style="color: #4f46e5; margin-top: 0; font-size: 16px;">Возможности</h3>
+                <div class="feature-item">Общее хранилище файлов</div>
+                <div class="feature-item">Чат группы</div>
+                <div class="feature-item">Уведомления об изменениях</div>
+                <div class="feature-item">История активности</div>
+            </div>
         </div>
-
-        <div class="features">
-            <h3 style="color: #7B1FA2; margin-top: 0;">Возможности группы:</h3>
-            <div class="feature-item">Совместное хранение и обмен файлами</div>
-            <div class="feature-item">Чат для обсуждения проектов</div>
-            <div class="feature-item">Уведомления об изменениях файлов</div>
-            <div class="feature-item">История всех действий в группе</div>
+        <div class="footer">
+            <p style="margin: 0 0 6px 0;">© 2026 Thesis Cloud Storage</p>
+            <p style="margin: 0;">Письмо отправлено автоматически.</p>
+            <p style="margin: 12px 0 0 0; color: #94a3b8;">Алекперов Низами · Thesis Cloud Storage</p>
         </div>
-
-        <p style="color: #666; font-size: 14px;">
-            Ссылка для присоединения: <br>
-            <code style="background-color: #f5f5f5; padding: 5px 10px; border-radius: 3px;"
-                  th:text="${inviteLink}"></code>
-        </p>
-    </div>
-
-    <div class="footer">
-        <p>© 2025 Thesis Cloud Storage</p>
-        <p>Это письмо отправлено автоматически</p>
-        <p>Author - Алекперов Низами</p>
     </div>
 </div>
 </body>

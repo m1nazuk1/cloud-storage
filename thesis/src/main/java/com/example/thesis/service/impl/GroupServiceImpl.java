@@ -1,6 +1,7 @@
 package com.example.thesis.service.impl;
 
 import com.example.thesis.service.GroupService;
+import com.example.thesis.service.NotificationService;
 import com.example.thesis.models.WorkGroup;
 import com.example.thesis.models.User;
 import com.example.thesis.models.Membership;
@@ -10,30 +11,33 @@ import com.example.thesis.repository.WorkGroupRepository;
 import com.example.thesis.repository.MembershipRepository;
 import com.example.thesis.repository.UserRepository;
 import com.example.thesis.dto.GroupCreateRequest;
+import com.example.thesis.dto.GroupMembershipPrefsRequest;
 import com.example.thesis.dto.GroupUpdateRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
+    private static final Pattern ACCENT_HEX = Pattern.compile("^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$");
+
     private final WorkGroupRepository workGroupRepository;
     private final MembershipRepository membershipRepository;
     private final UserRepository userRepository;
-    // Временно отключаем
-    // private final NotificationService notificationService;
+    private final NotificationService notificationService;
 
     public GroupServiceImpl(WorkGroupRepository workGroupRepository,
                             MembershipRepository membershipRepository,
-                            UserRepository userRepository
-            /*, NotificationService notificationService */) {
+                            UserRepository userRepository,
+                            NotificationService notificationService) {
         this.workGroupRepository = workGroupRepository;
         this.membershipRepository = membershipRepository;
         this.userRepository = userRepository;
-        // this.notificationService = notificationService;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -87,7 +91,14 @@ public class GroupServiceImpl implements GroupService {
             group.setInviteToken(generateUniqueInviteToken());
         }
 
-        return workGroupRepository.save(group);
+        WorkGroup saved = workGroupRepository.save(group);
+        notificationService.createGroupNotification(
+                NotificationType.GROUP_UPDATED,
+                requester.getUsername() + " обновил настройки группы «" + saved.getName() + "»",
+                saved.getId(),
+                requester.getId()
+        );
+        return saved;
     }
 
     @Override
@@ -159,16 +170,12 @@ public class GroupServiceImpl implements GroupService {
         Membership membership = new Membership(user, group, MembershipRole.MEMBER);
         membershipRepository.save(membership);
 
-        // ВРЕМЕННО ОТКЛЮЧАЕМ УВЕДОМЛЕНИЯ
-        /*
-        // Отправка уведомлений
         notificationService.createGroupNotification(
                 NotificationType.USER_JOINED,
-                user.getUsername() + " joined the group",
+                user.getUsername() + " присоединился к группе «" + group.getName() + "»",
                 group.getId(),
                 user.getId()
         );
-        */
     }
 
     @Override
@@ -191,16 +198,27 @@ public class GroupServiceImpl implements GroupService {
         Membership membership = new Membership(userToAdd, group, MembershipRole.MEMBER);
         membershipRepository.save(membership);
 
-        // ВРЕМЕННО ОТКЛЮЧАЕМ УВЕДОМЛЕНИЯ
-        /*
-        // Отправка уведомлений
-        notificationService.createGroupNotification(
+        notificationService.createNotification(
                 NotificationType.USER_JOINED,
-                userToAdd.getUsername() + " was added to the group by " + requester.getUsername(),
-                group.getId(),
-                userToAdd.getId()
+                "Вас добавили в группу «" + group.getName() + "»",
+                userToAdd,
+                group.getId()
         );
-        */
+
+        List<UUID> memberIds = membershipRepository.findUserIdsByGroupId(groupId);
+        for (UUID memberId : memberIds) {
+            if (memberId.equals(userToAdd.getId()) || memberId.equals(requester.getId())) {
+                continue;
+            }
+            User member = userRepository.findById(memberId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            notificationService.createNotification(
+                    NotificationType.USER_JOINED,
+                    requester.getUsername() + " добавил участника " + userToAdd.getUsername(),
+                    member,
+                    group.getId()
+            );
+        }
     }
 
     @Override
@@ -237,16 +255,15 @@ public class GroupServiceImpl implements GroupService {
             throw new RuntimeException("Cannot remove the group creator");
         }
 
-        // Удаление участника
+        String removedName = targetMembership.getUser().getUsername();
         membershipRepository.deleteByUserIdAndGroupId(userId, groupId);
 
-        // Отправка уведомлений
-//        notificationService.createGroupNotification(
-//                NotificationType.USER_REMOVED,
-//                targetMembership.getUser().getUsername() + " was removed from the group by " + requester.getUsername(),
-//                group.getId(),
-//                userId
-//        );
+        notificationService.createGroupNotification(
+                NotificationType.USER_REMOVED,
+                removedName + " удалён из группы пользователем " + requester.getUsername(),
+                group.getId(),
+                requester.getId()
+        );
     }
 
     @Override
@@ -279,8 +296,16 @@ public class GroupServiceImpl implements GroupService {
             throw new RuntimeException("Cannot assign CREATOR role");
         }
 
+        String targetName = targetMembership.getUser().getUsername();
         targetMembership.setRole(newRole);
         membershipRepository.save(targetMembership);
+
+        notificationService.createGroupNotification(
+                NotificationType.GROUP_UPDATED,
+                requester.getUsername() + " изменил роль участника " + targetName + " на " + newRole,
+                group.getId(),
+                requester.getId()
+        );
     }
 
     @Override
@@ -301,6 +326,31 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public List<WorkGroup> searchGroups(String searchTerm, UUID userId) {
         return workGroupRepository.searchGroupsForUser(userId, searchTerm);
+    }
+
+    @Override
+    @Transactional
+    public void updateMembershipPreferences(UUID groupId, User user, GroupMembershipPrefsRequest request) {
+        Membership membership = membershipRepository.findByUserIdAndGroupId(user.getId(), groupId)
+                .orElseThrow(() -> new RuntimeException("Вы не участник этой группы"));
+
+        if (request.getNotificationsMuted() != null) {
+            membership.setNotificationsMuted(request.getNotificationsMuted());
+        }
+        if (request.getPinned() != null) {
+            membership.setPinned(request.getPinned());
+        }
+        if (request.getAccentColor() != null) {
+            String c = request.getAccentColor().trim();
+            if (c.isEmpty()) {
+                membership.setAccentColor(null);
+            } else if (ACCENT_HEX.matcher(c).matches()) {
+                membership.setAccentColor(c);
+            } else {
+                throw new RuntimeException("Укажите цвет в формате #RGB или #RRGGBB");
+            }
+        }
+        membershipRepository.save(membership);
     }
 
     private String generateUniqueInviteToken() {

@@ -3,131 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Активация аккаунта - Thesis Cloud Storage</title>
+    <title>Активация аккаунта — Thesis Cloud Storage</title>
     <style>
-        /* Inline стили для максимальной совместимости с почтовыми клиентами */
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.6;
-            color: #333333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, Helvetica, sans-serif;
+            line-height: 1.65;
+            color: #1e293b;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
         }
-        .container {
+        .wrap {
             max-width: 600px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #ffffff;
+            padding: 32px 16px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px -12px rgba(49, 46, 129, 0.18);
+            border: 1px solid rgba(99, 102, 241, 0.12);
         }
         .header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 52%, #0d9488 100%);
+            color: #ffffff;
+            padding: 32px 28px;
             text-align: center;
-            border-radius: 5px 5px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.92;
+            font-size: 15px;
         }
         .content {
-            padding: 30px 20px;
-            background-color: #ffffff;
+            padding: 32px 28px 28px 28px;
         }
-        .button {
-            display: inline-block;
-            padding: 14px 28px;
-            background-color: #4CAF50;
-            color: white !important;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 25px 0;
-            font-weight: bold;
-            font-size: 16px;
-            border: 1px solid #45a049;
+        .content h2 {
+            color: #4338ca;
+            margin-top: 0;
+            font-size: 20px;
         }
-        .link-box {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 4px;
-            margin: 15px 0;
-            border-left: 4px solid #4CAF50;
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
+        .tip {
+            background: linear-gradient(135deg, #eef2ff 0%, #ecfdf5 100%);
+            padding: 16px 18px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border-left: 4px solid #6366f1;
         }
         .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #eeeeee;
+            margin-top: 28px;
+            padding: 24px 28px;
+            border-top: 1px solid #e2e8f0;
             font-size: 13px;
-            color: #777777;
+            color: #64748b;
             text-align: center;
+            background: #f8fafc;
         }
         .signature {
-            margin-top: 20px;
-            font-style: italic;
-            color: #555555;
+            margin-top: 16px;
+            color: #475569;
         }
         @media only screen and (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
-            .content {
-                padding: 20px 15px;
-            }
-            .button {
-                display: block;
-                text-align: center;
-                padding: 16px 0;
-            }
+            .wrap { padding: 16px 12px; }
+            .content { padding: 24px 20px; }
+            .header { padding: 24px 20px; }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1 style="margin: 0; font-size: 24px;">Добро пожаловать в Cloud Storage!</h1>
-    </div>
-
-    <div class="content">
-        <h2 style="color: #2E7D32; margin-top: 0;">Активация аккаунта</h2>
-
-        <p>Здравствуйте!</p>
-        <p>Благодарим вас за регистрацию в нашем облачном хранилище. Вы сделали правильный выбор для совместной работы с файлами.</p>
-
-        <p><strong>Для завершения регистрации и активации вашего аккаунта нажмите на кнопку ниже:</strong></p>
-
-        <div style="text-align: center;">
-            <a th:href="${activationLink}" class="button">✅ Активировать аккаунт</a>
+<div class="wrap">
+    <div class="card">
+        <div class="header">
+            <h1>Thesis Cloud Storage</h1>
+            <p>Облако для групп, файлов и чата</p>
         </div>
+        <div class="content">
+            <h2>Активация аккаунта</h2>
+            <p>Здравствуйте!</p>
+            <p>Спасибо за регистрацию. Чтобы завершить создание аккаунта и войти в сервис, нажмите кнопку ниже.</p>
 
-        <p>Или скопируйте ссылку в браузер:</p>
-        <div class="link-box">
-            <code th:text="${activationLink}"></code>
-        </div>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 28px auto;">
+                <tr>
+                    <td align="center" style="border-radius: 12px; background: linear-gradient(135deg, #4f46e5 0%, #6d28d9 50%, #0f766e 100%);">
+                        <a th:href="${activationLink}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style="display: inline-block; padding: 16px 36px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: 700; color: #ffffff !important; text-decoration: none; line-height: 22px; border-radius: 12px;">
+                            Активировать аккаунт
+                        </a>
+                    </td>
+                </tr>
+            </table>
 
-        <div style="background-color: #E8F5E9; padding: 15px; border-radius: 4px; margin: 20px 0;">
-            <p style="margin: 0; color: #1B5E20;">
-                <strong>💡 Совет:</strong> После активации вы сможете создавать группы, загружать файлы и общаться с коллегами.
+            <div class="tip">
+                <p style="margin: 0; color: #334155; font-size: 14px;">
+                    <strong style="color: #4f46e5;">Подсказка:</strong> после активации вы сможете создавать группы, загружать файлы и пользоваться чатом.
+                </p>
+            </div>
+
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 0;">
+                <em>Если вы не регистрировались в Thesis Cloud Storage, просто проигнорируйте это письмо.</em>
             </p>
         </div>
-
-        <p style="color: #666; font-size: 14px;">
-            <em>Если вы не регистрировались в нашем сервисе, пожалуйста, проигнорируйте это письмо.</em>
-        </p>
-    </div>
-
-    <div class="footer">
-        <p>© 2025 Thesis Cloud Storage. Все права защищены.</p>
-        <p>Это письмо отправлено автоматически, пожалуйста, не отвечайте на него.</p>
-
-        <div class="signature">
-            <p>С уважением,<br>
-                <strong>Алекперов Низами</strong><br>
-                Разработчик Thesis Cloud Storage</p>
+        <div class="footer">
+            <p style="margin: 0 0 8px 0;">© 2026 Thesis Cloud Storage</p>
+            <p style="margin: 0;">Письмо отправлено автоматически — отвечать на него не нужно.</p>
+            <div class="signature">
+                <p style="margin: 16px 0 0 0;">
+                    С уважением,<br>
+                    <strong>Алекперов Низами</strong><br>
+                    <span style="font-size: 12px;">Thesis Cloud Storage</span>
+                </p>
+            </div>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 20px;">
+                Поддержка:
+                <a href="mailto:support@thesis-app.com" style="color: #4f46e5; text-decoration: none; font-weight: 600;">support@thesis-app.com</a>
+            </p>
         </div>
-
-        <p style="font-size: 12px; color: #999; margin-top: 20px;">
-            Техническая поддержка: <a href="mailto:support@thesis-app.com" style="color: #4CAF50;">support@thesis-app.com</a>
-        </p>
     </div>
 </div>
 </body>

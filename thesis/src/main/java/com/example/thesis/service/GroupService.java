@@ -3,6 +3,7 @@ package com.example.thesis.service;
 import com.example.thesis.models.WorkGroup;
 import com.example.thesis.models.User;
 import com.example.thesis.dto.GroupCreateRequest;
+import com.example.thesis.dto.GroupMembershipPrefsRequest;
 import com.example.thesis.dto.GroupUpdateRequest;
 import java.util.List;
 import java.util.UUID;
@@ -26,4 +27,6 @@ public interface GroupService {
     List<WorkGroup> searchGroups(String searchTerm, UUID userId);
     int getGroupMemberCount(UUID groupId);
     int getGroupFileCount(UUID groupId);
+
+    void updateMembershipPreferences(UUID groupId, User user, GroupMembershipPrefsRequest request);
 }

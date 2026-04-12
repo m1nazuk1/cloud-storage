@@ -1,5 +1,6 @@
 package com.example.thesis.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,8 +16,12 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT")
     private String content;
+
+    /** TEXT, IMAGE, AUDIO, STICKER, FILE */
+    @Column(name = "message_kind", length = 32, nullable = false)
+    private String messageKind = "TEXT";
 
     @CreationTimestamp
     @Column(name = "timestamp", nullable = false, updatable = false)
@@ -26,6 +31,7 @@ public class ChatMessage {
     @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
     private WorkGroup group;
@@ -65,6 +71,14 @@ public class ChatMessage {
         this.content = content;
     }
 
+    public String getMessageKind() {
+        return messageKind;
+    }
+
+    public void setMessageKind(String messageKind) {
+        this.messageKind = messageKind != null ? messageKind : "TEXT";
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -81,12 +95,18 @@ public class ChatMessage {
         this.sender = sender;
     }
 
+    @JsonIgnore
     public WorkGroup getGroup() {
         return group;
     }
 
     public void setGroup(WorkGroup group) {
         this.group = group;
+    }
+
+    /** В JSON вместо целого WorkGroup */
+    public UUID getGroupId() {
+        return group != null ? group.getId() : null;
     }
 
     public FileMetadata getAttachment() {
@@ -132,9 +152,11 @@ public class ChatMessage {
 
     @Override
     public String toString() {
+        String c = content;
+        String shortContent = c == null ? "" : (c.length() > 20 ? c.substring(0, 20) + "..." : c);
         return "ChatMessage{" +
                 "id=" + id +
-                ", content='" + (content.length() > 20 ? content.substring(0, 20) + "..." : content) + '\'' +
+                ", content='" + shortContent + '\'' +
                 ", sender=" + (sender != null ? sender.getUsername() : "null") +
                 ", timestamp=" + timestamp +
                 '}';

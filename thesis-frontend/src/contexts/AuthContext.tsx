@@ -1,8 +1,14 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import {AuthResponse, User} from '../types';
 import { userApi } from '../api/user';
 import { authApi } from '../api/auth';
+import { extractErrorMessage, getApiErrorMessage } from '../api/axios';
 import { useToast } from './ToastContext';
+import { queryClient } from '../queryClient';
+import { notificationApi } from '../api/notifications';
+import { statsApi } from '../api/stats';
+import { activityApi } from '../api/activity';
+import { groupApi } from '../api/group';
 
 interface AuthContextType {
     user: User | null;
@@ -11,7 +17,7 @@ interface AuthContextType {
     register: (data: any) => Promise<void>;
     logout: () => Promise<void>;
     updateUser: (data: Partial<User>) => Promise<User>; // Возвращаем User, а не void
-    refreshUserData: () => Promise<void>;
+    refreshUserData: () => Promise<User>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,42 +35,93 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(() => {
-        const savedUser = localStorage.getItem('user');
-        return savedUser ? JSON.parse(savedUser) : null;
-    });
-    const [isLoading, setIsLoading] = useState(false);
+    // Не подставляем user из localStorage: после очистки БД токен может быть невалиден — только после GET /profile
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const toast = useToast();
 
-    // Метод для обновления данных пользователя
-    const refreshUserData = async () => {
-        try {
-            const response = await userApi.getProfile();
-            localStorage.setItem('user', JSON.stringify(response));
-            setUser(response);
-        } catch (error) {
-            console.error('Failed to refresh user data:', error);
-        }
-    };
+    const clearSession = useCallback(() => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
+        setUser(null);
+    }, []);
 
+    const refreshUserData = useCallback(async (): Promise<User> => {
+        const response = await userApi.getProfile();
+        localStorage.setItem('user', JSON.stringify(response));
+        setUser(response);
+        return response;
+    }, []);
 
+    /** Сразу подгружаем дашборд и уведомления, чтобы не ждать монтирования страниц. */
+    const prefetchUserCaches = useCallback(async (userId: string) => {
+        await Promise.all([
+            queryClient.prefetchQuery({
+                queryKey: ['notifications', userId],
+                queryFn: notificationApi.getNotifications,
+            }),
+            queryClient.prefetchQuery({
+                queryKey: ['notifications', 'count', userId],
+                queryFn: notificationApi.getUnreadCount,
+            }),
+            queryClient.prefetchQuery({
+                queryKey: ['user-stats', userId],
+                queryFn: statsApi.getUserStats,
+            }),
+            queryClient.prefetchQuery({
+                queryKey: ['recent-activity', userId],
+                queryFn: activityApi.getRecentActivity,
+            }),
+            queryClient.prefetchQuery({
+                queryKey: ['groups', userId],
+                queryFn: groupApi.getMyGroups,
+            }),
+        ]);
+    }, []);
 
     useEffect(() => {
+        const onSessionInvalid = () => {
+            clearSession();
+        };
+        window.addEventListener('auth:session-expired', onSessionInvalid);
+        return () => window.removeEventListener('auth:session-expired', onSessionInvalid);
+    }, [clearSession]);
+
+    useEffect(() => {
+        let cancelled = false;
+
         const initAuth = async () => {
             const token = localStorage.getItem('access_token');
-            if (token) {
+            if (!token) {
+                if (!cancelled) {
+                    setIsLoading(false);
+                }
+                return;
+            }
+            try {
+                const u = await refreshUserData();
                 try {
-                    await refreshUserData();
-                } catch (error) {
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('user');
+                    await prefetchUserCaches(u.id);
+                } catch {
+                    /* ignore */
+                }
+            } catch (e) {
+                const status = (e as { response?: { status?: number } })?.response?.status;
+                if (status === 401 || status === 403) {
+                    clearSession();
+                }
+            } finally {
+                if (!cancelled) {
+                    setIsLoading(false);
                 }
             }
-            setIsLoading(false);
         };
 
         initAuth();
-    }, []);
+        return () => {
+            cancelled = true;
+        };
+    }, [clearSession, refreshUserData, prefetchUserCaches]);
 
     const authResponseToUser = (authResponse: AuthResponse): User => {
         return {
@@ -73,8 +130,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             username: authResponse.username,
             firstName: authResponse.firstName || '',
             lastName: authResponse.lastName || '',
-            enabled: true, // По умолчанию true после успешного логина
-            registrationDate: new Date().toISOString(), // Или возьмите из response если есть
+            enabled: authResponse.enabled !== false,
+            registrationDate: new Date().toISOString(),
             roles: authResponse.roles || ['ROLE_USER']
         };
     };
@@ -82,33 +139,48 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const login = async (emailOrUsername: string, password: string) => {
         setIsLoading(true);
         try {
-            // Используем LoginRequest объект
             const response: AuthResponse = await authApi.login({
                 emailOrUsername,
                 password
             });
 
-            // Сохраняем токен
             localStorage.setItem('access_token', response.token);
+            queryClient.clear();
 
-            // Конвертируем AuthResponse в User
-            const userData = authResponseToUser(response);
+            let loggedInUser: User;
+            try {
+                loggedInUser = await refreshUserData();
+            } catch {
+                loggedInUser = authResponseToUser(response);
+                setUser(loggedInUser);
+                localStorage.setItem('user', JSON.stringify(loggedInUser));
+            }
 
-            // Сохраняем пользователя
-            setUser(userData);
-            localStorage.setItem('user', JSON.stringify(userData));
+            try {
+                await prefetchUserCaches(loggedInUser.id);
+            } catch {
+                /* данные подтянутся с экранов при ошибке сети */
+            }
 
-            toast.success('Login successful!');
+            toast.success('Вход выполнен');
         } catch (error: any) {
             console.error('Login error:', error);
 
-            let message = 'Login failed';
-            if (error.response?.status === 401) {
-                message = 'Invalid username or password';
-            } else if (error.response?.status === 403) {
-                message = 'Account not activated. Check your email';
-            } else if (error.response?.data?.message) {
-                message = error.response.data.message;
+            let message = 'Не удалось войти';
+            if (!error.response) {
+                message =
+                    error.code === 'ECONNABORTED' || error.message === 'Network Error'
+                        ? 'Нет связи с сервером. Проверьте сеть и попробуйте снова.'
+                        : message;
+            } else {
+                const apiMsg = extractErrorMessage(error.response?.data);
+                if (apiMsg) {
+                    message = apiMsg;
+                } else if (error.response?.status === 401) {
+                    message = 'Неверный логин или пароль';
+                } else if (error.response?.status === 403) {
+                    message = 'Аккаунт не активирован. Проверьте почту';
+                }
             }
 
             toast.error(message);
@@ -121,9 +193,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const register = async (data: any) => {
         try {
             await authApi.register(data);
-            toast.success('Registration successful! Please check your email to activate your account.');
+            // Уведомление об успехе — только на странице Register (избегаем двойного toast)
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Registration failed');
+            let message = 'Ошибка регистрации';
+            if (!error.response) {
+                message =
+                    error.code === 'ECONNABORTED' || error.message === 'Network Error'
+                        ? 'Нет связи с сервером. Проверьте сеть и попробуйте снова.'
+                        : message;
+            } else {
+                message = getApiErrorMessage(error, 'Ошибка регистрации');
+            }
+            toast.error(message);
             throw error;
         }
     };
@@ -134,10 +215,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
+            queryClient.clear();
             setUser(null);
             localStorage.removeItem('access_token');
             localStorage.removeItem('user');
-            toast.success('Logged out successfully');
+            toast.success('Вы вышли из аккаунта');
         }
     };
 
@@ -153,7 +235,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             localStorage.setItem('user', JSON.stringify(mergedUser));
             setUser(mergedUser);
 
-            toast.success('Profile updated successfully!');
+            toast.success('Профиль обновлён');
             return mergedUser;
         } catch (error: any) {
             console.error('Update error:', error);

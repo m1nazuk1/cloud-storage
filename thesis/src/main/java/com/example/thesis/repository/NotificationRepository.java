@@ -38,6 +38,9 @@ public interface NotificationRepository extends JpaRepository<Notification, UUID
             "ORDER BY n.createdDate DESC")
     Page<Notification> findByUserId(@Param("userId") UUID userId, Pageable pageable);
 
+    @Query("SELECT n FROM Notification n JOIN FETCH n.group WHERE n.user.id = :userId ORDER BY n.createdDate DESC")
+    List<Notification> findByUserIdWithGroup(@Param("userId") UUID userId);
+
     @Query("SELECT COUNT(n) FROM Notification n WHERE n.user.id = :userId AND n.read = false")
     Long countUnreadByUserId(@Param("userId") UUID userId);
 
