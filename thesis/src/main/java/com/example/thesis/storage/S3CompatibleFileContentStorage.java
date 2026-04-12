@@ -13,9 +13,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Объектное хранилище через S3 API (MinIO, AWS S3 и др.).
- */
 @Component
 @ConditionalOnProperty(name = "app.storage.object-enabled", havingValue = "true")
 public class S3CompatibleFileContentStorage implements FileContentStorage {

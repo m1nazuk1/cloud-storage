@@ -47,7 +47,7 @@ public class GroupController {
         User currentUser = securityUtils.getCurrentUser();
         WorkGroup group = groupService.createGroup(request, currentUser);
 
-        // Конвертируем в DTO
+        
         GroupDTO groupDTO = GroupDTO.fromEntity(group);
 
         System.out.println("[INFO] Group created with ID: " + group.getId());
@@ -62,13 +62,13 @@ public class GroupController {
 
         List<WorkGroup> groups = groupService.getUserGroups(currentUser.getId());
 
-        // Конвертируем в DTO с правильной статистикой
+        
         List<GroupWithStats> dtos = new ArrayList<>();
         for (WorkGroup group : groups) {
-            // Получаем реальное количество участников
+            
             int memberCount = group.getMemberships() != null ? group.getMemberships().size() : 0;
 
-            // Получаем реальное количество файлов (не удаленных)
+            
             int fileCount = 0;
             if (group.getFiles() != null) {
                 fileCount = (int) group.getFiles().stream()
@@ -100,8 +100,6 @@ public class GroupController {
         }
     }
 
-
-
     @PostMapping("/join")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> joinGroupByToken(@RequestBody Map<String, String> request) {
@@ -125,12 +123,12 @@ public class GroupController {
     public ResponseEntity<Map<String, Object>> getGroupFull(@PathVariable UUID id) {
         WorkGroup group = groupService.getGroupById(id);
 
-        // Проверяем, является ли пользователь участником группы
+        
         if (!groupService.isUserMember(id, securityUtils.getCurrentUserId())) {
             return ResponseEntity.status(403).build();
         }
 
-        // Создаем структуру данных вручную
+        
         Map<String, Object> response = new HashMap<>();
         response.put("id", group.getId());
         response.put("name", group.getName());
@@ -142,7 +140,7 @@ public class GroupController {
                 "email", group.getCreator().getEmail()
         ));
 
-        // Добавляем файлы
+        
         List<Map<String, Object>> files = group.getFiles().stream()
                 .filter(f -> !f.isDeleted())
                 .map(f -> Map.of(
@@ -169,7 +167,7 @@ public class GroupController {
         return ResponseEntity.ok(groups);
     }
 
-    /** Статический путь до /{id}, иначе "search" попадает в UUID и ломает поиск групп */
+    
     @GetMapping("/search")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<WorkGroup>> searchGroups(@RequestParam String query) {
@@ -183,18 +181,16 @@ public class GroupController {
     public ResponseEntity<GroupDTO> getGroup(@PathVariable UUID id) {
         WorkGroup group = groupService.getGroupById(id);
 
-        // Проверяем, является ли пользователь участником группы
+        
         if (!groupService.isUserMember(id, securityUtils.getCurrentUserId())) {
             return ResponseEntity.status(403).build();
         }
 
-        // Конвертируем в DTO с полной информацией
+        
         GroupDTO groupDTO = GroupDTO.fromEntity(group);
 
         return ResponseEntity.ok(groupDTO);
     }
-
-
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -229,12 +225,10 @@ public class GroupController {
         return ResponseEntity.ok(new AuthController.MessageResponse("Successfully joined group"));
     }
 
-
-
     @GetMapping("/{id}/members")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<User>> getGroupMembers(@PathVariable UUID id) {
-        // Проверяем, является ли пользователь участником группы
+        
         if (!groupService.isUserMember(id, securityUtils.getCurrentUserId())) {
             return ResponseEntity.status(403).build();
         }
@@ -279,10 +273,10 @@ public class GroupController {
 
         WorkGroup group = groupService.getGroupById(id);
 
-        // Получаем участников
+        
         List<User> members = groupService.getGroupMembers(id);
 
-        // Получаем файлы
+        
         List<FileMetadata> files = fileService.getGroupFiles(id);
 
         Map<String, Object> stats = new HashMap<>();
@@ -301,7 +295,7 @@ public class GroupController {
         private java.time.LocalDateTime createdDate;
         private String creator;
 
-        // Getters and Setters
+        
         public int getMemberCount() { return memberCount; }
         public void setMemberCount(int memberCount) { this.memberCount = memberCount; }
 

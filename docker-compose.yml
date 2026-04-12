@@ -1,5 +1,3 @@
-# Запуск: из корня репозитория выполните: docker compose up --build
-# Веб-интерфейс: http://localhost  | API (через тот же хост): /api
 services:
   db:
     image: postgres:16-alpine
@@ -15,7 +13,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # S3-совместимое API для гибридного хранилища (новые файлы — в бакет при APP_STORAGE_NEW_FILES=object)
   minio:
     image: minio/minio:latest
     command: server /data --console-address ":9001"
@@ -45,10 +42,7 @@ services:
       APP_STORAGE_OBJECT_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
       APP_CORS_ORIGINS: ${APP_CORS_ORIGINS:-http://localhost,http://localhost:80,http://127.0.0.1,http://127.0.0.1:80,http://localhost:3000}
       APP_FRONTEND_URL: ${APP_FRONTEND_URL:-http://localhost}
-      # DEV_TOOLS_ENABLED=true — включить /api/dev/* и /api/debug/* (SMTP-тесты; только для отладки)
       DEV_TOOLS_ENABLED: ${DEV_TOOLS_ENABLED:-false}
-      # MAIL_PASSWORD не задаём пустым — иначе перезапишется дефолт из application.properties.
-      # Чтобы переопределить пароль в Docker: добавьте сюда MAIL_PASSWORD: ${MAIL_PASSWORD} и задайте в .env
     volumes:
       - thesis_uploads:/app/uploads
     healthcheck:

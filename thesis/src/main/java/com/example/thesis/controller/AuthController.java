@@ -68,13 +68,13 @@ public class AuthController {
             return ResponseEntity.status(401).build();
         }
 
-        // Находим пользователя по username из контекста
+        
         String username = authentication.getName();
         User user = userRepository.findByUsername(username)
                 .or(() -> userRepository.findByEmail(username))
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Генерируем новый токен
+        
         String jwt = jwtTokenProvider.generateToken(authentication);
 
         return ResponseEntity.ok(new AuthResponse(jwt, "Bearer", user));
@@ -100,8 +100,6 @@ public class AuthController {
         }
     }
 
-
-
     @GetMapping("/activate/{code}")
     public ResponseEntity<?> activateAccount(@PathVariable String code, HttpServletResponse response) {
         try {
@@ -109,10 +107,10 @@ public class AuthController {
 
             String target = frontendUrl.replaceAll("/$", "") + "/login?activated=1";
             response.sendRedirect(target);
-            return null; // Возвращаем null так как redirect уже обработан
+            return null; 
 
         } catch (RuntimeException e) {
-            // Для ошибок также перенаправляем на фронтенд с параметром ошибки
+            
             try {
                 String target = frontendUrl.replaceAll("/$", "") + "/login?activationError=" +
                         URLEncoder.encode(e.getMessage(), "UTF-8");
@@ -135,8 +133,8 @@ public class AuthController {
         try {
             if (refreshToken != null && refreshToken.startsWith("Bearer ")) {
                 String token = refreshToken.substring(7);
-                // Здесь нужно реализовать логику refresh токена
-                // Для простоты пока возвращаем успех
+                
+                
                 return ResponseEntity.ok(new MessageResponse("Token refreshed"));
             }
             return ResponseEntity.badRequest().body(new ErrorResponse("Invalid refresh token"));
@@ -182,9 +180,9 @@ public class AuthController {
     public ResponseEntity<?> handleResetPasswordRedirect(@RequestParam String token,
                                                          HttpServletResponse response) {
         try {
-            // Проверяем валидность токена
-            // Логика проверки токена (можно вынести в сервис)
-            // Для простоты просто проверяем наличие пользователя с таким токеном
+            
+            
+            
             if (userRepository.findByActivationCode(token).isEmpty()) {
                 String target = frontendUrl.replaceAll("/$", "") + "/reset-password?error=" +
                         URLEncoder.encode("Invalid or expired reset token", "UTF-8");
@@ -192,7 +190,7 @@ public class AuthController {
                 return null;
             }
 
-            // Если токен валиден, редиректим на фронтенд с токеном
+            
             String target = frontendUrl.replaceAll("/$", "") + "/reset-password?token=" +
                     URLEncoder.encode(token, "UTF-8");
             response.sendRedirect(target);
@@ -205,7 +203,7 @@ public class AuthController {
         }
     }
 
-    // Вспомогательные классы для ответов
+    
     static class ErrorResponse {
         private String message;
 

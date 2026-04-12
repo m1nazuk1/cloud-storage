@@ -36,13 +36,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                // Получаем username из токена
+                
                 String username = tokenProvider.getUsernameFromToken(jwt);
 
-                // Ищем пользователя в БД
+                
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
-                // Если пользователь найден, устанавливаем аутентификацию
+                
                 if (userDetails != null) {
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
@@ -62,8 +62,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception ex) {
             logger.error("Could not set user authentication in security context", ex);
 
-            // Не прерываем цепочку фильтров, продолжаем обработку запроса
-            // Это позволит работать публичным эндпоинтам
+            
+            
         }
 
         filterChain.doFilter(request, response);

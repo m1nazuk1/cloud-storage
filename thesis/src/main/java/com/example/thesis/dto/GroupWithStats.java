@@ -16,7 +16,7 @@ public class GroupWithStats {
     private User creator;
     private int memberCount;
     private int fileCount;
-    /** Настройки текущего пользователя для этой группы */
+    
     private boolean notificationsMuted;
     private boolean pinned;
     private String accentColor;

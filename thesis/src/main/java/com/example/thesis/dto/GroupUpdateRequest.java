@@ -5,7 +5,7 @@ public class GroupUpdateRequest {
     private String description;
     private boolean regenerateToken;
 
-    // Getters and Setters
+    
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 

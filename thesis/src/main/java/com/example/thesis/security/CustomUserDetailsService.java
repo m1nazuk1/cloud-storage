@@ -46,8 +46,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 })
                 .collect(Collectors.toList());
 
-        // Обязательно передаём реальный enabled — иначе Spring считает аккаунт всегда включённым и
-        // неактивированные пользователи проходят проверку пароля, после чего ломается логика входа.
+        
+        
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),

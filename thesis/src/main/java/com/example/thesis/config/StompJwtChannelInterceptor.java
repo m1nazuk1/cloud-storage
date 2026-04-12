@@ -17,9 +17,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-/**
- * Устанавливает пользователя по JWT из STOMP CONNECT и прокидывает SecurityContext в обработчики @MessageMapping.
- */
 @Component
 public class StompJwtChannelInterceptor implements ChannelInterceptor {
 

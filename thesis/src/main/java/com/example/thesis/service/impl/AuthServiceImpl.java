@@ -73,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
 
         System.out.println("[AUTH] Registering user: " + email + ", username: " + username);
 
-        // Проверка уникальности email (в БД храним в нижнем регистре)
+        
         if (userRepository.existsByEmail(email)) {
             User existingUser = userRepository.findByEmail(email).orElse(null);
             if (existingUser != null) {
@@ -81,23 +81,23 @@ public class AuthServiceImpl implements AuthService {
                     System.out.println("[AUTH] Email already exists and is enabled: " + email);
                     throw new RuntimeException("Этот email уже зарегистрирован");
                 } else {
-                    // Пользователь существует, но не активирован - можем обновить
+                    
                     System.out.println("[AUTH] Updating existing unactivated user: " + email);
 
-                    // Обновляем данные
+                    
                     existingUser.setUsername(username);
                     existingUser.setPassword(passwordEncoder.encode(request.getPassword()));
                     existingUser.setFirstName(request.getFirstName());
                     existingUser.setLastName(request.getLastName());
 
-                    // Генерируем новый код активации
+                    
                     String newActivationCode = UUID.randomUUID().toString();
                     existingUser.setActivationCode(newActivationCode);
                     existingUser.setEnabled(false);
 
                     userRepository.save(existingUser);
 
-                    // Отправляем новый код активации
+                    
                     try {
                         emailService.sendActivationEmail(existingUser.getEmail(), newActivationCode);
                         System.out.println("[AUTH] New activation email sent to existing unactivated user: " + existingUser.getEmail());
@@ -110,13 +110,13 @@ public class AuthServiceImpl implements AuthService {
             }
         }
 
-        // Проверка уникальности username
+        
         if (userRepository.existsByUsername(username)) {
             System.out.println("[AUTH] Username already taken: " + username);
             throw new RuntimeException("Это имя пользователя уже занято");
         }
 
-        // Создание нового пользователя
+        
         User user = new User();
         user.setEmail(email);
         user.setUsername(username);
@@ -124,28 +124,28 @@ public class AuthServiceImpl implements AuthService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
 
-        // Установка ролей
+        
         Set<Role> roles = new HashSet<>();
         roles.add(Role.ROLE_USER);
         user.setRoles(roles);
 
-        // Генерация кода активации
+        
         String activationCode = UUID.randomUUID().toString();
         user.setActivationCode(activationCode);
         user.setEnabled(false);
 
-        // Сохранение пользователя
+        
         User savedUser = userRepository.save(user);
         System.out.println("[AUTH] User saved with ID: " + savedUser.getId());
 
-        // Отправка email с активацией
+        
         try {
             emailService.sendActivationEmail(savedUser.getEmail(), activationCode);
             System.out.println("[AUTH] Activation email sent to: " + savedUser.getEmail());
         } catch (Exception e) {
             System.err.println("[AUTH] Failed to send activation email to " +
                     savedUser.getEmail() + ": " + e.getMessage());
-            // Не выбрасываем исключение - пользователь может запросить повторную отправку
+            
         }
 
         return createAuthResponse(null, savedUser);
@@ -159,7 +159,7 @@ public class AuthServiceImpl implements AuthService {
         System.out.println("[AUTH] Login attempt: " + loginKey);
 
         try {
-            // Аутентификация пользователя (email — в нижнем регистре)
+            
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginKey,
@@ -169,11 +169,11 @@ public class AuthServiceImpl implements AuthService {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // Получаем UserDetails из аутентификации
+            
             org.springframework.security.core.userdetails.UserDetails userDetails =
                     (org.springframework.security.core.userdetails.UserDetails) authentication.getPrincipal();
 
-            // UserDetails.username — логин в БД (имя пользователя), не email
+            
             User user = userRepository.findByUsername(userDetails.getUsername())
                     .or(() -> userRepository.findByEmailIgnoreCase(userDetails.getUsername()))
                     .orElseThrow(() -> {
@@ -183,17 +183,17 @@ public class AuthServiceImpl implements AuthService {
 
             System.out.println("[AUTH] User found: " + user.getUsername() + ", enabled: " + user.isEnabled());
 
-            // Неактивированные пользователи отсекаются в DaoAuthenticationProvider (UserDetails.enabled=false).
-            // Страховка от рассинхрона данных:
+            
+            
             if (!user.isEnabled()) {
                 throw new RuntimeException("Аккаунт не активирован. Подтвердите email по ссылке из письма.");
             }
 
-            // Генерация JWT токена
+            
             String jwt = jwtTokenProvider.generateToken(authentication);
             System.out.println("[AUTH] JWT generated for user: " + user.getUsername());
 
-            // Формируем ответ с токеном
+            
             return createAuthResponse(jwt, user);
 
         } catch (Exception e) {
@@ -204,12 +204,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     public void refreshUserInContext(String username) {
-        // Находим пользователя в БД
+        
         User refreshedUser = userRepository.findByUsername(username)
                 .or(() -> userRepository.findByEmail(username))
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Обновляем аутентификацию
+        
         List<GrantedAuthority> authorities = refreshedUser.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
@@ -234,22 +234,22 @@ public class AuthServiceImpl implements AuthService {
     public void activateAccount(String activationCode) {
         System.out.println("[AUTH] Activating account with code: " + activationCode);
 
-        // Находим пользователя по коду активации
+        
         User user = userRepository.findByActivationCode(activationCode)
                 .orElseThrow(() -> {
                     System.out.println("[AUTH] Invalid activation code: " + activationCode);
                     return new RuntimeException("Invalid or expired activation code");
                 });
 
-        // Проверяем, не активирован ли уже аккаунт
+        
         if (user.isEnabled()) {
             System.out.println("[AUTH] Account already activated: " + user.getEmail());
             throw new RuntimeException("Account is already activated");
         }
 
-        // ВАЖНОЕ ИСПРАВЛЕНИЕ: Активируем аккаунт НЕ удаляя код активации
+        
         user.setEnabled(true);
-        // НЕ УДАЛЯЕМ код активации: user.setActivationCode(null);
+        
 
         userRepository.save(user);
 
@@ -261,29 +261,29 @@ public class AuthServiceImpl implements AuthService {
     public void requestPasswordReset(String email) {
         System.out.println("[AUTH] Password reset requested for: " + email);
 
-        // Находим пользователя по email
+        
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     System.out.println("[AUTH] User not found for password reset: " + email);
                     return new RuntimeException("User not found with email: " + email);
                 });
 
-        // Проверяем, активирован ли аккаунт
+        
         if (!user.isEnabled()) {
             System.out.println("[AUTH] Account not activated for password reset: " + email);
             throw new RuntimeException("Account is not activated. Please activate your account first.");
         }
 
-        // Генерация токена для сброса пароля
+        
         String resetToken = UUID.randomUUID().toString();
 
-        // Создаем новый токен сброса пароля
+        
         user.setActivationCode(resetToken);
         userRepository.save(user);
 
         System.out.println("[AUTH] Reset token generated for: " + email);
 
-        // Отправляем email со ссылкой для сброса пароля
+        
         try {
             emailService.sendPasswordResetEmail(user.getEmail(), resetToken);
             System.out.println("[AUTH] Password reset email sent to: " + user.getEmail());
@@ -298,23 +298,23 @@ public class AuthServiceImpl implements AuthService {
     public void resetPassword(String token, String newPassword) {
         System.out.println("[AUTH] Resetting password with token");
 
-        // Находим пользователя по токену сброса
+        
         User user = userRepository.findByActivationCode(token)
                 .orElseThrow(() -> {
                     System.out.println("[AUTH] Invalid reset token");
                     return new RuntimeException("Invalid or expired reset token");
                 });
 
-        // Проверяем, активирован ли аккаунт
+        
         if (!user.isEnabled()) {
             System.out.println("[AUTH] Account not activated during password reset: " + user.getEmail());
             throw new RuntimeException("Account is not activated. Please activate your account first.");
         }
 
-        // Устанавливаем новый пароль
+        
         user.setPassword(passwordEncoder.encode(newPassword));
 
-        // После сброса пароля удаляем токен сброса
+        
         user.setActivationCode(null);
 
         userRepository.save(user);
@@ -322,7 +322,7 @@ public class AuthServiceImpl implements AuthService {
         System.out.println("[AUTH] Password reset for user: " + user.getEmail());
     }
 
-    // Вспомогательный метод для повторной отправки активации
+    
     @Transactional
     public void resendActivationEmail(String email) {
         System.out.println("[AUTH] Resending activation email to: " + email);
@@ -338,7 +338,7 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Account is already activated");
         }
 
-        // Если код активации отсутствует, генерируем новый
+        
         if (user.getActivationCode() == null) {
             String newActivationCode = UUID.randomUUID().toString();
             user.setActivationCode(newActivationCode);
@@ -355,7 +355,7 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    // Вспомогательный метод для создания AuthResponse
+    
     private AuthResponse createAuthResponse(String jwt, User user) {
         Set<String> roles = user.getRoles().stream()
                 .map(Role::name)

@@ -36,7 +36,7 @@ public class FileController {
         this.storageProperties = storageProperties;
     }
 
-    /** Настройки гибридного хранилища (для UI и отчёта). */
+    
     @GetMapping("/storage/settings")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<StorageSettingsResponse> getStorageSettings() {
@@ -69,7 +69,7 @@ public class FileController {
         return ResponseEntity.ok(FileDTO.fromEntity(uploadedFile));
     }
 
-    /** Загрузка вложений для чата (не попадает в список файлов группы как обычные файлы). */
+    
     @PostMapping("/chat-upload/{groupId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<FileDTO> uploadChatMedia(@PathVariable UUID groupId,
@@ -205,7 +205,7 @@ public class FileController {
         private Long storageUsed;
         private String storageUsedFormatted;
 
-        // Getters and Setters
+        
         public Long getStorageUsed() { return storageUsed; }
         public void setStorageUsed(Long storageUsed) { this.storageUsed = storageUsed; }
 

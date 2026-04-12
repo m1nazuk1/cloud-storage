@@ -1,17 +1,3 @@
-#!/usr/bin/env bash
-# Единый сброс данных для проекта.
-#
-# Режимы:
-#   docker — остановить docker compose и удалить тома БД + uploads (стек из compose)
-#   local  — пересоздать базу thesis_db на PostgreSQL хоста (localhost:5432 по умолчанию)
-#
-# Запуск из корня репозитория:
-#   chmod +x scripts/reset-data.sh
-#   ./scripts/reset-data.sh              # меню
-#   ./scripts/reset-data.sh docker
-#   ./scripts/reset-data.sh local
-#
-# Для local: переменные PGHOST, PGPORT, PGUSER, PGPASSWORD, DB_NAME (см. комментарий в reset_local)
 
 set -euo pipefail
 

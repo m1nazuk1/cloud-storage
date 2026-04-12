@@ -1,9 +1,8 @@
 import type { Notification } from '../types';
-
 export type NotificationGroupFilter = 'all' | 'files' | 'members' | 'group' | 'chat';
-
 export function notificationMatchesFilter(n: Notification, filter: NotificationGroupFilter): boolean {
-    if (filter === 'all') return true;
+    if (filter === 'all')
+        return true;
     const t = n.type;
     switch (filter) {
         case 'files':
@@ -18,7 +17,6 @@ export function notificationMatchesFilter(n: Notification, filter: NotificationG
             return true;
     }
 }
-
 export function filterNotifications(items: Notification[], filter: NotificationGroupFilter): Notification[] {
     return items.filter((n) => notificationMatchesFilter(n, filter));
 }

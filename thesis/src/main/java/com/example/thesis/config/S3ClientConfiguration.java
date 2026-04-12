@@ -16,9 +16,6 @@ import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
 
 import java.net.URI;
 
-/**
- * Клиент S3 для MinIO (path-style, фиксированный endpoint).
- */
 @Configuration
 @ConditionalOnProperty(name = "app.storage.object-enabled", havingValue = "true")
 public class S3ClientConfiguration {

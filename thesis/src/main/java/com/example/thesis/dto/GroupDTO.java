@@ -13,7 +13,6 @@ public class GroupDTO {
     private int memberCount;
     private String inviteToken;
 
-
     public GroupDTO() {
     }
 
@@ -100,7 +99,7 @@ public class GroupDTO {
         dto.setCreatorUsername(group.getCreator() != null ? group.getCreator().getUsername() : "Unknown");
         dto.setInviteToken(group.getInviteToken());
 
-        // Правильный подсчет
+        
         if (group.getMemberships() != null) {
             dto.setMemberCount(group.getMemberships().size());
         } else {
@@ -118,7 +117,7 @@ public class GroupDTO {
         return dto;
     }
 
-    // Для списка групп (только основные данные)
+    
     public static GroupDTO fromEntitySimple(com.example.thesis.models.WorkGroup group) {
         GroupDTO dto = new GroupDTO();
         dto.setId(group.getId());
@@ -127,8 +126,8 @@ public class GroupDTO {
         dto.setCreationDate(group.getCreationDate());
         dto.setCreatorUsername(group.getCreator() != null ? group.getCreator().getUsername() : "Unknown");
 
-        // Для простого DTO мы не загружаем связанные данные
-        // Будем получать counts отдельными запросами
+        
+        
         dto.setMemberCount(0);
         dto.setFileCount(0);
 

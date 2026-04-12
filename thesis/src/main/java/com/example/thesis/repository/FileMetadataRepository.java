@@ -44,7 +44,7 @@ public interface FileMetadataRepository extends JpaRepository<FileMetadata, UUID
     @Query("SELECT COUNT(f) FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false AND f.chatMedia = false")
     Long countActiveFilesByGroupId(@Param("groupId") UUID groupId);
 
-    /** Все неудалённые файлы во всех группах, где состоит пользователь */
+    
     @Query("SELECT COUNT(f) FROM FileMetadata f WHERE f.deleted = false AND f.parentGroup.id IN " +
             "(SELECT m.group.id FROM Membership m WHERE m.user.id = :userId)")
     Long countActiveFilesInUserGroups(@Param("userId") UUID userId);

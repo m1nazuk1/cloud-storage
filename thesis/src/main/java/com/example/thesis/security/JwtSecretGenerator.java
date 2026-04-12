@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Profile;
 import javax.crypto.SecretKey;
 
 @Configuration
-@Profile("dev") // Генерирует ключ только в dev окружении
+@Profile("dev") 
 public class JwtSecretGenerator {
 
     @Bean
     public CommandLineRunner generateSecretKey() {
         return args -> {
-            // Самый простой способ - сгенерировать случайный ключ
+            
             String base64Key = java.util.Base64.getEncoder()
                     .encodeToString(java.util.UUID.randomUUID().toString().getBytes());
 

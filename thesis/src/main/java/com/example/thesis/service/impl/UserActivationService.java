@@ -23,19 +23,19 @@ public class UserActivationService {
                 .orElseThrow(() -> new RuntimeException("Invalid activation code"));
 
         if (user.isEnabled()) {
-            return user; // Уже активирован
+            return user; 
         }
 
-        // Активируем пользователя
+        
         user.setEnabled(true);
-        // НЕ УДАЛЯЕМ КОД АКТИВАЦИИ!
+        
 
         return userRepository.save(user);
     }
 
     @Transactional
     public User createUser(User user) {
-        // Устанавливаем начальные значения
+        
         user.setEnabled(false);
         user.setActivationCode(UUID.randomUUID().toString());
 
@@ -47,17 +47,17 @@ public class UserActivationService {
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Сохраняем важные поля
+        
         boolean wasEnabled = existingUser.isEnabled();
         String activationCode = existingUser.getActivationCode();
 
-        // Обновляем поля
+        
         existingUser.setUsername(updatedUser.getUsername());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
 
-        // Восстанавливаем важные поля
+        
         existingUser.setEnabled(wasEnabled);
         existingUser.setActivationCode(activationCode);
 

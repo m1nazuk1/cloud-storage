@@ -23,9 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Единая обработка ошибок API: предсказуемые коды HTTP и безопасные сообщения клиенту.
- */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -152,9 +149,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
-    /**
-     * Большинство сервисов бросают {@link RuntimeException} с текстом для пользователя — отдаём 400.
-     */
+    
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
         log.warn("Request failed: {}", ex.getMessage());

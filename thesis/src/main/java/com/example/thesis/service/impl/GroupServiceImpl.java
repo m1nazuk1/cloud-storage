@@ -45,7 +45,7 @@ public class GroupServiceImpl implements GroupService {
     public WorkGroup createGroup(GroupCreateRequest request, User creator) {
         System.out.println("[GROUP] Creating group: " + request.getName() + " by user: " + creator.getUsername());
 
-        // ПЕРЕЗАГРУЖАЕМ пользователя из базы данных
+        
         User freshCreator = userRepository.findById(creator.getId())
                 .orElseThrow(() -> new RuntimeException("User not found: " + creator.getId()));
 
@@ -54,13 +54,13 @@ public class GroupServiceImpl implements GroupService {
         WorkGroup group = new WorkGroup();
         group.setName(request.getName());
         group.setDescription(request.getDescription());
-        group.setCreator(freshCreator); // Используем freshCreator
+        group.setCreator(freshCreator); 
         group.setInviteToken(generateUniqueInviteToken());
 
         WorkGroup savedGroup = workGroupRepository.save(group);
         System.out.println("[GROUP] Group saved with ID: " + savedGroup.getId());
 
-        // Создатель автоматически становится участником с ролью CREATOR
+        
         Membership membership = new Membership(freshCreator, savedGroup, MembershipRole.CREATOR);
         membershipRepository.save(membership);
         System.out.println("[GROUP] Membership created for creator");
@@ -73,7 +73,7 @@ public class GroupServiceImpl implements GroupService {
     public WorkGroup updateGroup(UUID groupId, GroupUpdateRequest request, User requester) {
         WorkGroup group = getGroupById(groupId);
 
-        // Проверка прав
+        
         if (!isUserAdminOrCreator(groupId, requester.getId())) {
             throw new RuntimeException("You don't have permission to update this group");
         }
@@ -86,7 +86,7 @@ public class GroupServiceImpl implements GroupService {
             group.setDescription(request.getDescription());
         }
 
-        // Если нужно обновить invite token
+        
         if (request.isRegenerateToken()) {
             group.setInviteToken(generateUniqueInviteToken());
         }
@@ -106,7 +106,7 @@ public class GroupServiceImpl implements GroupService {
     public void deleteGroup(UUID groupId, User requester) {
         WorkGroup group = getGroupById(groupId);
 
-        // Только создатель может удалить группу
+        
         Membership membership = membershipRepository.findByUserIdAndGroupId(requester.getId(), groupId)
                 .orElseThrow(() -> new RuntimeException("You are not a member of this group"));
 
@@ -144,7 +144,7 @@ public class GroupServiceImpl implements GroupService {
     public String generateInviteToken(UUID groupId, User requester) {
         WorkGroup group = getGroupById(groupId);
 
-        // Проверка прав
+        
         if (!isUserAdminOrCreator(groupId, requester.getId())) {
             throw new RuntimeException("You don't have permission to generate invite token");
         }
@@ -161,12 +161,12 @@ public class GroupServiceImpl implements GroupService {
     public void joinGroup(String inviteToken, User user) {
         WorkGroup group = getGroupByInviteToken(inviteToken);
 
-        // Проверка, не является ли пользователь уже участником
+        
         if (membershipRepository.existsByUserAndGroup(user, group)) {
             throw new RuntimeException("You are already a member of this group");
         }
 
-        // Добавление пользователя в группу
+        
         Membership membership = new Membership(user, group, MembershipRole.MEMBER);
         membershipRepository.save(membership);
 
@@ -185,12 +185,12 @@ public class GroupServiceImpl implements GroupService {
         User userToAdd = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Проверка прав
+        
         if (!isUserAdminOrCreator(groupId, requester.getId())) {
             throw new RuntimeException("You don't have permission to add members");
         }
 
-        // Проверка, не является ли пользователь уже участником
+        
         if (membershipRepository.existsByUserAndGroup(userToAdd, group)) {
             throw new RuntimeException("User is already a member of this group");
         }
@@ -237,17 +237,17 @@ public class GroupServiceImpl implements GroupService {
     public void removeMember(UUID groupId, UUID userId, User requester) {
         WorkGroup group = getGroupById(groupId);
 
-        // Проверка прав
+        
         if (!isUserAdminOrCreator(groupId, requester.getId())) {
             throw new RuntimeException("You don't have permission to remove members");
         }
 
-        // Проверка, не пытается ли пользователь удалить себя
+        
         if (requester.getId().equals(userId)) {
             throw new RuntimeException("You cannot remove yourself from the group");
         }
 
-        // Проверка, не пытается ли админ удалить создателя
+        
         Membership targetMembership = membershipRepository.findByUserIdAndGroupId(userId, groupId)
                 .orElseThrow(() -> new RuntimeException("User is not a member of this group"));
 
@@ -271,7 +271,7 @@ public class GroupServiceImpl implements GroupService {
     public void changeMemberRole(UUID groupId, UUID userId, String role, User requester) {
         WorkGroup group = getGroupById(groupId);
 
-        // Проверка прав
+        
         if (!isUserAdminOrCreator(groupId, requester.getId())) {
             throw new RuntimeException("You don't have permission to change member roles");
         }
@@ -279,7 +279,7 @@ public class GroupServiceImpl implements GroupService {
         Membership targetMembership = membershipRepository.findByUserIdAndGroupId(userId, groupId)
                 .orElseThrow(() -> new RuntimeException("User is not a member of this group"));
 
-        // Проверка, не пытается ли изменить роль создателя
+        
         if (targetMembership.isCreator()) {
             throw new RuntimeException("Cannot change the role of the group creator");
         }
@@ -291,7 +291,7 @@ public class GroupServiceImpl implements GroupService {
             throw new RuntimeException("Invalid role: " + role);
         }
 
-        // Проверка, не пытается ли админ назначить кого-то создателем
+        
         if (newRole == MembershipRole.CREATOR) {
             throw new RuntimeException("Cannot assign CREATOR role");
         }

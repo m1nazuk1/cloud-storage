@@ -1,6 +1,3 @@
-# syntax=docker/dockerfile:1
-# Первый build: Maven качает зависимости в ~/.m2 — может занять 1–3 мин (нормально).
-# Повторные build: кэш /root/.m2 ускоряет; слой «только pom» кэшируется, пока не меняете pom.xml.
 
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app

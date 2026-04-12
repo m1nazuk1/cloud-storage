@@ -3,16 +3,11 @@ package com.example.thesis.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-/**
- * Настройки гибридного хранилища: локальный диск + опционально S3/MinIO.
- */
 @Component
 @ConfigurationProperties(prefix = "app.storage")
 public class StorageProperties {
 
-    /**
-     * Включить клиент объектного хранилища (MinIO/S3).
-     */
+    
     private boolean objectEnabled = false;
 
     private String objectEndpoint = "http://127.0.0.1:9000";
@@ -21,10 +16,7 @@ public class StorageProperties {
     private String objectAccessKey = "minioadmin";
     private String objectSecretKey = "minioadmin";
 
-    /**
-     * Куда сохранять новые загрузки: {@code local} или {@code object}.
-     * В режиме гибридного облака часть записей остаётся LOCAL (наследие), новые могут идти в OBJECT_STORE.
-     */
+    
     private String newFiles = "local";
 
     public boolean isObjectEnabled() {

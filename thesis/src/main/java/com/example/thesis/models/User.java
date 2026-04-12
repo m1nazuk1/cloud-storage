@@ -40,7 +40,7 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    /** Имя файла аватара в каталоге uploads/avatars/{userId}/ */
+    
     @Column(name = "avatar_stored_name", length = 255)
     private String avatarStoredName;
 
@@ -64,7 +64,7 @@ public class User {
     @JsonIgnore
     private Set<WorkGroup> createdGroups = new HashSet<>();
 
-    /** Не сериализуем в JSON — иначе User→Membership→User→… превышает лимит глубины Jackson и ломает API */
+    
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Membership> memberships = new HashSet<>();
@@ -86,7 +86,7 @@ public class User {
         this.avatarStoredName = avatarStoredName;
     }
 
-    /** Относительный URL для фронта (база API подставляется на клиенте). */
+    
     @com.fasterxml.jackson.annotation.JsonProperty("avatarUrl")
     public String getAvatarUrl() {
         if (avatarStoredName == null || avatarStoredName.isBlank()) {
@@ -95,11 +95,8 @@ public class User {
         return "/api/user/avatar/" + id;
     }
 
-    // ВРЕМЕННО КОММЕНТИРУЕМ, ЕСЛИ ЭТО ВЫЗЫВАЕТ ПРОБЛЕМЫ
-    /*
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Notification> notifications = new HashSet<>();
-    */
+    
+    
 
     @OneToMany(mappedBy = "changedBy", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
@@ -111,7 +108,7 @@ public class User {
         this.memberships = new HashSet<>();
         this.uploadedFiles = new HashSet<>();
         this.sentMessages = new HashSet<>();
-        // this.notifications = new HashSet<>();
+        
         this.fileChanges = new HashSet<>();
     }
 
@@ -245,14 +242,6 @@ public class User {
     public void setSentMessages(Set<ChatMessage> sentMessages) {
         this.sentMessages = sentMessages;
     }
-
-//    public Set<Notification> getNotifications() {
-//        return notifications;
-//    }
-//
-//    public void setNotifications(Set<Notification> notifications) {
-//        this.notifications = notifications;
-//    }
 
     public Set<FileHistory> getFileChanges() {
         return fileChanges;

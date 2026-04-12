@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Вспомогательные эндпоинты для отладки SMTP. Выключаются по умолчанию ({@code app.dev-tools-enabled=false}).
- */
 @RestController
 @RequestMapping("/api/dev")
 @ConditionalOnProperty(name = "app.dev-tools-enabled", havingValue = "true")

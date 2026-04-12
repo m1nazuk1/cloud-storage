@@ -8,6 +8,6 @@ public enum NotificationType {
     USER_LEFT,
     USER_REMOVED,
     GROUP_UPDATED,
-    /** Упоминание @username в чате группы */
+    
     CHAT_MENTION
 }

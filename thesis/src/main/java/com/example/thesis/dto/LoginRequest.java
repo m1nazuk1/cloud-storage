@@ -10,7 +10,7 @@ public class LoginRequest {
     @NotBlank(message = "Password is required")
     private String password;
 
-    // Getters and Setters
+    
     public String getEmailOrUsername() { return emailOrUsername; }
     public void setEmailOrUsername(String emailOrUsername) { this.emailOrUsername = emailOrUsername; }
 

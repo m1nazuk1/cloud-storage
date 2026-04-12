@@ -18,7 +18,7 @@ public class AuthResponse {
     private Set<String> roles;
     private boolean enabled;
 
-    // Constructors
+    
     public AuthResponse() {}
 
     public AuthResponse(String token, UUID id, String email, String username,
@@ -33,7 +33,6 @@ public class AuthResponse {
         this.enabled = enabled;
     }
 
-
     public AuthResponse(String token, String type, User user) {
         this.token = token;
         this.type = type;
@@ -44,17 +43,17 @@ public class AuthResponse {
         this.lastName = user.getLastName();
         this.enabled = user.isEnabled();
 
-        // Конвертируем Role в String
+        
         if (user.getRoles() != null) {
             this.roles = user.getRoles().stream()
-                    .map(role -> role.name()) // или role.getName() если Role имеет поле name
+                    .map(role -> role.name()) 
                     .collect(Collectors.toSet());
         } else {
             this.roles = new HashSet<>();
         }
     }
 
-        // Getters and Setters
+        
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 

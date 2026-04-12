@@ -29,7 +29,7 @@ public class ChatController {
         this.securityUtils = securityUtils;
     }
 
-    // REST endpoints
+    
     @GetMapping("/group/{groupId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<ChatMessage>> getGroupMessages(@PathVariable UUID groupId) {
@@ -77,7 +77,7 @@ public class ChatController {
         return ResponseEntity.ok(messages);
     }
 
-    // WebSocket endpoints
+    
     @MessageMapping("/chat.send/{groupId}")
     public void sendMessageWebSocket(@DestinationVariable UUID groupId,
                                      @Payload ChatMessageRequest request) {
@@ -105,7 +105,7 @@ public class ChatController {
         }
     }
 
-    // DTO классы для WebSocket
+    
     static class EditMessageRequest {
         private UUID messageId;
         private String newContent;

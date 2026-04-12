@@ -7,9 +7,6 @@ import com.example.thesis.models.enums.StorageBackend;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-/**
- * Ответ API для списка файлов и загрузки — без циклических JPA-связей.
- */
 public class FileDTO {
     private UUID id;
     private String originalName;
@@ -19,13 +16,13 @@ public class FileDTO {
     private LocalDateTime uploadDate;
     private LocalDateTime lastModified;
     private String formattedSize;
-    /** Краткая карточка пользователя (без memberships и т.д.) */
+    
     private PublicUser uploader;
 
-    /** Версия метаданных для оптимистической блокировки. */
+    
     private Integer version;
 
-    /** LOCAL — диск сервера; OBJECT_STORE — S3/MinIO. */
+    
     private String storageBackend;
 
     public static class PublicUser {

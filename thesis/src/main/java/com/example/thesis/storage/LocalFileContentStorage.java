@@ -11,9 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-/**
- * Локальное хранение в каталоге {@code file.upload.dir}.
- */
 @Component
 public class LocalFileContentStorage implements FileContentStorage {
 
@@ -42,7 +39,7 @@ public class LocalFileContentStorage implements FileContentStorage {
         Files.deleteIfExists(resolve(key));
     }
 
-    /** key = "{groupId}/{storedFilename}" */
+    
     private Path resolve(String key) {
         return Paths.get(uploadDir).resolve(key).normalize();
     }

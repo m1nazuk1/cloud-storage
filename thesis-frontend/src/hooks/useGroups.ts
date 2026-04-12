@@ -3,35 +3,31 @@ import { groupApi, GroupMembershipPrefs } from '../api/group';
 import { useToast } from '../contexts/ToastContext';
 import { WorkGroup } from '../types';
 import { useAuth } from '../contexts/AuthContext';
-
 export const useGroups = () => {
     const toast = useToast();
     const queryClient = useQueryClient();
     const { user } = useAuth();
     const userId = user?.id;
-
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['groups', userId],
         enabled: !!userId,
         queryFn: async (): Promise<WorkGroup[]> => {
             try {
                 const response = await groupApi.getMyGroups();
-
                 if (Array.isArray(response)) {
                     return response;
                 }
-
                 console.error('Unexpected response format:', response);
                 return [];
-            } catch (err: any) {
+            }
+            catch (err: any) {
                 console.error('Error loading groups:', err);
-
                 if (err.response?.status === 401) {
                     toast.error('Сессия истекла. Войдите снова.');
-                } else {
+                }
+                else {
                     toast.error('Не удалось загрузить группы');
                 }
-
                 return [];
             }
         },
@@ -40,16 +36,13 @@ export const useGroups = () => {
         refetchOnWindowFocus: true,
         refetchOnMount: 'always',
     });
-
     const forceRefresh = () => {
         queryClient.invalidateQueries({ queryKey: ['groups'] });
         queryClient.invalidateQueries({ queryKey: ['user-stats'] });
         queryClient.invalidateQueries({ queryKey: ['recent-activity'] });
         refetch();
     };
-
     const groups = Array.isArray(data) ? data : [];
-
     return {
         groups,
         isLoading,
@@ -58,11 +51,9 @@ export const useGroups = () => {
         forceRefresh
     };
 };
-
 export const useCreateGroup = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
-
     return useMutation({
         mutationFn: groupApi.createGroup,
         onSuccess: async (newGroup) => {
@@ -80,31 +71,33 @@ export const useCreateGroup = () => {
         },
     });
 };
-
 export const useUpdateGroupMembershipPrefs = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
-
     return useMutation({
-        mutationFn: ({ groupId, ...prefs }: { groupId: string } & GroupMembershipPrefs) =>
-            groupApi.updateMembershipPreferences(groupId, prefs),
+        mutationFn: ({ groupId, ...prefs }: {
+            groupId: string;
+        } & GroupMembershipPrefs) => groupApi.updateMembershipPreferences(groupId, prefs),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['groups'] });
         },
         onError: (error: unknown) => {
-            const msg =
-                error && typeof error === 'object' && 'response' in error
-                    ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
-                    : undefined;
+            const msg = error && typeof error === 'object' && 'response' in error
+                ? (error as {
+                    response?: {
+                        data?: {
+                            message?: string;
+                        };
+                    };
+                }).response?.data?.message
+                : undefined;
             toast.error(typeof msg === 'string' ? msg : 'Не удалось сохранить настройки');
         },
     });
 };
-
 export const useDeleteGroup = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
-
     return useMutation({
         mutationFn: groupApi.deleteGroup,
         onSuccess: () => {

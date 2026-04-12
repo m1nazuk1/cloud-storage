@@ -19,7 +19,7 @@ public class ChatMessage {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    /** TEXT, IMAGE, AUDIO, STICKER, FILE */
+    
     @Column(name = "message_kind", length = 32, nullable = false)
     private String messageKind = "TEXT";
 
@@ -104,7 +104,7 @@ public class ChatMessage {
         this.group = group;
     }
 
-    /** В JSON вместо целого WorkGroup */
+    
     public UUID getGroupId() {
         return group != null ? group.getId() : null;
     }

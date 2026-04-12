@@ -1,6 +1,5 @@
 package com.example.thesis.dto;
 
-
 import com.example.thesis.models.FileMetadata;
 
 import java.time.LocalDateTime;
@@ -14,7 +13,7 @@ public class FileMetadataDTO {
     private String fileType;
     private String mimeType;
     private LocalDateTime uploadDate;
-    private String uploaderUsername; // Только username вместо всего объекта User
+    private String uploaderUsername; 
 
     public FileMetadataDTO() {
     }

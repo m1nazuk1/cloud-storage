@@ -41,13 +41,13 @@ public class ActivityController {
     public ResponseEntity<List<ActivityDTO>> getRecentActivity() {
         User currentUser = securityUtils.getCurrentUser();
 
-        // Получаем все группы пользователя
+        
         List<WorkGroup> userGroups = groupService.getUserGroups(currentUser.getId());
 
         List<ActivityDTO> activities = new ArrayList<>();
 
         for (WorkGroup group : userGroups) {
-            // Получаем последние 5 событий для каждой группы
+            
             List<FileHistory> groupHistory = fileHistoryRepository.findByGroupId(group.getId());
 
             for (FileHistory history : groupHistory.stream()
@@ -74,7 +74,7 @@ public class ActivityController {
             }
         }
 
-        // Сортируем по дате и берем 10 последних
+        
         activities.sort((a1, a2) -> a2.getCreatedDate().compareTo(a1.getCreatedDate()));
         List<ActivityDTO> recentActivities = activities.stream()
                 .limit(10)
@@ -101,7 +101,6 @@ public class ActivityController {
                 return history.getChangedBy().getUsername() + " performed an action";
         }
     }
-
 
     public static class ActivityDTO {
         private UUID id;

@@ -44,27 +44,24 @@ public class FileMetadata {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
-    /**
-     * Оптимистическая блокировка: при каждом успешном изменении метаданных увеличивается.
-     * Клиент передаёт ожидаемую версию при переименовании/удалении — при расхождении 409 Conflict.
-     */
+    
     @Version
     @Column(name = "version", nullable = false)
     private Integer version = 1;
 
-    /** Где физически лежат байты файла (гибридное облако). */
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "storage_backend", nullable = false, length = 32, columnDefinition = "varchar(32) default 'LOCAL'")
     private StorageBackend storageBackend = StorageBackend.LOCAL;
 
-    /** Ключ объекта в S3/MinIO; для LOCAL не используется. */
+    
     @Column(name = "object_key")
     private String objectKey;
 
     @Column(name = "is_deleted")
     private boolean deleted = false;
 
-    /** Файл загружен в чат — не показывать в списке файлов группы */
+    
     @Column(name = "chat_media", nullable = false)
     private boolean chatMedia = false;
 

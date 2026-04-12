@@ -1,13 +1,10 @@
 package com.example.thesis.dto;
 
-/**
- * Личные настройки участника в группе (список групп, уведомления).
- */
 public class GroupMembershipPrefsRequest {
 
     private Boolean notificationsMuted;
     private Boolean pinned;
-    /** Hex-цвет обводки или пустая строка для сброса */
+    
     private String accentColor;
 
     public Boolean getNotificationsMuted() {

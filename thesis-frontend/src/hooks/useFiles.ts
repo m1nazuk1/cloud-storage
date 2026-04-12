@@ -1,21 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fileApi } from '../api/file';
 import { useToast } from '../contexts/ToastContext';
-
 export const useGroupFiles = (groupId: string) => {
     const { data: files = [], isLoading, error } = useQuery({
         queryKey: ['files', groupId],
         queryFn: () => fileApi.getGroupFiles(groupId),
         enabled: !!groupId,
     });
-
     return { files, isLoading, error };
 };
-
 export const useUploadFile = (groupId: string) => {
     const queryClient = useQueryClient();
     const toast = useToast();
-
     return useMutation({
         mutationFn: (file: File) => fileApi.uploadFile(groupId, file),
         onSuccess: () => {
@@ -33,14 +29,14 @@ export const useUploadFile = (groupId: string) => {
         },
     });
 };
-
 export const useDeleteFile = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
-
     return useMutation({
-        mutationFn: (args: { fileId: string; expectedVersion?: number }) =>
-            fileApi.deleteFile(args.fileId, args.expectedVersion),
+        mutationFn: (args: {
+            fileId: string;
+            expectedVersion?: number;
+        }) => fileApi.deleteFile(args.fileId, args.expectedVersion),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['files'] });
             queryClient.invalidateQueries({ queryKey: ['group'] });

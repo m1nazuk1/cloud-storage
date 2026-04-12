@@ -10,13 +10,13 @@ import java.util.UUID;
 public interface FileService {
     FileMetadata uploadFile(MultipartFile file, UUID groupId, User uploader);
 
-    /** Вложение для чата: не в списке файлов группы, без уведомления «новый файл». */
+    
     FileMetadata uploadChatMedia(MultipartFile file, UUID groupId, User uploader);
     byte[] downloadFile(UUID fileId, User downloader);
     FileMetadata getFileMetadata(UUID fileId);
     List<FileMetadata> getGroupFiles(UUID groupId);
     List<FileMetadata> getUserFilesInGroup(UUID groupId, UUID userId);
-    /** @param expectedVersion ожидаемая версия метаданных (оптимистическая блокировка); {@code null} — без проверки. */
+    
     void deleteFile(UUID fileId, User requester, Integer expectedVersion);
     void renameFile(UUID fileId, String newName, User requester, Integer expectedVersion);
     List<FileHistory> getFileHistory(UUID fileId);

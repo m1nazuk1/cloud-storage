@@ -22,7 +22,7 @@ public class EmailServiceImpl implements EmailService {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
 
-    /** Публичный URL SPA (кнопки в письмах ведут сюда, а не на :8080/api — так почтовые клиенты стабильнее открывают ссылку) */
+    
     @Value("${app.frontend.url:http://localhost:3000}")
     private String frontendUrl;
 
@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendActivationEmail(String to, String activationCode) {
         String root = frontendUrl.replaceAll("/$", "");
-        // Страница /activate/:code вызывает API; ссылка сразу на фронт — лучше для встроенных браузеров почты
+        
         String activationLink = root + "/activate/" + activationCode;
 
         Context context = new Context();
@@ -98,14 +98,14 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-            // Устанавливаем отправителя
+            
             helper.setFrom(fromAddress, "Thesis Cloud Storage");
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
             helper.setSentDate(new Date());
 
-            // Добавляем headers для лучшей доставляемости
+            
             message.addHeader("X-Mailer", "ThesisApp");
             message.addHeader("Precedence", "bulk");
 
@@ -129,6 +129,5 @@ public class EmailServiceImpl implements EmailService {
             throw new RuntimeException("Unexpected error sending email", e);
         }
     }
-
 
 }

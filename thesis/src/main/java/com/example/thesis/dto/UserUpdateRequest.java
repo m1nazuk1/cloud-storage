@@ -5,7 +5,7 @@ public class UserUpdateRequest {
     private String lastName;
     private String username;
 
-    // Getters and Setters
+    
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 

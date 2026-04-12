@@ -5,9 +5,6 @@ import com.example.thesis.models.enums.StorageBackend;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Абстракция физического хранения байтов файла (локально или в объектном хранилище).
- */
 public interface FileContentStorage {
 
     StorageBackend getBackendType();

@@ -39,7 +39,7 @@
             linear-gradient(180deg, #0f172a 0%, #020617 55%, #020617 100%);
     }
 
-    /* Custom scrollbar */
+    
     ::-webkit-scrollbar {
         @apply w-2;
     }
@@ -53,7 +53,6 @@
     }
 }
 
-/* Фон для экранов авторизации (класс на фиксированном слое) */
 .auth-mesh {
     background-image:
         radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
@@ -146,7 +145,6 @@
     }
 }
 
-/* Loading spinner */
 .loading-spinner {
     border: 2px solid #e0e7ff;
     border-top: 2px solid #6366f1;
@@ -166,9 +164,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Анимация облака в сайдбаре: см. BrandCloudButton (Web Animations API) */
-
-/* File upload zone */
 .file-upload-zone {
     @apply border-2 border-dashed border-indigo-200/80 rounded-xl
     hover:border-indigo-400/80 transition-colors duration-200 bg-white/40;

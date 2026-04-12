@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Диагностика без утечки секретов (код активации не возвращается).
- * Включение: {@code app.dev-tools-enabled=true}.
- */
 @RestController
 @RequestMapping("/api/debug")
 @ConditionalOnProperty(name = "app.dev-tools-enabled", havingValue = "true")

@@ -37,15 +37,15 @@ public class Membership {
     @JoinColumn(name = "group_id", nullable = false)
     private WorkGroup group;
 
-    /** Личные настройки участника: не слать push-уведомления по событиям этой группы */
+    
     @Column(name = "notifications_muted", nullable = false)
     private boolean notificationsMuted = false;
 
-    /** Закрепить группу вверху списка (только отображение для данного пользователя) */
+    
     @Column(name = "pinned", nullable = false)
     private boolean pinned = false;
 
-    /** Цвет обводки карточки в списке (hex, например #6366f1) */
+    
     @Column(name = "accent_color", length = 32)
     private String accentColor;
 

@@ -46,10 +46,10 @@ public class SecurityUtils {
         }
 
         try {
-            // Получаем username из SecurityContext
+            
             String username = authentication.getName();
 
-            // ПЕРЕЗАГРУЖАЕМ пользователя из базы данных
+            
             return userRepository.findByUsername(username)
                     .or(() -> userRepository.findByEmail(username))
                     .orElseThrow(() -> new RuntimeException("User not found: " + username));
@@ -60,14 +60,11 @@ public class SecurityUtils {
         }
     }
 
-    /**
-     * Получает ID текущего пользователя
-     */
+    
     public UUID getCurrentUserId() {
         User user = getCurrentUser();
         return user != null ? user.getId() : null;
     }
-
 
     public boolean isCurrentUser(UUID userId) {
         User currentUser = getCurrentUser();

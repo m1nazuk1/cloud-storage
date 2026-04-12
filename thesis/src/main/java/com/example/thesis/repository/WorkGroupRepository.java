@@ -22,10 +22,7 @@ public interface WorkGroupRepository extends JpaRepository<WorkGroup, UUID> {
     @Query("SELECT wg FROM WorkGroup wg JOIN wg.memberships m WHERE m.user.id = :userId")
     List<WorkGroup> findGroupsByUserId(@Param("userId") UUID userId);
 
-    /**
-     * Только группы, в которых пользователь состоит как участник (включая созданные им — у создателя есть membership).
-     * Без «лишних» групп по полю creator без membership.
-     */
+    
     @Query("SELECT DISTINCT wg FROM WorkGroup wg JOIN wg.memberships m WHERE m.user.id = :userId")
     List<WorkGroup> findGroupsByUserWithMembership(@Param("userId") UUID userId);
 

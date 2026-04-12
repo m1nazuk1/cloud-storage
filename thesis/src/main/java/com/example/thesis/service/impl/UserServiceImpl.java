@@ -62,11 +62,11 @@ public class UserServiceImpl implements UserService {
     public User updateUser(UUID userId, UserUpdateRequest request) {
         System.out.println("[USER] Updating user: " + userId);
 
-        // ПЕРЕЗАГРУЖАЕМ пользователя из базы
+        
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
-        // СОХРАНЯЕМ ВСЕ КРИТИЧНЫЕ ПОЛЯ
+        
         boolean originalEnabled = user.isEnabled();
         String originalActivationCode = user.getActivationCode();
         String originalPassword = user.getPassword();
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("[USER] Original state - enabled: " + originalEnabled +
                 ", activationCode: " + (originalActivationCode != null ? "exists" : "null"));
 
-        // Обновляем только разрешенные поля
+        
         if (request.getFirstName() != null) {
             user.setFirstName(request.getFirstName());
         }
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        // ВОССТАНАВЛИВАЕМ КРИТИЧНЫЕ ПОЛЯ
+        
         user.setEnabled(originalEnabled);
         user.setActivationCode(originalActivationCode);
         user.setPassword(originalPassword);
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
 
         User user = getUserById(userId);
 
-        // СОХРАНЯЕМ исходные значения активации
+        
         boolean originalEnabled = user.isEnabled();
         String originalActivationCode = user.getActivationCode();
 
@@ -149,9 +149,9 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(newPassword));
 
-        // ВАЖНО: Восстанавливаем исходные значения активации
+        
         user.setEnabled(originalEnabled);
-        user.setActivationCode(originalActivationCode); // Код активации не меняется
+        user.setActivationCode(originalActivationCode); 
 
         userRepository.save(user);
         System.out.println("[USER] Password changed successfully for user: " + user.getUsername());
@@ -226,7 +226,7 @@ public class UserServiceImpl implements UserService {
             try {
                 Files.deleteIfExists(Paths.get(uploadDir, "avatars", userId.toString(), old));
             } catch (IOException ignored) {
-                /* ignore */
+                
             }
         }
         user.setAvatarStoredName(null);
@@ -265,7 +265,7 @@ public class UserServiceImpl implements UserService {
                 return probed;
             }
         } catch (IOException ignored) {
-            /* fall through */
+            
         }
         String ext = getFileExtension(name).toLowerCase(Locale.ROOT);
         return switch (ext) {

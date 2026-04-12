@@ -35,7 +35,7 @@ public class WorkGroup {
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator;
 
-    /** Не отдаём в JSON целиком — счётчики считаются в DTO на сервере */
+    
     @JsonIgnore
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Membership> memberships = new HashSet<>();
@@ -64,8 +64,6 @@ public class WorkGroup {
         this.name = name;
         this.creator = creator;
     }
-
-
 
     public UUID getId() {
         return id;

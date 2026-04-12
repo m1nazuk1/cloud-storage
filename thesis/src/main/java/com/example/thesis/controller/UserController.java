@@ -15,10 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * ВАЖНО: все статические пути (/search, /check-*) должны быть ВЫШЕ /{id}, иначе Spring
- * сопоставит "search" с переменной {id} и поиск пользователей сломается.
- */
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -39,7 +35,7 @@ public class UserController {
         if (currentUser == null) {
             return ResponseEntity.notFound().build();
         }
-        // Всегда свежая сущность из БД (enabled/роли после любых транзакций, без «устаревшего» User из контекста)
+        
         User fresh = userService.getUserById(currentUser.getId());
         return ResponseEntity.ok(fresh);
     }

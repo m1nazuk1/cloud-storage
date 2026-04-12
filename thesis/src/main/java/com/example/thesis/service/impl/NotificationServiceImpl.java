@@ -56,7 +56,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         Notification savedNotification = notificationRepository.save(notification);
 
-        // Отправка через WebSocket
+        
         messagingTemplate.convertAndSendToUser(
                 user.getId().toString(),
                 "/queue/notifications",
@@ -73,7 +73,7 @@ public class NotificationServiceImpl implements NotificationService {
         WorkGroup group = workGroupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Group not found"));
 
-        // Участники через Membership: не уведомляем автора действия и тех, кто отключил уведомления по группе
+        
         List<Membership> memberships = membershipRepository.findByGroupIdWithUsers(groupId);
 
         for (Membership membership : memberships) {
@@ -96,7 +96,7 @@ public class NotificationServiceImpl implements NotificationService {
 
             Notification savedNotification = notificationRepository.save(notification);
 
-            // Отправка через WebSocket
+            
             messagingTemplate.convertAndSendToUser(
                     userId.toString(),
                     "/queue/notifications",

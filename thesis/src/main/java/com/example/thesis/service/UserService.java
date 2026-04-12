@@ -16,7 +16,7 @@ public interface UserService {
     void deleteUser(UUID userId);
     List<User> searchUsers(String searchTerm);
 
-    /** Поиск пользователей; участников указанной группы можно исключить (для приглашений). */
+    
     List<User> searchUsers(String searchTerm, UUID excludeGroupId);
     void changePassword(UUID userId, String oldPassword, String newPassword);
     boolean isEmailAvailable(String email);
@@ -26,9 +26,9 @@ public interface UserService {
 
     void deleteAvatar(UUID userId);
 
-    /** Байты файла аватара или null, если аватара нет */
+    
     byte[] readAvatarBytes(UUID userId);
 
-    /** MIME-тип аватара или application/octet-stream */
+    
     String getAvatarMimeType(UUID userId);
 }

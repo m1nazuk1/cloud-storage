@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class ChatMessageRequest {
 
-    /** Текст или подпись к вложению; для стикера — emoji; может быть пустым, если есть вложение или стикер */
+    
     private String content;
 
     @NotNull(message = "Укажите группу")
@@ -14,7 +14,7 @@ public class ChatMessageRequest {
 
     private UUID attachmentId;
 
-    /** Одна emoji или короткий код стикера из набора клиента */
+    
     private String stickerCode;
 
     public String getContent() {
