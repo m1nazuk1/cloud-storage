@@ -13,7 +13,7 @@
 
 ## Быстрый старт (Docker)
 
-Из **корня репозитория**:
+Из **корня репозитория** (запуск приложения **как раньше**, без изменений):
 
 ```bash
 docker compose up --build
@@ -65,6 +65,26 @@ docker compose exec db psql -U postgres -d thesis_db -c "SELECT COUNT(*) FROM us
 1. PostgreSQL локально, база `thesis_db`, пользователь/пароль как в `thesis/src/main/resources/application.properties`.  
 2. Бэкенд: `cd thesis && ./mvnw spring-boot:run`  
 3. Фронт: `cd thesis-frontend && npm install && npm run dev` — прокси в `vite.config.ts` перенаправляет `/api` и `/ws` на `localhost:8080`.
+
+## Тесты бэкенда — как запустить и посмотреть результат
+
+Да, **достаточно одной команды** из папки `thesis`: скрипт сам делает `mvn test`, surefire отчёт и генерацию html, на mac часто сам открывает браузер. Ручная цепочка `mvn test` → `surefire-report` → `python3 ...` нужна только если хочешь шаги раздельно.
+
+```bash
+cd thesis
+bash scripts/view-test-report.sh
+```
+
+Если нужно только прогнать тесты без отчёта: `mvn test`. Если отчёт вручную: после `mvn test` выполнить `mvn surefire-report:report` и `python3 scripts/generate-pretty-test-report.py`.
+
+### Где смотреть результат
+
+| Файл | Зачем открывать |
+|------|-----------------|
+| `thesis/target/reports/tests-overview.html` | Кратко по смыслу каждого теста и статус |
+| `thesis/target/reports/surefire.html` | Обычный отчёт maven |
+
+Папка `thesis/target/` появляется после тестов. Можно открыть `.html` двойным кликом или перетащить в браузер.
 
 ## Важные переменные
 

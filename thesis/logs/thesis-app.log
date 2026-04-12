@@ -1,22 +1,636 @@
-2025-12-30 00:07:58 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 21]
-2025-12-30 00:37:58 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 22]
-2025-12-30 01:07:58 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 23]
-2025-12-30 01:37:58 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 24]
-2025-12-30 02:07:58 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 25]
-2025-12-30 03:59:28 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h22m24s42ms).
-2025-12-30 03:59:52 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 26]
-2025-12-30 04:00:48 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49s953ms).
-2025-12-30 04:07:08 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m20s14ms).
-2025-12-30 05:08:06 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h27s702ms).
-2025-12-30 06:09:03 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h26s738ms).
-2025-12-30 07:10:01 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h27s683ms).
-2025-12-30 07:58:53 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=48m22s1ms).
-2025-12-30 08:11:00 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m7s422ms).
-2025-12-30 08:59:37 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=48m7s8ms).
-2025-12-30 09:12:27 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m49s699ms).
-2025-12-30 09:29:50 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m23s203ms).
-2025-12-30 09:52:13 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 27]
-2025-12-30 10:22:13 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 0, completed tasks = 28]
-2025-12-30 10:51:25 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m32s286ms).
-2025-12-30 11:07:59 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m4s153ms).
-2025-12-30 11:16:59 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m59s744ms).
+2026-04-12 18:30:17 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 76307 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:30:17 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:30:17 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:30:17 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:30:17 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:30:17 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:30:17 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:30:17 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:30:18 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:30:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:30:18 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6c4c32ff
+2026-04-12 18:30:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:30:18 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:30:18 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:30:18 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:30:18 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uknt2d9lplksl1ww2ye4wuu9iit" of relation "chat_messages" does not exist, skipping
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk2cqf8xb6es3rcpbwmyabis4xw" of relation "file_metadata" does not exist, skipping
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukt5pentx4nnkugkq5nnwlohj8f" of relation "memberships" does not exist, skipping
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "ukr43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - HHH000247: ErrorCode: 0, SQLState: 00000
+2026-04-12 18:30:19 [main] WARN  org.hibernate.orm.jdbc.warn - constraint "uk5hapiy9yqibammh5acu8gedtt" of relation "work_groups" does not exist, skipping
+2026-04-12 18:30:19 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:30:19 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:30:19 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:30:19 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:30:19 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:30:19 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:30:19 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:30:19 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:30:20 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:30:20 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:30:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:30:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3d2a90af]]
+2026-04-12 18:30:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:30:21 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.409 seconds (process running for 5.504)
+2026-04-12 18:30:21 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:30:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:30:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3d2a90af]]
+2026-04-12 18:30:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:30:21 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:30:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:30:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 18:33:34 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 78870 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:33:34 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:33:34 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:33:35 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:33:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:33:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:33:35 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:33:35 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:33:35 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:33:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:33:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 18:33:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:33:36 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:33:36 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:33:36 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:33:36 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:33:36 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:33:36 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:33:36 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:33:36 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:33:36 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:33:36 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:33:36 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:33:36 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:33:38 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:33:38 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:33:38 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:33:38 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:33:38 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:33:38 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.063 seconds (process running for 5.138)
+2026-04-12 18:33:38 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:33:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:33:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:33:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:33:39 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:33:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:33:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 18:36:29 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 80956 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:36:29 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:36:29 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:36:30 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:36:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:36:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:36:30 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:36:30 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:36:30 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:36:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:36:30 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 18:36:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:36:30 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:36:30 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:36:31 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:36:31 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:36:31 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:36:31 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:36:31 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:36:31 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:36:31 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:36:31 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:36:31 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:36:32 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:36:33 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:36:34 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:36:34 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:36:34 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:36:34 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:36:34 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.965 seconds (process running for 6.414)
+2026-04-12 18:36:34 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:36:34 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:36:34 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:36:34 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:36:34 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:36:34 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:36:34 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 18:39:16 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 82841 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:39:16 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:39:16 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:39:17 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:39:17 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:39:17 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:39:17 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:39:17 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:39:17 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:39:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:39:17 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 18:39:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:39:17 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:39:17 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:39:18 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:39:18 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:39:18 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:39:18 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:39:18 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:39:18 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:39:18 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:39:18 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:39:18 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:39:18 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:39:20 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:39:20 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:39:20 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:39:20 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2172104e]]
+2026-04-12 18:39:20 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:39:20 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.17 seconds (process running for 5.308)
+2026-04-12 18:39:20 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:39:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:39:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2172104e]]
+2026-04-12 18:39:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:39:21 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:39:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:39:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 18:46:02 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 87476 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:46:02 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:46:02 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:46:02 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:46:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:46:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:46:03 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:46:03 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:46:03 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:46:03 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:46:03 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 18:46:03 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:46:03 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:46:03 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:46:04 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:46:04 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:46:04 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:46:04 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:46:04 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:46:04 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:46:04 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:46:04 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:46:04 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:46:04 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:46:05 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:46:05 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:46:06 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:46:06 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4e187926]]
+2026-04-12 18:46:06 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:46:06 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.502 seconds (process running for 5.577)
+2026-04-12 18:46:06 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:46:07 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:46:07 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4e187926]]
+2026-04-12 18:46:07 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:46:07 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:46:07 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:46:07 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 18:46:34 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 88088 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:46:34 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:46:34 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:46:35 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:46:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:46:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:46:35 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:46:35 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:46:35 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:46:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:46:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 18:46:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:46:35 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:46:36 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:46:36 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:46:36 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:46:36 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:46:36 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:46:36 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:46:36 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:46:36 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:46:36 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:46:36 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:46:36 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:46:38 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:46:38 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:46:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:46:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@27ca5b93]]
+2026-04-12 18:46:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:46:39 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.362 seconds (process running for 5.522)
+2026-04-12 18:46:39 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:46:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:46:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@27ca5b93]]
+2026-04-12 18:46:39 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:46:39 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:46:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:46:39 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 18:59:08 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 96447 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:59:08 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:59:08 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:59:08 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:59:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:59:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:59:08 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:59:08 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:59:09 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:59:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:59:09 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 18:59:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:59:09 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:59:09 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:59:09 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:59:09 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:59:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:59:10 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:59:10 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:59:10 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:59:10 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:59:10 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:59:10 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:59:10 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:59:11 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:59:11 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:59:12 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:59:12 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:59:12 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:59:12 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.822 seconds (process running for 6.112)
+2026-04-12 18:59:12 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:59:13 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:59:13 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:59:13 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:59:13 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:59:13 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:59:13 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 18:59:17 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 96592 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 18:59:17 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 18:59:17 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 18:59:18 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 18:59:18 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 18:59:18 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 8 JPA repository interfaces.
+2026-04-12 18:59:18 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 18:59:18 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 18:59:18 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 18:59:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 18:59:18 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 18:59:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 18:59:18 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 18:59:18 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 18:59:19 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 18:59:19 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 18:59:19 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:59:19 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 18:59:19 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 18:59:19 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:59:19 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 18:59:19 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 18:59:19 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 18:59:19 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 18:59:20 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 18:59:20 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 18:59:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 18:59:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:59:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 18:59:21 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 3.754 seconds (process running for 4.784)
+2026-04-12 18:59:21 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 18:59:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 18:59:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 18:59:21 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 18:59:21 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 18:59:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 18:59:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 19:04:49 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 326 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 19:04:49 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 19:04:49 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 19:04:49 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 19:04:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 19:04:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 8 JPA repository interfaces.
+2026-04-12 19:04:50 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 19:04:50 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 19:04:50 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 19:04:50 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 19:04:50 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 19:04:50 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 19:04:50 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 19:04:50 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 19:04:51 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 19:04:51 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 19:04:51 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:04:51 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 19:04:51 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 19:04:51 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:04:51 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:04:51 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 19:04:51 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 19:04:51 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 19:04:52 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 19:04:53 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 19:04:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 19:04:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 19:04:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 19:04:53 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 3.944 seconds (process running for 5.032)
+2026-04-12 19:04:53 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 19:04:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 19:04:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@59daf355]]
+2026-04-12 19:04:53 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 19:04:53 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:04:53 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 19:04:53 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 19:05:00 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 671 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 19:05:00 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 19:05:00 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 19:05:00 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 19:05:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 19:05:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 8 JPA repository interfaces.
+2026-04-12 19:05:01 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 19:05:01 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 19:05:01 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 19:05:01 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 19:05:01 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 19:05:01 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 19:05:01 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 19:05:01 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 19:05:02 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 19:05:02 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 19:05:02 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:05:02 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 19:05:02 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 19:05:02 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:05:02 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:05:02 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 19:05:02 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 19:05:02 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 19:05:03 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 19:05:03 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 19:05:04 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 19:05:04 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@27ca5b93]]
+2026-04-12 19:05:04 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 19:05:04 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 3.608 seconds (process running for 4.725)
+2026-04-12 19:05:04 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 19:05:04 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 19:05:04 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@27ca5b93]]
+2026-04-12 19:05:04 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 19:05:04 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:05:04 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 19:05:04 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 19:13:16 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 6483 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 19:13:16 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 19:13:16 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 19:13:16 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 19:13:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 19:13:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 8 JPA repository interfaces.
+2026-04-12 19:13:17 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 19:13:17 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 19:13:17 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 19:13:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 19:13:18 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 19:13:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 19:13:18 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 19:13:19 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 19:13:19 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 19:13:19 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 19:13:20 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:13:20 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 19:13:20 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 19:13:20 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:13:20 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:13:20 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 19:13:20 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 19:13:20 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 19:13:22 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 19:13:22 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 19:13:22 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 19:13:22 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2172104e]]
+2026-04-12 19:13:22 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 19:13:22 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 6.493 seconds (process running for 7.561)
+2026-04-12 19:13:22 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 19:13:23 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 19:13:23 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2172104e]]
+2026-04-12 19:13:23 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 19:13:23 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:13:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 19:13:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 19:17:07 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 9203 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 19:17:07 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 19:17:07 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 19:17:07 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 19:17:07 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 19:17:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 8 JPA repository interfaces.
+2026-04-12 19:17:08 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 19:17:08 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 19:17:08 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 19:17:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 19:17:08 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6b23897a
+2026-04-12 19:17:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 19:17:08 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 19:17:08 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 19:17:09 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 19:17:09 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 19:17:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:17:09 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 19:17:09 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 19:17:09 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:17:09 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:17:09 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 19:17:09 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 19:17:09 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 19:17:10 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 19:17:10 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 19:17:11 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 19:17:11 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@67e9509]]
+2026-04-12 19:17:11 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 19:17:11 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 3.868 seconds (process running for 5.108)
+2026-04-12 19:17:11 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 19:17:11 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 19:17:11 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@67e9509]]
+2026-04-12 19:17:11 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 19:17:11 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:17:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 19:17:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-12 19:19:42 [main] INFO  c.e.thesis.ThesisApplicationTests - Starting ThesisApplicationTests using Java 17.0.15 with PID 11101 (started by minazuki in /Users/minazuki/Documents/cloud storage, diploma/thesis)
+2026-04-12 19:19:42 [main] DEBUG c.e.thesis.ThesisApplicationTests - Running with Spring Boot v4.0.1, Spring v7.0.2
+2026-04-12 19:19:42 [main] INFO  c.e.thesis.ThesisApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2026-04-12 19:19:43 [main] INFO  o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'passwordEncoder' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=passwordEncoderConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/PasswordEncoderConfig.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=securityConfig; factoryMethodName=passwordEncoder; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/example/thesis/security/SecurityConfig.class]]
+2026-04-12 19:19:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-12 19:19:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 8 JPA repository interfaces.
+2026-04-12 19:19:43 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-12 19:19:43 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-04-12 19:19:43 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-12 19:19:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-12 19:19:43 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4512f5f1
+2026-04-12 19:19:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-12 19:19:43 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-12 19:19:43 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/thesis_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 14.15
+	Default catalog/schema: thesis_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-12 19:19:44 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-12 19:19:44 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2026-04-12 19:19:44 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:19:44 [main] WARN  o.t.templatemode.TemplateMode - [THYMELEAF][main] Unknown Template Mode 'HTML5'. Must be one of: 'HTML', 'XML', 'TEXT', 'JAVASCRIPT', 'CSS', 'RAW'. Using default Template Mode 'HTML'.
+2026-04-12 19:19:45 [main] INFO  c.e.t.config.EmailConfigValidator - === Проверка почты (SMTP) ===
+2026-04-12 19:19:45 [main] INFO  c.e.t.config.EmailConfigValidator - Mail Username: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:19:45 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ SMTP user: Cloud-Storage-Assistent@yandex.ru
+2026-04-12 19:19:45 [main] INFO  c.e.t.config.EmailConfigValidator - ✅ Пароль SMTP задан (переменная MAIL_PASSWORD)
+2026-04-12 19:19:45 [main] INFO  c.e.t.config.EmailConfigValidator - ===============================
+2026-04-12 19:19:45 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-12 19:19:46 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-12 19:19:46 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-12 19:19:46 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-12 19:19:46 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@27ca5b93]]
+2026-04-12 19:19:46 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-12 19:19:46 [main] INFO  c.e.thesis.ThesisApplicationTests - Started ThesisApplicationTests in 4.245 seconds (process running for 5.496)
+2026-04-12 19:19:46 [main] INFO  c.e.t.config.DatasourceInfoLogger - [DB] Активный spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_db (если после сброса Docker email «занят» — проверьте, что backend смотрит на ту же БД, которую вы чистите)
+2026-04-12 19:19:47 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-12 19:19:47 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@27ca5b93]]
+2026-04-12 19:19:47 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-12 19:19:47 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-12 19:19:47 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-12 19:19:47 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

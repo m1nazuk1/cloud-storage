@@ -15,6 +15,7 @@ import com.example.thesis.repository.FileMetadataRepository;
 import com.example.thesis.repository.FileHistoryRepository;
 import com.example.thesis.repository.WorkGroupRepository;
 import com.example.thesis.repository.MembershipRepository;
+import com.example.thesis.storage.HybridStorageDecision;
 import com.example.thesis.storage.LocalFileContentStorage;
 import com.example.thesis.storage.S3CompatibleFileContentStorage;
 import org.hibernate.Hibernate;
@@ -68,9 +69,7 @@ public class FileServiceImpl implements FileService {
     }
 
     private boolean useObjectStoreForNewUploads() {
-        return storageProperties.isObjectEnabled()
-                && objectStorage != null
-                && storageProperties.isNewFilesObject();
+        return HybridStorageDecision.useObjectStoreForNewUploads(storageProperties, objectStorage != null);
     }
 
     private void assertVersionMatch(FileMetadata meta, Integer expectedVersion) {
