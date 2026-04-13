@@ -12,7 +12,7 @@ export function notificationMatchesFilter(n: Notification, filter: NotificationG
         case 'group':
             return t === 'GROUP_UPDATED';
         case 'chat':
-            return t === 'CHAT_MENTION';
+            return t === 'CHAT_MENTION' || t === 'CHAT_REPLY';
         default:
             return true;
     }

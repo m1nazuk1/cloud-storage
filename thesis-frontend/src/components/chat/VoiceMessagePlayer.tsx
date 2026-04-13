@@ -132,7 +132,7 @@ const VoiceMessagePlayer: React.FC<Props> = ({ fileId, mimeType, mine }) => {
     }
     return (<div className="flex items-center gap-2.5 min-w-0 max-w-[min(100%,320px)] py-0.5">
             <audio ref={audioRef} src={src} preload="metadata" onLoadedMetadata={onMeta} onDurationChange={onMeta} onEnded={onEnded} onPause={() => setPlaying(false)} onPlay={() => setPlaying(true)} className="hidden"/>
-            <button type="button" onClick={toggle} className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full shadow-md transition-transform active:scale-95 ${mine
+            <button type="button" onClick={toggle} className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full shadow-md transition-[filter] active:brightness-95 ${mine
             ? 'bg-white text-indigo-600 hover:bg-white/95'
             : 'bg-indigo-500 text-white hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500'}`} aria-label={playing ? 'Пауза' : 'Воспроизвести'}>
                 {playing ? <Pause className="h-5 w-5"/> : <Play className="h-5 w-5 pl-0.5"/>}

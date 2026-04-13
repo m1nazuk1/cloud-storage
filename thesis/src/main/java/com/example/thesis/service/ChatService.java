@@ -14,4 +14,6 @@ public interface ChatService {
     void deleteMessage(UUID messageId, User requester);
     ChatMessage getMessage(UUID messageId);
     List<ChatMessage> searchMessages(UUID groupId, String searchTerm);
+
+    ChatMessage setMessagePinned(UUID messageId, boolean pinned, User requester);
 }

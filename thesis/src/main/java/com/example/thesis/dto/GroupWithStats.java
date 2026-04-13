@@ -20,6 +20,7 @@ public class GroupWithStats {
     private boolean notificationsMuted;
     private boolean pinned;
     private String accentColor;
+    private UUID coverFileId;
 
     public UUID getId() {
         return id;
@@ -109,6 +110,14 @@ public class GroupWithStats {
         this.accentColor = accentColor;
     }
 
+    public UUID getCoverFileId() {
+        return coverFileId;
+    }
+
+    public void setCoverFileId(UUID coverFileId) {
+        this.coverFileId = coverFileId;
+    }
+
     public String getCreatorUsername() {
         return creatorUsername;
     }
@@ -149,6 +158,7 @@ public class GroupWithStats {
             dto.setPinned(forCurrentUser.isPinned());
             dto.setAccentColor(forCurrentUser.getAccentColor());
         }
+        dto.setCoverFileId(group.getCoverFileId());
         return dto;
     }
 }

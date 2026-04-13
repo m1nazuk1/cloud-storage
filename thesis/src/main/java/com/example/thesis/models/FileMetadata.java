@@ -79,6 +79,10 @@ public class FileMetadata {
     private ChatMessage chatMessage;
 
     @JsonIgnore
+    @OneToOne(mappedBy = "file", cascade = CascadeType.ALL, orphanRemoval = true)
+    private FileTextIndex textIndex;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "file", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileHistory> history = new HashSet<>();
 
@@ -243,6 +247,14 @@ public class FileMetadata {
 
     public void setHistory(Set<FileHistory> history) {
         this.history = history;
+    }
+
+    public FileTextIndex getTextIndex() {
+        return textIndex;
+    }
+
+    public void setTextIndex(FileTextIndex textIndex) {
+        this.textIndex = textIndex;
     }
 
     public String getFormattedSize() {

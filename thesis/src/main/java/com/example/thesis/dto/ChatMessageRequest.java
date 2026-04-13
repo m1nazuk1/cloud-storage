@@ -17,6 +17,8 @@ public class ChatMessageRequest {
     
     private String stickerCode;
 
+    private java.util.UUID replyToId;
+
     public String getContent() {
         return content;
     }
@@ -47,5 +49,13 @@ public class ChatMessageRequest {
 
     public void setStickerCode(String stickerCode) {
         this.stickerCode = stickerCode;
+    }
+
+    public java.util.UUID getReplyToId() {
+        return replyToId;
+    }
+
+    public void setReplyToId(java.util.UUID replyToId) {
+        this.replyToId = replyToId;
     }
 }

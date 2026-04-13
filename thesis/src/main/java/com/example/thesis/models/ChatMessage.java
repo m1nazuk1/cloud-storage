@@ -19,7 +19,6 @@ public class ChatMessage {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    
     @Column(name = "message_kind", length = 32, nullable = false)
     private String messageKind = "TEXT";
 
@@ -45,6 +44,15 @@ public class ChatMessage {
 
     @Column(name = "edit_timestamp")
     private LocalDateTime editTimestamp;
+
+    @Column(name = "reply_to_id")
+    private UUID replyToId;
+
+    @Column(name = "pinned", nullable = false)
+    private boolean pinned = false;
+
+    @Column(name = "pinned_at")
+    private LocalDateTime pinnedAt;
 
     public ChatMessage() {
     }
@@ -104,7 +112,6 @@ public class ChatMessage {
         this.group = group;
     }
 
-    
     public UUID getGroupId() {
         return group != null ? group.getId() : null;
     }
@@ -131,6 +138,30 @@ public class ChatMessage {
 
     public void setEditTimestamp(LocalDateTime editTimestamp) {
         this.editTimestamp = editTimestamp;
+    }
+
+    public UUID getReplyToId() {
+        return replyToId;
+    }
+
+    public void setReplyToId(UUID replyToId) {
+        this.replyToId = replyToId;
+    }
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
+    }
+
+    public LocalDateTime getPinnedAt() {
+        return pinnedAt;
+    }
+
+    public void setPinnedAt(LocalDateTime pinnedAt) {
+        this.pinnedAt = pinnedAt;
     }
 
     public boolean hasAttachment() {

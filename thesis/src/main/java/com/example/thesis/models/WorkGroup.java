@@ -35,6 +35,9 @@ public class WorkGroup {
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator;
 
+    @Column(name = "cover_image_id")
+    private UUID coverFileId;
+
     
     @JsonIgnore
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -63,6 +66,14 @@ public class WorkGroup {
         this();
         this.name = name;
         this.creator = creator;
+    }
+
+    public UUID getCoverFileId() {
+        return coverFileId;
+    }
+
+    public void setCoverFileId(UUID coverFileId) {
+        this.coverFileId = coverFileId;
     }
 
     public UUID getId() {

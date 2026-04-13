@@ -81,4 +81,6 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, UUID> 
     int deleteMessage(@Param("messageId") UUID messageId, @Param("userId") UUID userId);
 
     Optional<ChatMessage> findByIdAndSenderId(UUID id, UUID senderId);
+
+    List<ChatMessage> findByGroup_IdAndPinnedIsTrue(UUID groupId);
 }

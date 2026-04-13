@@ -29,4 +29,8 @@ public interface GroupService {
     int getGroupFileCount(UUID groupId);
 
     void updateMembershipPreferences(UUID groupId, User user, GroupMembershipPrefsRequest request);
+
+    void setGroupCoverFile(UUID groupId, UUID fileId, User requester);
+
+    void clearGroupCoverFile(UUID groupId, User requester);
 }

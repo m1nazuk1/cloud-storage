@@ -2,7 +2,8 @@ package com.example.thesis.controller;
 
 import com.example.thesis.config.StorageProperties;
 import com.example.thesis.dto.FileDTO;
-import com.example.thesis.dto.FileMetadataDTO;
+import com.example.thesis.dto.FileNoteDto;
+import com.example.thesis.dto.FileRevisionDto;
 import com.example.thesis.models.FileMetadata;
 import com.example.thesis.models.FileHistory;
 import com.example.thesis.security.SecurityUtils;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -92,6 +94,20 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(fileMetadata.getMimeType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + fileMetadata.getOriginalName() + "\"")
+                .body(resource);
+    }
+
+    @GetMapping("/{fileId}/preview")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<Resource> previewFile(@PathVariable UUID fileId) {
+        var currentUser = securityUtils.getCurrentUser();
+        byte[] fileData = fileService.downloadFile(fileId, currentUser);
+        FileMetadata fileMetadata = fileService.getFileMetadata(fileId);
+        String mime = fileMetadata.getMimeType() != null ? fileMetadata.getMimeType() : "application/octet-stream";
+        ByteArrayResource resource = new ByteArrayResource(fileData);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mime))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + fileMetadata.getOriginalName() + "\"")
                 .body(resource);
     }
 
@@ -192,6 +208,61 @@ public class FileController {
         var currentUser = securityUtils.getCurrentUser();
         FileMetadata updatedFile = fileService.updateFile(file, fileId, currentUser, expectedVersion);
         return ResponseEntity.ok(updatedFile);
+    }
+
+    @GetMapping("/{fileId}/revisions")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<FileRevisionDto>> listRevisions(@PathVariable UUID fileId) {
+        var currentUser = securityUtils.getCurrentUser();
+        return ResponseEntity.ok(fileService.listFileRevisions(fileId, currentUser));
+    }
+
+    @GetMapping("/{fileId}/revisions/{revisionId}/download")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<Resource> downloadRevision(@PathVariable UUID fileId,
+                                                     @PathVariable UUID revisionId) {
+        var currentUser = securityUtils.getCurrentUser();
+        byte[] data = fileService.downloadRevision(fileId, revisionId, currentUser);
+        FileMetadata meta = fileService.getFileMetadata(fileId);
+        String mime = meta.getMimeType() != null ? meta.getMimeType() : "application/octet-stream";
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mime))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"v" + revisionId + "-" + meta.getOriginalName() + "\"")
+                .body(new ByteArrayResource(data));
+    }
+
+    @GetMapping("/{fileId}/revisions/diff")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<Map<String, String>> diffRevisions(@PathVariable UUID fileId,
+                                                             @RequestParam UUID leftId,
+                                                             @RequestParam UUID rightId) {
+        var currentUser = securityUtils.getCurrentUser();
+        String diff = fileService.diffRevisions(fileId, leftId, rightId, currentUser);
+        return ResponseEntity.ok(Map.of("unifiedDiff", diff));
+    }
+
+    @GetMapping("/{fileId}/notes")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<FileNoteDto>> listNotes(@PathVariable UUID fileId) {
+        var currentUser = securityUtils.getCurrentUser();
+        return ResponseEntity.ok(fileService.listFileNotes(fileId, currentUser));
+    }
+
+    @PostMapping("/{fileId}/notes")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<FileNoteDto> addNote(@PathVariable UUID fileId,
+                                               @RequestBody Map<String, String> body) {
+        var currentUser = securityUtils.getCurrentUser();
+        String text = body != null ? body.get("body") : null;
+        return ResponseEntity.ok(fileService.addFileNote(fileId, text, currentUser));
+    }
+
+    @DeleteMapping("/{fileId}/notes/{noteId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> deleteNote(@PathVariable UUID fileId, @PathVariable UUID noteId) {
+        var currentUser = securityUtils.getCurrentUser();
+        fileService.deleteFileNote(fileId, noteId, currentUser);
+        return ResponseEntity.ok(new AuthController.MessageResponse("Note deleted"));
     }
 
     private String formatFileSize(Long bytes) {

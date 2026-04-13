@@ -8,6 +8,7 @@ public enum NotificationType {
     USER_LEFT,
     USER_REMOVED,
     GROUP_UPDATED,
-    
-    CHAT_MENTION
+
+    CHAT_MENTION,
+    CHAT_REPLY
 }

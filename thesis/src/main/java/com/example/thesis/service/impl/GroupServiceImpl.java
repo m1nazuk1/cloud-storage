@@ -2,6 +2,7 @@ package com.example.thesis.service.impl;
 
 import com.example.thesis.service.GroupService;
 import com.example.thesis.service.NotificationService;
+import com.example.thesis.models.FileMetadata;
 import com.example.thesis.models.WorkGroup;
 import com.example.thesis.models.User;
 import com.example.thesis.models.Membership;
@@ -10,6 +11,7 @@ import com.example.thesis.models.enums.NotificationType;
 import com.example.thesis.repository.WorkGroupRepository;
 import com.example.thesis.repository.MembershipRepository;
 import com.example.thesis.repository.UserRepository;
+import com.example.thesis.repository.FileMetadataRepository;
 import com.example.thesis.dto.GroupCreateRequest;
 import com.example.thesis.dto.GroupMembershipPrefsRequest;
 import com.example.thesis.dto.GroupUpdateRequest;
@@ -29,15 +31,18 @@ public class GroupServiceImpl implements GroupService {
     private final MembershipRepository membershipRepository;
     private final UserRepository userRepository;
     private final NotificationService notificationService;
+    private final FileMetadataRepository fileMetadataRepository;
 
     public GroupServiceImpl(WorkGroupRepository workGroupRepository,
                             MembershipRepository membershipRepository,
                             UserRepository userRepository,
-                            NotificationService notificationService) {
+                            NotificationService notificationService,
+                            FileMetadataRepository fileMetadataRepository) {
         this.workGroupRepository = workGroupRepository;
         this.membershipRepository = membershipRepository;
         this.userRepository = userRepository;
         this.notificationService = notificationService;
+        this.fileMetadataRepository = fileMetadataRepository;
     }
 
     @Override
@@ -351,6 +356,41 @@ public class GroupServiceImpl implements GroupService {
             }
         }
         membershipRepository.save(membership);
+    }
+
+    @Override
+    @Transactional
+    public void setGroupCoverFile(UUID groupId, UUID fileId, User requester) {
+        WorkGroup group = getGroupById(groupId);
+        Membership membership = membershipRepository.findByUserIdAndGroupId(requester.getId(), groupId)
+                .orElseThrow(() -> new RuntimeException("Вы не участник группы"));
+        if (!membership.isCreator()) {
+            throw new RuntimeException("Только создатель группы может задать обложку");
+        }
+        FileMetadata fm = fileMetadataRepository.findById(fileId)
+                .orElseThrow(() -> new RuntimeException("Файл не найден"));
+        if (fm.isDeleted() || !fm.getParentGroup().getId().equals(groupId)) {
+            throw new RuntimeException("Выберите файл изображения из этой группы");
+        }
+        String mime = fm.getMimeType() != null ? fm.getMimeType() : "";
+        if (!mime.startsWith("image/")) {
+            throw new RuntimeException("Нужен файл-изображение (jpeg, png, webp и т.д.)");
+        }
+        group.setCoverFileId(fileId);
+        workGroupRepository.save(group);
+    }
+
+    @Override
+    @Transactional
+    public void clearGroupCoverFile(UUID groupId, User requester) {
+        WorkGroup group = getGroupById(groupId);
+        Membership membership = membershipRepository.findByUserIdAndGroupId(requester.getId(), groupId)
+                .orElseThrow(() -> new RuntimeException("Вы не участник группы"));
+        if (!membership.isCreator()) {
+            throw new RuntimeException("Только создатель группы может убрать обложку");
+        }
+        group.setCoverFileId(null);
+        workGroupRepository.save(group);
     }
 
     private String generateUniqueInviteToken() {

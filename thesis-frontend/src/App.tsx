@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import I18nDirection from './components/i18n/I18nDirection';
 import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/layout/Layout';
 import Login from './pages/auth/Login';
@@ -22,6 +23,7 @@ function App() {
     return (<ErrorBoundary>
         <Router>
             <AuthProvider>
+                <I18nDirection />
                 <div className="min-h-screen overflow-x-hidden">
                         <Routes>
                             

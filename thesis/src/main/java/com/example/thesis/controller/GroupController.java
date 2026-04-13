@@ -192,6 +192,34 @@ public class GroupController {
         return ResponseEntity.ok(groupDTO);
     }
 
+    @PutMapping("/{id}/cover")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> setGroupCover(@PathVariable UUID id, @RequestBody Map<String, String> body) {
+        try {
+            String fid = body != null ? body.get("fileId") : null;
+            if (fid == null || fid.isBlank()) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Укажите fileId"));
+            }
+            groupService.setGroupCoverFile(id, UUID.fromString(fid.trim()), securityUtils.getCurrentUser());
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Некорректный fileId"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/{id}/cover")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> clearGroupCover(@PathVariable UUID id) {
+        try {
+            groupService.clearGroupCoverFile(id, securityUtils.getCurrentUser());
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        }
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<WorkGroup> updateGroup(@PathVariable UUID id,
@@ -286,6 +314,8 @@ public class GroupController {
         stats.put("fileCount", files.size());
         stats.put("creator", group.getCreator().getUsername());
         stats.put("creationDate", group.getCreationDate());
+        stats.put("canPinMessages", groupService.isUserAdminOrCreator(id, securityUtils.getCurrentUserId()));
+        stats.put("isCreator", group.getCreator().getId().equals(securityUtils.getCurrentUserId()));
 
         return ResponseEntity.ok(stats);
     }

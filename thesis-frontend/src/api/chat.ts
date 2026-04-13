@@ -21,4 +21,10 @@ export const chatApi = {
         });
         return response.data;
     },
+    setMessagePin: async (messageId: string, pinned: boolean): Promise<ChatMessage> => {
+        const response = await api.put<ChatMessage>(`/chat/messages/${messageId}/pin`, null, {
+            params: { pinned },
+        });
+        return response.data;
+    },
 };

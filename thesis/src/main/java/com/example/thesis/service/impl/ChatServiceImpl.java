@@ -110,10 +110,25 @@ public class ChatServiceImpl implements ChatService {
             message.setMessageKind("TEXT");
         }
 
+        UUID replyToId = request.getReplyToId();
+        ChatMessage parentForReply = null;
+        if (replyToId != null) {
+            parentForReply = chatMessageRepository.findById(replyToId)
+                    .orElseThrow(() -> new RuntimeException("Сообщение для ответа не найдено"));
+            if (!parentForReply.getGroup().getId().equals(group.getId())) {
+                throw new RuntimeException("Ответ не в эту группу");
+            }
+            message.setReplyToId(replyToId);
+        }
+
         ChatMessage savedMessage = chatMessageRepository.save(message);
 
         if ("TEXT".equals(savedMessage.getMessageKind())) {
             notifyMentions(text, sender, group);
+        }
+
+        if (parentForReply != null && !parentForReply.getSender().getId().equals(sender.getId())) {
+            notifyReply(sender, parentForReply, group);
         }
 
         messagingTemplate.convertAndSend(
@@ -122,6 +137,17 @@ public class ChatServiceImpl implements ChatService {
         );
 
         return savedMessage;
+    }
+
+    private void notifyReply(User sender, ChatMessage parent, WorkGroup group) {
+        User recipient = parent.getSender();
+        membershipRepository.findByUserIdAndGroupId(recipient.getId(), group.getId()).ifPresent(m -> {
+            if (m.isNotificationsMuted()) {
+                return;
+            }
+            String msg = sender.getUsername() + " ответил вам в чате группы «" + group.getName() + "»";
+            notificationService.createNotification(NotificationType.CHAT_REPLY, msg, recipient, group.getId());
+        });
     }
 
     private void notifyMentions(String text, User sender, WorkGroup group) {
@@ -206,5 +232,41 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public List<ChatMessage> searchMessages(UUID groupId, String searchTerm) {
         return chatMessageRepository.searchInGroupChat(groupId, searchTerm);
+    }
+
+    @Override
+    @Transactional
+    public ChatMessage setMessagePinned(UUID messageId, boolean pinned, User requester) {
+        ChatMessage msg = chatMessageRepository.findById(messageId)
+                .orElseThrow(() -> new RuntimeException("Сообщение не найдено"));
+        UUID gid = msg.getGroup().getId();
+        if (!membershipRepository.isUserMemberOfGroup(requester.getId(), gid)) {
+            throw new RuntimeException("Вы не участник этой группы");
+        }
+        if (!membershipRepository.isUserAdminOrCreator(requester.getId(), gid)) {
+            throw new RuntimeException("Закреплять могут только админы и создатель");
+        }
+        if (pinned) {
+            List<ChatMessage> currentlyPinned = chatMessageRepository.findByGroup_IdAndPinnedIsTrue(gid);
+            for (ChatMessage other : currentlyPinned) {
+                if (!other.getId().equals(messageId)) {
+                    other.setPinned(false);
+                    other.setPinnedAt(null);
+                    ChatMessage updated = chatMessageRepository.save(other);
+                    messagingTemplate.convertAndSend(
+                            "/topic/group." + gid + ".chat.pin",
+                            updated
+                    );
+                }
+            }
+        }
+        msg.setPinned(pinned);
+        msg.setPinnedAt(pinned ? LocalDateTime.now() : null);
+        ChatMessage saved = chatMessageRepository.save(msg);
+        messagingTemplate.convertAndSend(
+                "/topic/group." + gid + ".chat.pin",
+                saved
+        );
+        return saved;
     }
 }

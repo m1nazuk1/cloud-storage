@@ -7,7 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     fullWidth?: boolean;
 }
 const Button: React.FC<ButtonProps> = ({ children, variant = 'primary', size = 'md', loading = false, fullWidth = false, disabled, className = '', ...props }) => {
-    const baseClasses = 'touch-manipulation inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed hover:brightness-[1.03] active:scale-[0.98] hover:-translate-y-px';
+    const baseClasses = 'touch-manipulation inline-flex items-center justify-center font-medium rounded-xl transition-[box-shadow,filter,background-color] duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed hover:brightness-[1.02] active:brightness-[0.97] antialiased';
     const variants = {
         primary: 'bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 bg-[length:200%_100%] text-white hover:brightness-110 focus:ring-indigo-500 shadow-md shadow-indigo-500/25',
         secondary: 'bg-white/95 text-slate-700 border border-slate-200/90 hover:bg-indigo-50/80 hover:border-indigo-200 focus:ring-indigo-500 shadow-sm dark:bg-slate-800/95 dark:text-slate-100 dark:border-slate-600 dark:hover:bg-slate-700',

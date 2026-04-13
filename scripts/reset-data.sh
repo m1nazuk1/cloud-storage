@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -22,10 +22,10 @@ reset_docker() {
   docker compose down -v --remove-orphans
 
   echo "=== Docker: удаляю тома *thesis_pgdata / *thesis_uploads (если остались) ==="
-  while IFS= read -r vol; do
+  docker volume ls -q 2>/dev/null | grep -E 'thesis_(pgdata|uploads)$' | while IFS= read -r vol; do
     [ -n "${vol:-}" ] || continue
     docker volume rm "$vol" 2>/dev/null || true
-  done < <(docker volume ls -q | grep -E 'thesis_(pgdata|uploads)$' || true)
+  done
 
   echo ""
   echo "Готово (Docker). Поднимите стек: docker compose up --build"

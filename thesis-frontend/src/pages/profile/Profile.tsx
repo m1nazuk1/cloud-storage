@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 import { User as UserIcon, Mail, Calendar, Shield, Key, CheckCircle, AlertCircle, RefreshCw, Camera } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import type { User } from '../../types';
-import { userUpdateSchema, passwordChangeSchema } from '../../utils/validation';
+import { createUserUpdateSchema, createProfilePasswordFormSchema } from '../../utils/validation';
 import Card, { CardHeader, CardContent } from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import PageHero from '../../components/ui/PageHero';
 import Input from '../../components/ui/Input';
-import { z } from "zod";
 import { userApi } from '../../api/user';
 import toast from "react-hot-toast";
 import UserAvatar from '../../components/chat/UserAvatar';
+import { formatDate as formatDateDisplay } from '../../utils/format';
 type ProfileFormData = {
     firstName?: string;
     lastName?: string;
@@ -24,6 +25,9 @@ type PasswordFormData = {
     confirmPassword: string;
 };
 const Profile: React.FC = () => {
+    const { t } = useTranslation();
+    const userUpdateSchema = useMemo(() => createUserUpdateSchema(t), [t]);
+    const profilePasswordSchema = useMemo(() => createProfilePasswordFormSchema(t), [t]);
     const { user, updateUser, refreshUserData } = useAuth();
     const [activeTab, setActiveTab] = useState('profile');
     const [profileMessage, setProfileMessage] = useState<{
@@ -54,19 +58,14 @@ const Profile: React.FC = () => {
         try {
             const userData = await refreshUserData();
             applyProfileFromUser(userData);
-            toast.success('Данные профиля обновлены');
+            toast.success(t('profile.msg.refreshed'));
         }
         catch (error) {
             console.error('Failed to refresh profile:', error);
         }
     };
     const passwordForm = useForm<PasswordFormData>({
-        resolver: zodResolver(passwordChangeSchema.extend({
-            confirmPassword: z.string().min(6, 'Подтвердите пароль'),
-        }).refine((data) => data.newPassword === data.confirmPassword, {
-            message: "Пароли не совпадают",
-            path: ["confirmPassword"],
-        })),
+        resolver: zodResolver(profilePasswordSchema),
     });
     const applyProfileFromUser = (userData: User) => {
         setUserInfo({
@@ -135,7 +134,7 @@ const Profile: React.FC = () => {
             console.log('5. No changes detected, skipping...');
             setProfileMessage({
                 type: 'error',
-                text: 'Нет изменений для сохранения'
+                text: t('profile.msg.noChanges')
             });
             setIsUpdating(false);
             return;
@@ -159,7 +158,7 @@ const Profile: React.FC = () => {
                 console.log('8. No data to update after filtering');
                 setProfileMessage({
                     type: 'info',
-                    text: 'Нет изменений для сохранения'
+                    text: t('profile.msg.noChanges')
                 });
                 setIsUpdating(false);
                 return;
@@ -174,13 +173,13 @@ const Profile: React.FC = () => {
             }));
             setProfileMessage({
                 type: 'success',
-                text: 'Профиль сохранён'
+                text: t('profile.msg.saved')
             });
             setTimeout(() => setProfileMessage(null), 3000);
         }
         catch (error: any) {
             console.error('10. Update error:', error);
-            let errorMessage = 'Не удалось сохранить профиль';
+            let errorMessage = t('profile.msg.saveError');
             if (error.response?.data?.message) {
                 errorMessage = error.response.data.message;
             }
@@ -206,7 +205,7 @@ const Profile: React.FC = () => {
             await userApi.changePassword(data.oldPassword, data.newPassword);
             setPasswordMessage({
                 type: 'success',
-                text: 'Пароль обновлён'
+                text: t('profile.msg.passwordOk')
             });
             passwordForm.reset({
                 oldPassword: '',
@@ -217,7 +216,7 @@ const Profile: React.FC = () => {
         }
         catch (error: any) {
             console.error('Password change error:', error);
-            let errorMessage = 'Не удалось сменить пароль';
+            let errorMessage = t('profile.msg.passwordError');
             if (error.response?.data?.message) {
                 errorMessage = error.response.data.message;
             }
@@ -243,45 +242,30 @@ const Profile: React.FC = () => {
             await userApi.uploadAvatar(file);
             const fresh = await refreshUserData();
             applyProfileFromUser(fresh);
-            toast.success('Фото профиля обновлено');
+            toast.success(t('profile.msg.avatarOk'));
         }
         catch {
-            toast.error('Не удалось загрузить фото');
+            toast.error(t('profile.msg.avatarFail'));
         }
         finally {
             setIsUpdating(false);
         }
     };
     const handleRemoveAvatar = async () => {
-        if (!window.confirm('Убрать фото профиля?'))
+        if (!window.confirm(t('profile.confirmRemoveAvatar')))
             return;
         try {
             setIsUpdating(true);
             await userApi.deleteAvatar();
             const fresh = await refreshUserData();
             applyProfileFromUser(fresh);
-            toast.success('Фото удалено');
+            toast.success(t('profile.msg.avatarRemoved'));
         }
         catch {
-            toast.error('Не удалось удалить фото');
+            toast.error(t('profile.msg.avatarRemoveFail'));
         }
         finally {
             setIsUpdating(false);
-        }
-    };
-    const formatDate = (dateString: string): string => {
-        if (!dateString)
-            return '—';
-        try {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-        catch {
-            return '—';
         }
     };
     if (isLoading) {
@@ -290,10 +274,10 @@ const Profile: React.FC = () => {
             </div>);
     }
     return (<div className="space-y-6 min-w-0">
-            <PageHero badge="Аккаунт" title="Настройки профиля" subtitle="Данные профиля, пароль и информация об аккаунте">
-                <Button variant="secondary" onClick={handleRefreshProfile} className="w-full justify-center sm:w-auto flex items-center bg-white/95 text-indigo-900 border-white/50 dark:bg-slate-800/95 dark:text-slate-100 dark:border-slate-600 shadow-md" title="Обновить данные">
+            <PageHero badge={t('profile.badge')} title={t('profile.title')} subtitle={t('profile.subtitle')}>
+                <Button variant="secondary" onClick={handleRefreshProfile} className="w-full justify-center sm:w-auto flex items-center bg-white/95 text-indigo-900 border-white/50 dark:bg-slate-800/95 dark:text-slate-100 dark:border-slate-600 shadow-md" title={t('profile.refreshTitle')}>
                     <RefreshCw className="mr-2 h-5 w-5 shrink-0"/>
-                    Обновить
+                    {t('profile.refresh')}
                 </Button>
             </PageHero>
 
@@ -309,7 +293,7 @@ const Profile: React.FC = () => {
             username: userInfo.username,
             avatarUrl: userInfo.avatarUrl,
         }} className="h-16 w-16 ring-2 ring-indigo-200/50 dark:ring-indigo-500/30"/>
-                                    <label className="absolute -bottom-1 -right-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-indigo-600 text-white shadow-md hover:bg-indigo-500 transition-colors" title="Загрузить фото">
+                                    <label className="absolute -bottom-1 -right-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-indigo-600 text-white shadow-md hover:bg-indigo-500 transition-colors" title={t('profile.uploadPhoto')}>
                                         <Camera className="h-4 w-4"/>
                                         <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleAvatarFile} disabled={isUpdating}/>
                                     </label>
@@ -318,12 +302,12 @@ const Profile: React.FC = () => {
                                     <h3 className="font-semibold text-gray-900 dark:text-slate-100">{userInfo.username}</h3>
                                     <p className="text-sm text-gray-500 dark:text-slate-400">{userInfo.email}</p>
                                     {userInfo.avatarUrl && (<button type="button" onClick={handleRemoveAvatar} disabled={isUpdating} className="mt-1 text-xs text-rose-600 dark:text-rose-400 hover:underline">
-                                            Убрать фото
+                                            {t('profile.removePhoto')}
                                         </button>)}
                                     {userInfo.enabled ? (<span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-emerald-900/45 dark:text-emerald-200 mt-1">
-                      Активен
+                      {t('profile.active')}
                     </span>) : (<span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-amber-900/40 dark:text-amber-200 mt-1">
-                      Ожидает активации
+                      {t('profile.pendingActivation')}
                     </span>)}
                                 </div>
                             </div>
@@ -336,7 +320,7 @@ const Profile: React.FC = () => {
             ? 'bg-indigo-50 text-indigo-800 shadow-sm border border-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-200 dark:border-indigo-500/30'
             : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-slate-100'}`}>
                                     <UserIcon className="inline-block mr-2 h-4 w-4"/>
-                                    Данные профиля
+                                    {t('profile.tabProfile')}
                                 </button>
                                 <button onClick={() => {
             setActiveTab('security');
@@ -345,7 +329,7 @@ const Profile: React.FC = () => {
             ? 'bg-indigo-50 text-indigo-800 shadow-sm border border-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-200 dark:border-indigo-500/30'
             : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-slate-100'}`}>
                                     <Key className="inline-block mr-2 h-4 w-4"/>
-                                    Безопасность
+                                    {t('profile.tabSecurity')}
                                 </button>
                             </nav>
                         </CardContent>
@@ -353,14 +337,14 @@ const Profile: React.FC = () => {
 
                     <Card className="mt-6">
                         <CardContent className="p-6">
-                            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-4">Аккаунт</h4>
+                            <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-4">{t('profile.accountSection')}</h4>
                             <div className="space-y-4">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500 dark:text-slate-400">ФИО</p>
+                                    <p className="text-sm font-medium text-gray-500 dark:text-slate-400">{t('profile.fullName')}</p>
                                     <p className="text-sm text-gray-900 dark:text-slate-100 font-medium">
                                         {userInfo.firstName || userInfo.lastName
             ? `${userInfo.firstName || ''} ${userInfo.lastName || ''}`.trim()
-            : 'не указано'}
+            : t('profile.notSet')}
                                     </p>
                                 </div>
                                 <div className="flex items-start text-sm">
@@ -370,7 +354,7 @@ const Profile: React.FC = () => {
                                 <div className="flex items-center text-sm">
                                     <Calendar className="h-4 w-4 text-gray-400 dark:text-slate-500 mr-2 flex-shrink-0"/>
                                     <span className="text-gray-900 dark:text-slate-100">
-                    Регистрация: {formatDate(userInfo.registrationDate)}
+                    {t('profile.registration')} {formatDateDisplay(userInfo.registrationDate)}
                   </span>
                                 </div>
                                 <div className="flex items-center text-sm">
@@ -378,7 +362,7 @@ const Profile: React.FC = () => {
                                     <span className="text-gray-900 dark:text-slate-100">
                     {userInfo.roles.length > 0
             ? userInfo.roles.map(role => role.replace('ROLE_', '')).join(', ')
-            : 'Пользователь'}
+            : t('profile.roleUser')}
                   </span>
                                 </div>
                                 <div>
@@ -395,9 +379,9 @@ const Profile: React.FC = () => {
                     {activeTab === 'profile' ? (<Card>
                             <CardHeader>
                                 <div className="flex justify-between items-center">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Данные профиля</h3>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{t('profile.profileData')}</h3>
                                     {profileForm.formState.isDirty && !isUpdating && (<span className="text-sm text-amber-600 dark:text-amber-400 font-medium animate-pulse">
-                      ✏️ Есть несохранённые изменения
+                      {t('profile.unsaved')}
                     </span>)}
                                 </div>
                             </CardHeader>
@@ -414,51 +398,51 @@ const Profile: React.FC = () => {
                                         <div>
                                             <div className="flex justify-between items-center mb-1">
                                                 <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                                                    Имя
+                                                    {t('profile.firstName')}
                                                 </label>
                                                 <span className="text-xs text-gray-500 dark:text-slate-400">
-                          Сейчас: <span className="font-medium">{userInfo.firstName || 'не указано'}</span>
+                          {t('profile.currentValue')} <span className="font-medium">{userInfo.firstName || t('profile.notSet')}</span>
                         </span>
                                             </div>
-                                            <Input register={profileForm.register('firstName')} error={profileForm.formState.errors.firstName?.message} placeholder="Имя" disabled={isUpdating}/>
+                                            <Input register={profileForm.register('firstName')} error={profileForm.formState.errors.firstName?.message} placeholder={t('profile.firstName')} disabled={isUpdating}/>
                                         </div>
                                         <div>
                                             <div className="flex justify-between items-center mb-1">
                                                 <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                                                    Фамилия
+                                                    {t('profile.lastName')}
                                                 </label>
                                                 <span className="text-xs text-gray-500 dark:text-slate-400">
-                          Сейчас: <span className="font-medium">{userInfo.lastName || 'не указано'}</span>
+                          {t('profile.currentValue')} <span className="font-medium">{userInfo.lastName || t('profile.notSet')}</span>
                         </span>
                                             </div>
-                                            <Input register={profileForm.register('lastName')} error={profileForm.formState.errors.lastName?.message} placeholder="Фамилия" disabled={isUpdating}/>
+                                            <Input register={profileForm.register('lastName')} error={profileForm.formState.errors.lastName?.message} placeholder={t('profile.lastName')} disabled={isUpdating}/>
                                         </div>
                                     </div>
 
                                     <div>
                                         <div className="flex justify-between items-center mb-1">
                                             <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                                                Логин
+                                                {t('profile.login')}
                                             </label>
                                             <span className="text-xs text-gray-500 dark:text-slate-400">
-                        Сейчас: <span className="font-medium">{userInfo.username}</span>
+                        {t('profile.currentValue')} <span className="font-medium">{userInfo.username}</span>
                       </span>
                                         </div>
-                                        <Input register={profileForm.register('username')} error={profileForm.formState.errors.username?.message} placeholder="Логин" disabled={isUpdating}/>
+                                        <Input register={profileForm.register('username')} error={profileForm.formState.errors.username?.message} placeholder={t('profile.login')} disabled={isUpdating}/>
                                         {profileForm.formState.errors.username && (<p className="mt-1 text-xs text-red-600 dark:text-red-400">
-                                                Логин уникален, минимум 3 символа
+                                                {t('profile.loginHint')}
                                             </p>)}
                                     </div>
 
                                     <div className="p-4 bg-gray-50 dark:bg-slate-900/50 rounded-xl border border-gray-200 dark:border-slate-600/80">
-                                        <h4 className="font-medium text-gray-700 dark:text-slate-300 mb-2">Предпросмотр</h4>
+                                        <h4 className="font-medium text-gray-700 dark:text-slate-300 mb-2">{t('profile.preview')}</h4>
                                         <p className="text-sm text-gray-600 dark:text-slate-400">
-                                            Так будет отображаться профиль:
+                                            {t('profile.previewHint')}
                                         </p>
                                         <div className="mt-2 p-3 bg-white dark:bg-slate-800/90 rounded-lg border border-gray-300 dark:border-slate-600 shadow-sm">
                                             <p className="font-medium text-gray-900 dark:text-slate-100">
                                                 {profileForm.watch('firstName') || userInfo.firstName || ''} {profileForm.watch('lastName') || userInfo.lastName || ''}
-                                                {(!profileForm.watch('firstName') && !userInfo.firstName && !profileForm.watch('lastName') && !userInfo.lastName) && 'не указано'}
+                                                {(!profileForm.watch('firstName') && !userInfo.firstName && !profileForm.watch('lastName') && !userInfo.lastName) && t('profile.notSet')}
                                             </p>
                                             <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">
                                                 @{profileForm.watch('username') || userInfo.username}
@@ -475,17 +459,17 @@ const Profile: React.FC = () => {
                 });
                 setProfileMessage(null);
             }} disabled={!profileForm.formState.isDirty || isUpdating} className="mr-3">
-                                            Cancel
+                                            {t('profile.cancel')}
                                         </Button>
                                         <Button type="submit" variant="primary" loading={isUpdating} disabled={!profileForm.formState.isDirty || isUpdating} className="min-w-[120px]">
-                                            {isUpdating ? 'Сохранение…' : 'Сохранить'}
+                                            {isUpdating ? t('profile.saving') : t('profile.save')}
                                         </Button>
                                     </div>
                                 </form>
                             </CardContent>
                         </Card>) : (<Card>
                             <CardHeader>
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Смена пароля</h3>
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{t('profile.passwordTitle')}</h3>
                             </CardHeader>
                             <CardContent>
                                 {passwordMessage && (<div className={`mb-4 p-3 rounded-lg flex items-center animate-fade-in ${passwordMessage.type === 'success'
@@ -496,22 +480,22 @@ const Profile: React.FC = () => {
                                     </div>)}
 
                                 <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-6">
-                                    <Input label="Текущий пароль" type="password" register={passwordForm.register('oldPassword')} error={passwordForm.formState.errors.oldPassword?.message} placeholder="Текущий пароль" disabled={isUpdating}/>
+                                    <Input label={t('profile.oldPassword')} type="password" register={passwordForm.register('oldPassword')} error={passwordForm.formState.errors.oldPassword?.message} placeholder={t('profile.oldPassword')} disabled={isUpdating}/>
 
-                                    <Input label="Новый пароль" type="password" register={passwordForm.register('newPassword')} error={passwordForm.formState.errors.newPassword?.message} placeholder="Новый пароль (от 6 символов)" disabled={isUpdating}/>
+                                    <Input label={t('profile.newPassword')} type="password" register={passwordForm.register('newPassword')} error={passwordForm.formState.errors.newPassword?.message} placeholder={t('profile.newPasswordPh')} disabled={isUpdating}/>
 
-                                    <Input label="Подтверждение пароля" type="password" register={passwordForm.register('confirmPassword')} error={passwordForm.formState.errors.confirmPassword?.message} placeholder="Повторите новый пароль" disabled={isUpdating}/>
+                                    <Input label={t('profile.confirmPassword')} type="password" register={passwordForm.register('confirmPassword')} error={passwordForm.formState.errors.confirmPassword?.message} placeholder={t('profile.confirmPasswordPh')} disabled={isUpdating}/>
 
                                     <div className="p-4 bg-blue-50 dark:bg-indigo-950/35 rounded-xl border border-blue-200 dark:border-indigo-500/30">
-                                        <h4 className="font-medium text-blue-700 dark:text-indigo-300 mb-2">Требования к паролю</h4>
+                                        <h4 className="font-medium text-blue-700 dark:text-indigo-300 mb-2">{t('profile.passwordRules')}</h4>
                                         <ul className="text-sm text-blue-600 dark:text-indigo-200/90 space-y-1">
                                             <li className="flex items-center">
                                                 <div className={`h-2 w-2 rounded-full mr-2 ${passwordForm.watch('newPassword')?.length >= 6 ? 'bg-green-500' : 'bg-blue-300'}`}/>
-                                                Не менее 6 символов
+                                                {t('profile.passwordRuleLen')}
                                             </li>
                                             <li className="flex items-center">
                                                 <div className={`h-2 w-2 rounded-full mr-2 ${passwordForm.watch('newPassword') && passwordForm.watch('confirmPassword') && passwordForm.watch('newPassword') === passwordForm.watch('confirmPassword') ? 'bg-green-500' : 'bg-blue-300'}`}/>
-                                                Пароли должны совпадать
+                                                {t('profile.passwordRuleMatch')}
                                             </li>
                                         </ul>
                                     </div>
@@ -525,10 +509,10 @@ const Profile: React.FC = () => {
                 });
                 setPasswordMessage(null);
             }} disabled={isUpdating} className="mr-3">
-                                            Clear
+                                            {t('profile.clear')}
                                         </Button>
                                         <Button type="submit" variant="primary" loading={isUpdating} disabled={isUpdating} className="min-w-[140px]">
-                                            {isUpdating ? 'Обновление…' : 'Сменить пароль'}
+                                            {isUpdating ? t('profile.updatingPassword') : t('profile.changePassword')}
                                         </Button>
                                     </div>
                                 </form>

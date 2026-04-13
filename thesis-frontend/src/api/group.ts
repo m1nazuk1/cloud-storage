@@ -75,4 +75,14 @@ export const groupApi = {
     updateMembershipPreferences: async (groupId: string, prefs: GroupMembershipPrefs): Promise<void> => {
         await api.patch(`/group/${groupId}/preferences`, prefs);
     },
+    setGroupCover: async (groupId: string, fileId: string): Promise<void> => {
+        await api.put(`/group/${groupId}/cover`, { fileId });
+    },
+    clearGroupCover: async (groupId: string): Promise<void> => {
+        await api.delete(`/group/${groupId}/cover`);
+    },
+    getOnlineUserIds: async (groupId: string): Promise<string[]> => {
+        const response = await api.get<{ userIds: string[] }>(`/group/${groupId}/online`);
+        return Array.isArray(response.data?.userIds) ? response.data.userIds : [];
+    },
 };

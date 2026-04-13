@@ -1,5 +1,7 @@
 package com.example.thesis.dto;
 
+import com.example.thesis.models.WorkGroup;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -12,6 +14,7 @@ public class GroupDTO {
     private int fileCount;
     private int memberCount;
     private String inviteToken;
+    private UUID coverFileId;
 
     public GroupDTO() {
     }
@@ -90,7 +93,7 @@ public class GroupDTO {
         this.inviteToken = inviteToken;
     }
 
-    public static GroupDTO fromEntity(com.example.thesis.models.WorkGroup group) {
+    public static GroupDTO fromEntity(WorkGroup group) {
         GroupDTO dto = new GroupDTO();
         dto.setId(group.getId());
         dto.setName(group.getName());
@@ -99,7 +102,6 @@ public class GroupDTO {
         dto.setCreatorUsername(group.getCreator() != null ? group.getCreator().getUsername() : "Unknown");
         dto.setInviteToken(group.getInviteToken());
 
-        
         if (group.getMemberships() != null) {
             dto.setMemberCount(group.getMemberships().size());
         } else {
@@ -114,11 +116,11 @@ public class GroupDTO {
             dto.setFileCount(0);
         }
 
+        dto.setCoverFileId(group.getCoverFileId());
         return dto;
     }
 
-    
-    public static GroupDTO fromEntitySimple(com.example.thesis.models.WorkGroup group) {
+    public static GroupDTO fromEntitySimple(WorkGroup group) {
         GroupDTO dto = new GroupDTO();
         dto.setId(group.getId());
         dto.setName(group.getName());
@@ -126,12 +128,17 @@ public class GroupDTO {
         dto.setCreationDate(group.getCreationDate());
         dto.setCreatorUsername(group.getCreator() != null ? group.getCreator().getUsername() : "Unknown");
 
-        
-        
         dto.setMemberCount(0);
         dto.setFileCount(0);
 
         return dto;
     }
 
+    public UUID getCoverFileId() {
+        return coverFileId;
+    }
+
+    public void setCoverFileId(UUID coverFileId) {
+        this.coverFileId = coverFileId;
+    }
 }

@@ -1,5 +1,5 @@
 import api from './axios';
-import { FileMetadata, FileHistory } from '../types';
+import { FileMetadata, FileHistory, FileNote, FileRevision } from '../types';
 export const fileApi = {
     uploadFile: async (groupId: string, file: File): Promise<FileMetadata> => {
         const formData = new FormData();
@@ -22,6 +22,21 @@ export const fileApi = {
     downloadFile: async (fileId: string): Promise<Blob> => {
         const response = await api.get(`/files/download/${fileId}`, {
             responseType: 'blob',
+        });
+        return response.data;
+    },
+    previewFile: async (fileId: string): Promise<Blob> => {
+        const response = await api.get(`/files/${fileId}/preview`, {
+            responseType: 'blob',
+        });
+        return response.data;
+    },
+    updateFileContent: async (fileId: string, file: File, expectedVersion?: number): Promise<FileMetadata> => {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await api.put<FileMetadata>(`/files/${fileId}`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+            params: expectedVersion !== undefined ? { expectedVersion } : {},
         });
         return response.data;
     },
@@ -83,5 +98,32 @@ export const fileApi = {
             params: { query },
         });
         return response.data;
+    },
+    listRevisions: async (fileId: string): Promise<FileRevision[]> => {
+        const response = await api.get<FileRevision[]>(`/files/${fileId}/revisions`);
+        return response.data;
+    },
+    downloadRevision: async (fileId: string, revisionId: string): Promise<Blob> => {
+        const response = await api.get(`/files/${fileId}/revisions/${revisionId}/download`, {
+            responseType: 'blob',
+        });
+        return response.data;
+    },
+    diffRevisions: async (fileId: string, leftId: string, rightId: string): Promise<string> => {
+        const response = await api.get<{ unifiedDiff: string }>(`/files/${fileId}/revisions/diff`, {
+            params: { leftId, rightId },
+        });
+        return response.data.unifiedDiff;
+    },
+    listNotes: async (fileId: string): Promise<FileNote[]> => {
+        const response = await api.get<FileNote[]>(`/files/${fileId}/notes`);
+        return response.data;
+    },
+    addNote: async (fileId: string, body: string): Promise<FileNote> => {
+        const response = await api.post<FileNote>(`/files/${fileId}/notes`, { body });
+        return response.data;
+    },
+    deleteNote: async (fileId: string, noteId: string): Promise<void> => {
+        await api.delete(`/files/${fileId}/notes/${noteId}`);
     },
 };

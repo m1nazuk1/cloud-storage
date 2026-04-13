@@ -30,3 +30,6 @@ dist-ssr
 
 # TypeScript cache
 *.tsbuildinfo
+
+# i18n merge review output (npm run i18n:merge-review)
+src/i18n/locales/*.merged.json

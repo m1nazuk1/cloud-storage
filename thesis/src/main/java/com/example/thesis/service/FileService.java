@@ -1,9 +1,12 @@
 package com.example.thesis.service;
 
+import com.example.thesis.dto.FileNoteDto;
+import com.example.thesis.dto.FileRevisionDto;
 import com.example.thesis.models.FileMetadata;
 import com.example.thesis.models.FileHistory;
 import com.example.thesis.models.User;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -25,4 +28,16 @@ public interface FileService {
     Long getUserStorageUsed(UUID userId);
     List<FileMetadata> searchFilesInGroup(UUID groupId, String searchTerm);
     FileMetadata updateFile(MultipartFile file, UUID fileId, User requester, Integer expectedVersion);
+
+    List<FileRevisionDto> listFileRevisions(UUID fileId, User user);
+
+    byte[] downloadRevision(UUID fileId, UUID revisionId, User user);
+
+    String diffRevisions(UUID fileId, UUID leftRevisionId, UUID rightRevisionId, User user);
+
+    List<FileNoteDto> listFileNotes(UUID fileId, User user);
+
+    FileNoteDto addFileNote(UUID fileId, String body, User user);
+
+    void deleteFileNote(UUID fileId, UUID noteId, User user);
 }

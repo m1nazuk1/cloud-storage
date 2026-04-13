@@ -1,8 +1,10 @@
+import i18n from '../i18n/config';
+
 export const formatFileSize = (bytes: number): string => {
     if (bytes === 0)
-        return '0 Б';
+        return `0 ${i18n.t('units.B')}`;
     const k = 1024;
-    const sizes = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ'];
+    const sizes = [i18n.t('units.B'), i18n.t('units.KB'), i18n.t('units.MB'), i18n.t('units.GB'), i18n.t('units.TB')];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
@@ -19,9 +21,21 @@ export function parseServerDateString(dateString: string | undefined | null): Da
 export const formatDate = (dateString: string): string => {
     const date = parseServerDateString(dateString);
     if (Number.isNaN(date.getTime())) {
-        return '—';
+        return i18n.t('common.emDash');
     }
-    return date.toLocaleString('ru-RU', {
+    const lng = (i18n.resolvedLanguage || i18n.language || 'en').split('-')[0];
+    const localeMap: Record<string, string> = {
+        ru: 'ru-RU',
+        en: 'en-US',
+        be: 'be-BY',
+        ka: 'ka-GE',
+        az: 'az-AZ',
+        zh: 'zh-CN',
+        ar: 'ar',
+        es: 'es-ES',
+    };
+    const locale = localeMap[lng] || `${lng}-${lng.toUpperCase()}`;
+    return date.toLocaleString(locale, {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
@@ -32,18 +46,18 @@ export const formatDate = (dateString: string): string => {
 export const formatRelativeTime = (dateString: string): string => {
     const date = parseServerDateString(dateString);
     if (Number.isNaN(date.getTime())) {
-        return '—';
+        return i18n.t('common.emDash');
     }
     const now = new Date();
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
     if (diffInSeconds < 60)
-        return 'только что';
+        return i18n.t('time.justNow');
     if (diffInSeconds < 3600)
-        return `${Math.floor(diffInSeconds / 60)} мин. назад`;
+        return i18n.t('time.minAgo', { count: Math.floor(diffInSeconds / 60) });
     if (diffInSeconds < 86400)
-        return `${Math.floor(diffInSeconds / 3600)} ч. назад`;
+        return i18n.t('time.hoursAgo', { count: Math.floor(diffInSeconds / 3600) });
     if (diffInSeconds < 604800)
-        return `${Math.floor(diffInSeconds / 86400)} дн. назад`;
+        return i18n.t('time.daysAgo', { count: Math.floor(diffInSeconds / 86400) });
     return formatDate(dateString);
 };
 export const truncateText = (text: string, maxLength: number): string => {

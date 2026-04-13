@@ -42,6 +42,7 @@ export interface WorkGroup {
     notificationsMuted?: boolean;
     pinned?: boolean;
     accentColor?: string | null;
+    coverFileId?: string | null;
 }
 export interface GroupDetail {
     id: string;
@@ -52,6 +53,7 @@ export interface GroupDetail {
     inviteToken?: string;
     memberCount?: number;
     fileCount?: number;
+    coverFileId?: string | null;
 }
 export interface GroupStats {
     id: string;
@@ -60,6 +62,8 @@ export interface GroupStats {
     fileCount: number;
     creator: string;
     creationDate: string;
+    canPinMessages?: boolean;
+    isCreator?: boolean;
 }
 export interface Membership {
     id: string;
@@ -108,6 +112,24 @@ export interface FileHistory {
     changedBy: User;
     file: FileMetadata;
 }
+export interface FileNote {
+    id: string;
+    body: string;
+    createdAt: string;
+    authorId: string;
+    authorUsername: string;
+}
+export interface FileRevision {
+    id: string;
+    fileVersionSnapshot: number;
+    sizeBytes: number;
+    mimeType?: string;
+    originalNameSnapshot: string;
+    hasTextSnapshot: boolean;
+    createdAt: string;
+    createdById: string;
+    createdByUsername: string;
+}
 export type ChatMessageKind = 'TEXT' | 'IMAGE' | 'AUDIO' | 'STICKER' | 'FILE';
 export interface ChatMessage {
     id: string;
@@ -120,16 +142,20 @@ export interface ChatMessage {
     attachment?: FileMetadata;
     edited: boolean;
     editTimestamp?: string;
+    replyToId?: string | null;
+    pinned?: boolean;
+    pinnedAt?: string | null;
 }
 export interface ChatMessageRequest {
     content?: string;
     groupId: string;
     attachmentId?: string;
     stickerCode?: string;
+    replyToId?: string;
 }
 export interface Notification {
     id: string;
-    type: 'FILE_ADDED' | 'FILE_DELETED' | 'FILE_UPDATED' | 'USER_JOINED' | 'USER_LEFT' | 'USER_REMOVED' | 'GROUP_UPDATED' | 'CHAT_MENTION';
+    type: 'FILE_ADDED' | 'FILE_DELETED' | 'FILE_UPDATED' | 'USER_JOINED' | 'USER_LEFT' | 'USER_REMOVED' | 'GROUP_UPDATED' | 'CHAT_MENTION' | 'CHAT_REPLY';
     message: string;
     createdDate: string;
     read: boolean;

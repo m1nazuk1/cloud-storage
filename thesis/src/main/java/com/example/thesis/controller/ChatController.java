@@ -62,6 +62,15 @@ public class ChatController {
         return ResponseEntity.ok(new AuthController.MessageResponse("Message deleted"));
     }
 
+    @PutMapping("/messages/{messageId}/pin")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<ChatMessage> setMessagePin(@PathVariable UUID messageId,
+                                                     @RequestParam boolean pinned) {
+        var currentUser = securityUtils.getCurrentUser();
+        ChatMessage updated = chatService.setMessagePinned(messageId, pinned, currentUser);
+        return ResponseEntity.ok(updated);
+    }
+
     @GetMapping("/{messageId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ChatMessage> getMessage(@PathVariable UUID messageId) {

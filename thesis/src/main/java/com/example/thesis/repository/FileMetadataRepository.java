@@ -55,9 +55,12 @@ public interface FileMetadataRepository extends JpaRepository<FileMetadata, UUID
     @Query("SELECT SUM(f.fileSize) FROM FileMetadata f WHERE f.uploader.id = :userId AND f.deleted = false")
     Long getTotalStorageByUserId(@Param("userId") UUID userId);
 
-    @Query("SELECT f FROM FileMetadata f WHERE f.parentGroup.id = :groupId AND f.deleted = false " +
-            "AND f.chatMedia = false AND (LOWER(f.originalName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
-            "OR LOWER(f.fileType) LIKE LOWER(CONCAT('%', :searchTerm, '%'))) " +
+    @Query("SELECT DISTINCT f FROM FileMetadata f LEFT JOIN f.textIndex idx WHERE f.parentGroup.id = :groupId " +
+            "AND f.deleted = false AND f.chatMedia = false AND (" +
+            "LOWER(f.originalName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "LOWER(f.fileType) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+            "(idx IS NOT NULL AND idx.contentText IS NOT NULL AND " +
+            "LOWER(idx.contentText) LIKE LOWER(CONCAT('%', :searchTerm, '%')))) " +
             "ORDER BY f.uploadDate DESC")
     List<FileMetadata> searchFilesInGroup(@Param("groupId") UUID groupId,
                                           @Param("searchTerm") String searchTerm);

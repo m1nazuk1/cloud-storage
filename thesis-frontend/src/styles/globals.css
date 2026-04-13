@@ -60,6 +60,13 @@
         linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(238, 242, 255, 0.3) 100%);
 }
 
+.dark .auth-mesh {
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.08) 0%, transparent 45%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%);
+}
+
 @layer components {
     .btn-primary {
         @apply px-4 py-2 bg-primary-600 text-white font-medium rounded-lg
@@ -142,6 +149,10 @@
 
     .glass-panel {
         @apply rounded-2xl border border-white/50 bg-white/75 backdrop-blur-xl shadow-lg shadow-indigo-950/10;
+    }
+
+    .dark .glass-panel {
+        @apply border-slate-600/70 bg-slate-900/85 shadow-black/40 text-slate-100;
     }
 }
 

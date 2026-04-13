@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { XCircle, Loader } from 'lucide-react';
 import { authApi } from '../../api/auth';
 import Button from '../../components/ui/Button';
 import AuthShell from '../../components/layout/AuthShell';
 const Activate: React.FC = () => {
+    const { t } = useTranslation();
     const { code } = useParams<{
         code: string;
     }>();
@@ -15,7 +17,7 @@ const Activate: React.FC = () => {
         const activateAccount = async () => {
             if (!code) {
                 setStatus('error');
-                setMessage('Неверный код активации');
+                setMessage(t('auth.activate.badCode'));
                 return;
             }
             try {
@@ -33,32 +35,32 @@ const Activate: React.FC = () => {
                         };
                     }).response?.data?.message
                     : undefined;
-                setMessage(msg || 'Не удалось активировать аккаунт. Ссылка могла устареть.');
+                setMessage(msg || t('auth.activate.defaultError'));
             }
         };
         activateAccount();
-    }, [code, navigate]);
+    }, [code, navigate, t]);
     if (status === 'loading') {
         return (<AuthShell showLogo={false}>
-                <div className="max-w-md w-full min-w-0 mx-1 text-center glass-panel dark:bg-slate-900/75 p-6 sm:p-10 border border-white/60 rounded-2xl">
-                    <Loader className="h-16 w-16 text-indigo-500 mx-auto mb-4 animate-spin"/>
-                    <h2 className="text-xl font-semibold text-slate-800 mb-2">Активация аккаунта…</h2>
-                    <p className="text-slate-500">Подождите, проверяем ссылку.</p>
+                <div className="max-w-md w-full min-w-0 mx-1 text-center glass-panel p-6 sm:p-10 border border-white/60 dark:border-slate-600 rounded-2xl">
+                    <Loader className="h-16 w-16 text-indigo-500 dark:text-indigo-400 mx-auto mb-4 animate-spin"/>
+                    <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">{t('auth.activate.loadingTitle')}</h2>
+                    <p className="text-slate-500 dark:text-slate-400">{t('auth.activate.loadingHint')}</p>
                 </div>
             </AuthShell>);
     }
     if (status === 'error') {
         return (<AuthShell>
-                <div className="max-w-md w-full min-w-0 mx-1 text-center glass-panel dark:bg-slate-900/75 p-6 sm:p-10 border border-white/60 rounded-2xl">
+                <div className="max-w-md w-full min-w-0 mx-1 text-center glass-panel p-6 sm:p-10 border border-white/60 dark:border-slate-600 rounded-2xl">
                     <XCircle className="h-16 w-16 text-rose-500 mx-auto mb-4"/>
-                    <h2 className="text-2xl font-bold text-slate-900 mb-3">Ошибка активации</h2>
-                    <p className="text-slate-600 mb-6">{message}</p>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">{t('auth.activate.errorTitle')}</h2>
+                    <p className="text-slate-600 dark:text-slate-400 mb-6">{message}</p>
                     <div className="space-y-3">
                         <Button variant="primary" onClick={() => navigate('/login')} className="w-full rounded-xl">
-                            Ко входу
+                            {t('auth.activate.toLogin')}
                         </Button>
                         <Button variant="secondary" onClick={() => navigate('/register')} className="w-full rounded-xl">
-                            Регистрация снова
+                            {t('auth.activate.registerAgain')}
                         </Button>
                     </div>
                 </div>
